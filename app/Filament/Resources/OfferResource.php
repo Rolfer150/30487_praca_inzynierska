@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\OfferResource\Pages;
+use App\Filament\Resources\OfferResource\RelationManagers;
+use App\Models\Offer;
+use Closure;
+use Filament\Forms;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
+
+class OfferResource extends Resource
+{
+    protected static ?string $model = Offer::class;
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationGroup = 'Content';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Grid::make(2)->schema([
+                            Forms\Components\TextInput::make('offer_name')
+                                ->required()
+                                ->maxLength(64)
+                                ->reactive()
+                                ->afterStateUpdated(function (Closure $set, $state) {
+                                    $set('slug', Str::slug($state));
+                                }),
+                            Forms\Components\TextInput::make('slug')
+                                ->required()
+                                ->maxLength(2048),
+                        ]),
+                        Forms\Components\RichEditor::make('description')
+                            ->required(),
+                        Forms\Components\Toggle::make('active')
+                            ->required(),
+                        Forms\Components\DateTimePicker::make('published_at')
+                            ->required(),
+                    ])->columnSpan(8),
+                Forms\Components\Card::make()->schema([
+                    Forms\Components\Select::make('category_id')
+                        ->relationship('category', 'category_name')
+                        ->required(),
+                    Forms\Components\FileUpload::make('image_path'),
+                ])->columnSpan(4),
+            ])->columns(12);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('category.id'),
+                Tables\Columns\TextColumn::make('offer_name'),
+                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\ImageColumn::make('image_path'),
+                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\IconColumn::make('active')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('published_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListOffers::route('/'),
+            'create' => Pages\CreateOffer::route('/create'),
+            'view' => Pages\ViewOffer::route('/{record}'),
+            'edit' => Pages\EditOffer::route('/{record}/edit'),
+        ];
+    }
+}
+
