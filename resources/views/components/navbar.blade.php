@@ -24,7 +24,7 @@
         </div>
         <div class="flex p-4">
             <div class=" sm:top-0 space-x-8 sm:-my-px sm:ml-10  text-right">
-            @if (Route::has('login'))
+                @if (Route::has('login'))
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                     @else
@@ -34,7 +34,7 @@
                             <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Rejestracja</a>
                         @endif
                     @endauth
-            @endif
+                @endif
             </div>
         </div>
     </div>

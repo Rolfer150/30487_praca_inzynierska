@@ -44,5 +44,4 @@ darkIcon.addEventListener("click", () =>
 {
     themeSwitcher();
 });
-
 themeChecker();
