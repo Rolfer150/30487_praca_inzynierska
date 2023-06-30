@@ -21,4 +21,13 @@ class Offer extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function getURLImage()
+    {
+        if (str_starts_with($this->image_path, 'http'))
+        {
+            return $this->image_path;
+        }
+        return '/storage/' . $this->image_path;
+    }
 }

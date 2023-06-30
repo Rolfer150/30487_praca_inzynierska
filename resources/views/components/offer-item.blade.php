@@ -1,8 +1,7 @@
 <div class="">
     <a href="#">
         <p class="text-gray-400">{{$offer->offer_name}}</p>
-        <img src="{{$offer->image_path}}" />
+        <img class="rounded-full" src="{{$offer->getURLImage()}}" />
         <div class=""></div>
     </a>
-
 </div>

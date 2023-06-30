@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug', 2048);
             $table->string('image_path',128)->nullable();
             $table->longText('description')->nullable();
-            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('active');
             $table->dateTime('published_at');
             $table->foreignIdFor(\App\Models\User::class,'user_id');
