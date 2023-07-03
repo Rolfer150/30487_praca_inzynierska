@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 32);
+            $table->string('name', 64);
             $table->string('slug', 2048);
+            $table->longText('description')->nullable();
+            $table->integer('employees_amount')->nullable();
+            $table->foreignId('address_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('companies');
     }
 };

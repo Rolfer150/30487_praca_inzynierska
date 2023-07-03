@@ -28,7 +28,7 @@ class OfferResource extends Resource
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\Grid::make(2)->schema([
-                            Forms\Components\TextInput::make('offer_name')
+                            Forms\Components\TextInput::make('name')
                                 ->required()
                                 ->maxLength(64)
                                 ->reactive()
@@ -48,7 +48,13 @@ class OfferResource extends Resource
                     ])->columnSpan(8),
                 Forms\Components\Card::make()->schema([
                     Forms\Components\Select::make('category_id')
-                        ->relationship('category', 'category_name')
+                        ->relationship('category', 'name')
+                        ->required(),
+                    Forms\Components\Select::make('employment_id')
+                        ->relationship('employment', 'name')
+                        ->required(),
+                    Forms\Components\Select::make('employmentcontract_id')
+                        ->relationship('employmentcontract', 'name')
                         ->required(),
                     Forms\Components\FileUpload::make('image_path'),
                 ])->columnSpan(4),
@@ -59,16 +65,14 @@ class OfferResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.id'),
-                Tables\Columns\TextColumn::make('offer_name'),
-                Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\ImageColumn::make('image_path'),
-                Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\IconColumn::make('active')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('user.email'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -80,6 +84,8 @@ class OfferResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

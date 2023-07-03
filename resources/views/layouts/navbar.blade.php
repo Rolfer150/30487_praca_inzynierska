@@ -1,12 +1,12 @@
-<nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
-        <div class="flex p-4">
+<nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div class=" p-4">
             <div class="shrink-0">
                 <a href="{{ route('dashboard') }}">
                     <x-application-logo class="block h-9 w-auto fill-current hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" />
                 </a>
             </div>
-            <div class="shrink-0 flex items-center">
+            <div class="shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="moon cursor-pointer w-6 h-6 ml-12">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                 </svg>
@@ -15,23 +15,28 @@
                 </svg>
             </div>
         </div>
-        <div class="flex p-4">
+        <div class=" p-4">
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <x-nav-link href="#">
                     {{ __('O nas') }}
                 </x-nav-link>
             </div>
         </div>
-        <div class="flex p-4">
-            <div class=" sm:top-0 space-x-8 sm:-my-px sm:ml-10  text-right">
+        <div class=" p-4">
+            <div class="space-x-8 sm:-my-px sm:ml-10  text-right">
             @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                        <x-nav-link href="{{ url('/dashboard') }}">
+                            {{ __('Dashborard') }}
+                        </x-nav-link>
                     @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Zaloguj się</a>
-
+                        <x-nav-link href="{{ route('login') }}">
+                            {{ __('Zaloguj się') }}
+                        </x-nav-link>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Rejestracja</a>
+                            <x-nav-link href="{{ route('register') }}">
+                                {{ __('Zarejestruj się') }}
+                            </x-nav-link>
                         @endif
                     @endauth
             @endif

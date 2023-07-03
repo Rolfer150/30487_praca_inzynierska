@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->string('offer_name', 64);
+            $table->string('name', 64);
             $table->string('slug', 2048);
             $table->string('image_path',128)->nullable();
             $table->longText('description')->nullable();
+            $table->float('salary')->nullable();
+            $table->float('min_salary')->nullable();
+            $table->float('max_salary')->nullable();
+            $table->foreignId('payment_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->integer('vacancy')->nullable();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('employment_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('employmentcontract_id')->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('active');
             $table->dateTime('published_at');
             $table->foreignIdFor(\App\Models\User::class,'user_id');

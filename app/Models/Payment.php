@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Employment extends Model
+class Payment extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,6 @@ class Employment extends Model
 
     public function offers(): HasMany
     {
-        return $this->hasMany(Offer::class);
+        return $this->HasMany(Offer::class);
     }
 }
