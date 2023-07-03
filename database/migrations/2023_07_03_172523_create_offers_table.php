@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('vacancy')->nullable();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('employment_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('employmentcontract_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('contract_id')->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('active');
             $table->dateTime('published_at');
             $table->foreignIdFor(\App\Models\User::class,'user_id');

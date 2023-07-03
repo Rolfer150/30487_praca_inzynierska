@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EmploymentContractsResource\Pages;
-use App\Filament\Resources\EmploymentContractsResource\RelationManagers;
-use App\Models\EmploymentContract;
+use App\Filament\Resources\ContractResource\Pages;
+use App\Filament\Resources\ContractResource\RelationManagers;
+use App\Models\Contract;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,11 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class EmploymentContractResource extends Resource
+class ContractResource extends Resource
 {
-    protected static ?string $model = EmploymentContract::class;
+    protected static ?string $model = Contract::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard';
     protected static ?string $navigationGroup = 'Content';
 
     public static function form(Form $form): Form
@@ -55,7 +55,7 @@ class EmploymentContractResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageEmploymentContracts::route('/'),
+            'index' => Pages\ManageContracts::route('/'),
         ];
     }
 }

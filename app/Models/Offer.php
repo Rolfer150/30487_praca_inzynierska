@@ -13,7 +13,7 @@ class Offer extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'slug', 'image_path', 'description', 'salary', 'min_salary', 'max_salary', 'vacancy',
-        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'employmentcontract_id'];
+        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'tcontract_id'];
 
     public function user(): BelongsTo
     {
@@ -30,9 +30,9 @@ class Offer extends Model
         return $this->belongsTo(Employment::class);
     }
 
-    public function employmentcontract(): BelongsTo
+    public function contract(): BelongsTo
     {
-        return $this->BelongsTo(EmploymentContract::class);
+        return $this->BelongsTo(Contract::class);
     }
     public function payment(): BelongsTo
     {

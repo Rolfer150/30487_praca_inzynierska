@@ -47,14 +47,17 @@ class OfferResource extends Resource
                             ->required(),
                     ])->columnSpan(8),
                 Forms\Components\Card::make()->schema([
+                    Forms\Components\TextInput::make('salary'),
+                    Forms\Components\Select::make('payment_id')
+                        ->relationship('payment', 'name'),
                     Forms\Components\Select::make('category_id')
                         ->relationship('category', 'name')
                         ->required(),
                     Forms\Components\Select::make('employment_id')
                         ->relationship('employment', 'name')
                         ->required(),
-                    Forms\Components\Select::make('employmentcontract_id')
-                        ->relationship('employmentcontract', 'name')
+                    Forms\Components\Select::make('contract_id')
+                        ->relationship('contract', 'name')
                         ->required(),
                     Forms\Components\FileUpload::make('image_path'),
                 ])->columnSpan(4),

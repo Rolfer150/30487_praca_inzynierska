@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\Employment;
-use App\Models\EmploymentContract;
+use App\Models\Contract;
 use App\Models\Offer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\App;
@@ -34,7 +34,7 @@ class OfferFactory extends Factory
             'user_id' => 1,
             'category_id' => Category::inRandomOrder()->first()->id,
             'employment_id' => Employment::inRandomOrder()->first()->id,
-            'employmentcontract_id' => EmploymentContract::inRandomOrder()->first()->id
+            'contract_id' => Contract::inRandomOrder()->first()->id
         ];
     }
 }
