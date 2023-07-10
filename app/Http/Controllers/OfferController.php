@@ -9,6 +9,16 @@ use Illuminate\View\View;
 
 class OfferController extends Controller
 {
+    public function mainPage():View
+    {
+        $offers = Offer::query()
+            ->where('active', '=', 1)
+            ->whereDate('published_at', '<', Carbon::now())
+            ->orderBy('published_at', 'desc')
+            ->paginate();
+        return view('welcome', compact('offers'));
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -19,7 +29,7 @@ class OfferController extends Controller
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate();
-        return view('welcome', compact('offers'));
+        return view('offer', compact('offers'));
     }
 
     /**
