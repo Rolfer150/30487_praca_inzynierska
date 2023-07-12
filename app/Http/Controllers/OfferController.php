@@ -16,7 +16,7 @@ class OfferController extends Controller
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate();
-        return view('welcome', compact('offers'));
+        return view('home', compact('offers'));
     }
 
     /**
@@ -24,12 +24,13 @@ class OfferController extends Controller
      */
     public function index(): View
     {
-        $offers = Offer::query()
+        $new_offers = Offer::query()
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate();
-        return view('offer', compact('offers'));
+
+        return view('offer', compact('new_offers'));
     }
 
     /**

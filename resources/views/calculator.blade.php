@@ -1,13 +1,13 @@
-<x-guest-layout>
+<x-app-layout>
 
-<div>
+<div class="text-white">
     <div>
         <h1>Kalkulator wypłat (netto/brutto)</h1>
         <div>
             <table>
                 <tr>
                     <th>Wypłata</th>
-                    <th><input type="number" name="salary" id="salary" placeholder="Podaj wypłatę" /></th>
+                    <th><input type="number" name="salary" id="salary" class="text-black" placeholder="Podaj wypłatę" /></th>
                 </tr>
                 <tr>
                     <th>Wypłata netto</th>
@@ -45,4 +45,4 @@
     </div>
 
 </div>
-</x-guest-layout>
+</x-app-layout>
