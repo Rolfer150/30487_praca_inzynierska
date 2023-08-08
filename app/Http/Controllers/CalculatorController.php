@@ -9,7 +9,7 @@ class CalculatorController extends Controller
 {
     public function index(): View
     {
-        return view('calculator');
+        return view('sidewidgets.calculator');
     }
 
     public function getSalaryCalculation()

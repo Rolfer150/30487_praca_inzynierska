@@ -30,7 +30,7 @@ class OfferController extends Controller
             ->orderBy('published_at', 'desc')
             ->paginate();
 
-        return view('offer', compact('new_offers'));
+        return view('sidewidgets.offer', compact('new_offers'));
     }
 
     /**
@@ -51,10 +51,14 @@ class OfferController extends Controller
 
     /**
      * Display the specified resource.
+     * @param  Offer  $offer
+     * @return View
      */
-    public function show(Offer $offer)
+    public function show(Offer $offer): View
     {
-        //
+        return view("sidewidgets.show", [
+            'offer' => $offer
+        ]);
     }
 
     /**

@@ -24,7 +24,7 @@
         <div class="p-4 flex justify-center items-center shrink-0">
             {{--      Strona z ofertami pracy      --}}
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                <x-nav-link href="{{route('offer')}}">
+                <x-nav-link href="{{route('sidewidgets.offer')}}">
                     {{ __('Oferty Pracy') }}
                 </x-nav-link>
             </div>
@@ -36,7 +36,7 @@
             </div>
             {{--      Strona z kalkulatorem obliczania wypłat brutto/netto      --}}
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                <x-nav-link href="{{route('calculator')}}">
+                <x-nav-link href="{{route('sidewidgets.calculator')}}">
                     {{ __('Kalkulator Wypłaty') }}
                 </x-nav-link>
             </div>
