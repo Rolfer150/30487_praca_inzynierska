@@ -6,6 +6,7 @@ use App\Models\Offer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfferController extends Controller
 {
@@ -16,6 +17,7 @@ class OfferController extends Controller
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate();
+
         return view('home', compact('offers'));
     }
 
@@ -56,9 +58,21 @@ class OfferController extends Controller
      */
     public function show(Offer $offer): View
     {
-        return view("sidewidgets.show", [
-            'offer' => $offer
-        ]);
+        if(!$offer->active || $offer->published_at > Carbon::now())
+        {
+            throw new NotFoundHttpException();
+        }
+
+        $category_offers = Offer::query()
+            ->where('active', '=', 1)
+            ->where('category_id', '=', $offer->category_id)
+            ->where('id', '!=', $offer->id)
+            ->whereDate('published_at', '<', Carbon::now())
+            ->orderBy('published_at', 'desc')
+            ->limit(4)
+            ->get();
+
+        return view("sidewidgets.show", compact('offer', 'category_offers'));
     }
 
     /**
