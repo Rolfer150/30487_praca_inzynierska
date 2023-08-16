@@ -1,10 +1,10 @@
 <x-app-layout>
-    <div class="md:flex gap-x-6 p-6">
+    <div class="md:flex gap-x-6 p-3">
         {{-- Lewy panel --}}
         <div class="bg-gray-200/50 dark:bg-gray-800/50 p-6 w-3/4 rounded-lg">
             <div class="flex">
                 <div class="w-36 l-36">
-                    <img class="rounded-full object-cover" src="{{$offer->getURLImage()}}" />
+                    <img class="rounded-md object-cover" src="{{$offer->getURLImage()}}" />
                 </div>
                 <div class="pl-4">
                     <div class="flex items-center">
@@ -54,10 +54,10 @@
         </div>
     </div>
     @if($category_offers)
-    <div class="gap-x-6 pl-6 pr-6 pb-6 rounded-lg">
+    <div class="gap-x-6 pl-3 pr-3 pb-3 rounded-lg">
         <div class="p-6 bg-gray-200/50 dark:bg-gray-800/50">
             <h1>Polecane oferty o tej samej kategorii</h1>
-            <div class="grid xl:col-span-5 lg:grid-cols-4 md:grid-cols-3 sm:col-span-1">
+            <div class="grid xl:col-span-4 lg:grid-cols-3 md:grid-cols-2 sm:col-span-1">
             @foreach($category_offers as $offer_cat)
                 <x-offer-item :offer="$offer_cat"></x-offer-item>
             @endforeach

@@ -6,3 +6,13 @@
 {
     @apply hidden;
 }
+
+.bg-orange
+{
+    background-color: #ea580c;
+}
+
+.text-orange
+{
+    color: #ea580c;
+}

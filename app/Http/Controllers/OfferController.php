@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Contract;
+use App\Models\Employment;
 use App\Models\Offer;
+use App\Models\Payment;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfferController extends Controller
@@ -26,29 +33,62 @@ class OfferController extends Controller
      */
     public function index(): View
     {
+        $employments = Employment::query()
+            ->join('offers', 'employments.id', '=', 'offers.employment_id')
+            ->select('employments.name', DB::raw('count(*) as employmentSum'))
+            ->groupBy('employments.id')
+            ->get();
+        $contracts = Contract::query()
+            ->join('offers', 'contracts.id', '=', 'offers.contract_id')
+            ->select('contracts.name', DB::raw('count(*) as contractSum'))
+            ->groupBy('contracts.id')
+            ->get();
         $new_offers = Offer::query()
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate();
 
-        return view('sidewidgets.offer', compact('new_offers'));
+        return view('sidewidgets.offer', compact('new_offers', 'employments', 'contracts'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $user = auth()->user();
+//        if (!$user)
+//        {
+//            return view('auth.login');
+//        }
+        $payments = Payment::query()
+            ->select('id', 'name')
+            ->get();
+        $categories = Category::query()
+            ->select('id', 'name')
+            ->get();
+        $employments = Employment::query()
+            ->select('id', 'name')
+            ->get();
+        $contracts = Contract::query()
+            ->select('id', 'name')
+            ->get();
+        return view('sidewidgets.addoffer', compact('categories','payments','employments', 'contracts'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $offer = new Offer($request->all());
+        $offer->slug = Str::slug($request->name);
+        $offer->active = true;
+        $offer->published_at = Carbon::now();
+        $request->user()->offers()->save($offer);
+
+        return redirect(route('home'));
     }
 
     /**
@@ -69,7 +109,7 @@ class OfferController extends Controller
             ->where('id', '!=', $offer->id)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
-            ->limit(4)
+            ->limit(6)
             ->get();
 
         return view("sidewidgets.show", compact('offer', 'category_offers'));
