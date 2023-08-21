@@ -10,5 +10,5 @@ Route::post('offers/store', [OfferController::class, 'store'])->name('sidewidget
 
 Route::get('/addoffer',[OfferController::class,'create'])->name('sidewidgets.addoffer');
 
-Route::get('/calculator',  [CalculatorController::class, 'index'])->name('sidewidgets.calculator');
+Route::get('/calculator',  \App\Http\Livewire\SalaryCalculator::class)->name('livewire.salary-calculator');
 //Route::post('/calculator', [CalculatorController::class, 'getSalaryCalculation']);

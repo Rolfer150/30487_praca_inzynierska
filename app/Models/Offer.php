@@ -54,6 +54,6 @@ class Offer extends Model
     }
     public function formatedDate()
     {
-        return $this->published_at->format('F js Y');
+        return $this->published_at->format('F h:i Y');
     }
 }

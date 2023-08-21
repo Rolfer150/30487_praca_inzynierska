@@ -23,7 +23,8 @@ class OfferController extends Controller
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
-            ->paginate();
+            ->limit(3)
+            ->get();
 
         return view('home', compact('offers'));
     }
@@ -47,7 +48,7 @@ class OfferController extends Controller
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
-            ->paginate();
+            ->paginate(8);
 
         return view('sidewidgets.offer', compact('new_offers', 'employments', 'contracts'));
     }
@@ -138,4 +139,6 @@ class OfferController extends Controller
     {
         //
     }
+
+
 }
