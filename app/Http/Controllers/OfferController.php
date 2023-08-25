@@ -34,16 +34,9 @@ class OfferController extends Controller
      */
     public function index(): View
     {
-        $employments = Employment::query()
-            ->join('offers', 'employments.id', '=', 'offers.employment_id')
-            ->select('employments.name', DB::raw('count(*) as employmentSum'))
-            ->groupBy('employments.id')
-            ->get();
-        $contracts = Contract::query()
-            ->join('offers', 'contracts.id', '=', 'offers.contract_id')
-            ->select('contracts.name', DB::raw('count(*) as contractSum'))
-            ->groupBy('contracts.id')
-            ->get();
+        $employments = Employment::employmentFilter();
+        $contracts = Contract::contractFilter();
+
         $new_offers = Offer::query()
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
@@ -140,5 +133,25 @@ class OfferController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
 
+//        $employments = Employment::employmentFilter();
+//        $contracts = Contract::contractFilter();
+
+        $searched_offers = Offer::query()
+            ->where('active', '=', 1)
+            ->whereDate('published_at', '<', Carbon::now())
+            ->orderBy('published_at', 'desc')
+            ->where(function ($query) use($q)
+            {
+                $query->where('name', 'like', "%$q%")
+                    ->orWhere('description', 'like', "%$q%");
+            })
+            ->paginate(8);
+
+//        dd($searched_offers);
+        return view('sidewidgets.search', compact('searched_offers', 'q'));
+    }
 }

@@ -14,14 +14,14 @@
             </form>
 
             <div class="p-3">
-                <h2 class="text-2xl text-gray-900 dark:text-gray-400">Najnowsze oferty</h2>
+                <h2 class="text-2xl text-gray-900 dark:text-gray-400">Szukana fraza: {{$q}}</h2>
                 <div class=" space-x-3 grid xl:col-span-3 lg:grid-cols-2 md:grid-cols-1 sm:col-span-1">
-                    @foreach($new_offers as $offer)
+                    @foreach($searched_offers as $offer)
                         <x-offer-item :offer="$offer"></x-offer-item>
                     @endforeach
                 </div>
                 <div class="m-2">
-                    {{$new_offers->links()}}
+                    {{$searched_offers->links()}}
                 </div>
             </div>
         </div>

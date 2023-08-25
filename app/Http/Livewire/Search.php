@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Contract;
+use App\Models\Employment;
 use App\Models\Offer;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class Search extends Component
@@ -11,6 +14,9 @@ class Search extends Component
     protected $queryString = ['search'];
     public function render()
     {
+        $employments = Employment::employmentFilter();
+        $contracts = Contract::contractFilter();
+
         $query = Offer::query();
         if ($this->search)
         {
@@ -19,14 +25,11 @@ class Search extends Component
                 ->orWhere('description', 'like', "%{$this->search}%");
         }
 
-        return view('livewire.search', ['offers' => $query]);
+        return view('livewire.search', compact('employments', 'contracts'));
     }
 
-    public function updated($property)
+    public function searchFilter(Request $request)
     {
-        if ($property === 'search')
-        {
-            $this->resetPage();
-        }
+
     }
 }
