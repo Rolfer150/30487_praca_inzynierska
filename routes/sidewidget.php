@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\OfferController;
-use App\Http\Livewire\SalaryCalculator;
-use App\Http\Livewire\Search;
+use App\Livewire\SalaryCalculator;
+use App\Livewire\Search;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/offers', [OfferController::class, 'index'])->name('sidewidgets.offer');
