@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,10 +12,12 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'image_path', 'description', 'salary', 'min_salary', 'max_salary', 'vacancy',
-        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'tcontract_id'];
+    protected $fillable = ['name', 'slug', 'image_path', 'description', 'payment', 'salary', 'min_salary', 'max_salary', 'vacancy',
+        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'contract_id'];
 
-    protected $casts = ['published_at' => 'datetime'];
+    protected $casts = [
+        'published_at' => 'datetime',
+        'payment' => PaymentType::class];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -38,7 +41,10 @@ class Offer extends Model
     {
         return $this->BelongsTo(Payment::class);
     }
-
+    public function workmode(): BelongsTo
+    {
+        return $this->BelongsTo(Workmode::class);
+    }
     public function getURLImage()
     {
         if (str_starts_with($this->image_path, 'http'))

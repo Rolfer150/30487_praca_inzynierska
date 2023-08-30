@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PaymentType;
 use App\Filament\Resources\OfferResource\Pages;
 use App\Filament\Resources\OfferResource\RelationManagers;
 use App\Models\Offer;
@@ -18,7 +19,7 @@ class OfferResource extends Resource
 {
     protected static ?string $model = Offer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     protected static ?string $navigationLabel = 'Oferty';
 
@@ -39,6 +40,9 @@ class OfferResource extends Resource
                             Forms\Components\TextInput::make('slug')
                                 ->required()
                                 ->maxLength(2048),
+                            Forms\Components\TextInput::make('salary'),
+                            Forms\Components\Select::make('payment')
+                                ->options(PaymentType::class),
                         ]),
                         Forms\Components\RichEditor::make('description')
                             ->required(),
@@ -48,9 +52,7 @@ class OfferResource extends Resource
                             ->required(),
                     ])->columnSpan(8),
                 Forms\Components\Card::make()->schema([
-                    Forms\Components\TextInput::make('salary'),
-                    Forms\Components\Select::make('payment_id')
-                        ->relationship('payment', 'name'),
+                    Forms\Components\TextInput::make('vacancy'),
                     Forms\Components\Select::make('category_id')
                         ->relationship('category', 'name')
                         ->required(),
@@ -59,6 +61,9 @@ class OfferResource extends Resource
                         ->required(),
                     Forms\Components\Select::make('contract_id')
                         ->relationship('contract', 'name')
+                        ->required(),
+                    Forms\Components\Select::make('workmode_id')
+                        ->relationship('workmode', 'name')
                         ->required(),
                     Forms\Components\FileUpload::make('image_path'),
                 ])->columnSpan(4),
@@ -69,10 +74,15 @@ class OfferResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('payment.name')
+                Tables\Columns\ImageColumn::make('image_path'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('category.name')
+                Tables\Columns\TextColumn::make('payment')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('employment.name')
@@ -81,31 +91,33 @@ class OfferResource extends Resource
                 Tables\Columns\TextColumn::make('contract.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image_path'),
+                Tables\Columns\TextColumn::make('workmode.name')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('salary')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('min_salary')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('max_salary')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('vacancy')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('active')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('user.email')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

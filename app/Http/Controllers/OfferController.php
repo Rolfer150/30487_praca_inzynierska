@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PaymentType;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
-use App\Models\Payment;
+use App\Models\Workmode;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfferController extends Controller
 {
-    public function mainPage():View
+    public function mainPage(): View
     {
         $offers = Offer::query()
             ->where('active', '=', 1)
-            ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->limit(3)
             ->get();
@@ -36,14 +35,14 @@ class OfferController extends Controller
     {
         $employments = Employment::employmentFilter();
         $contracts = Contract::contractFilter();
+        $workmodes = Workmode::workmodeFilter();
 
         $new_offers = Offer::query()
             ->where('active', '=', 1)
-            ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate(8);
 
-        return view('sidewidgets.offer', compact('new_offers', 'employments', 'contracts'));
+        return view('sidewidgets.offer', compact('new_offers', 'employments', 'contracts', 'workmodes'));
     }
 
     /**
@@ -51,14 +50,13 @@ class OfferController extends Controller
      */
     public function create(): View
     {
+//        dd(PaymentType::cases());
         $user = auth()->user();
 //        if (!$user)
 //        {
 //            return view('auth.login');
 //        }
-        $payments = Payment::query()
-            ->select('id', 'name')
-            ->get();
+        $payments = PaymentType::cases();
         $categories = Category::query()
             ->select('id', 'name')
             ->get();
@@ -68,7 +66,7 @@ class OfferController extends Controller
         $contracts = Contract::query()
             ->select('id', 'name')
             ->get();
-        return view('sidewidgets.addoffer', compact('categories','payments','employments', 'contracts'));
+        return view('sidewidgets.addoffer', compact('categories','payments', 'employments', 'contracts'));
     }
 
     /**
@@ -80,6 +78,7 @@ class OfferController extends Controller
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
         $offer->published_at = Carbon::now();
+        dd($request->input());
         $request->user()->offers()->save($offer);
 
         return redirect(route('home'));
@@ -92,7 +91,8 @@ class OfferController extends Controller
      */
     public function show(Offer $offer): View
     {
-        if(!$offer->active || $offer->published_at > Carbon::now())
+//        dd(Carbon::now());
+        if(!$offer->active)
         {
             throw new NotFoundHttpException();
         }
@@ -101,7 +101,6 @@ class OfferController extends Controller
             ->where('active', '=', 1)
             ->where('category_id', '=', $offer->category_id)
             ->where('id', '!=', $offer->id)
-            ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->limit(6)
             ->get();

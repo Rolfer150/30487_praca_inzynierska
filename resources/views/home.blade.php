@@ -14,8 +14,6 @@
                     <x-offer-item :offer="$offer"></x-offer-item>
                 @endforeach
             </div>
-
-            <x-footer />
         </div>
     </div>
 </x-app-layout>

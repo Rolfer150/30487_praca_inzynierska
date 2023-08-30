@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class OfferViews extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['ip_address, user_agent, offer_id, user_id'];
 }

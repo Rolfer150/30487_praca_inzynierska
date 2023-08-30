@@ -31,11 +31,11 @@
         <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
             <p class="text-lg mb-3">Tryb pracy</p>
             <ul>
-                @foreach($contracts as $contract)
+                @foreach($workmodes as $workmode)
                     <li>
-                        <input type="checkbox" name="{{$contract->name}}" class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
+                        <input type="checkbox" name="{{$workmode->name}}" class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                             dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                        {{$contract->name}} ({{$contract->contractSum}})
+                        {{$workmode->name}} ({{$workmode->workmodeSum}})
                     </li>
                 @endforeach
             </ul>

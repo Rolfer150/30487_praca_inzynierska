@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 64);
-            $table->string('slug', 2048);
+            $table->string('name', 64)->unique();
+            $table->string('slug', 128)->unique();
+            $table->string('url',2048)->nullable();
             $table->longText('description')->nullable();
             $table->integer('employees_amount')->nullable();
             $table->foreignId('address_id')->nullable()->constrained()->cascadeOnDelete();

@@ -9,24 +9,44 @@
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">
-                    <x-input-label for="categorie" :value="__('Kategoria')"/>
-                    <x-input-select :options="$categories" class="block mt-1 w-full" required autofocus autocomplete="categorie" />
-                    <x-input-error :messages="$errors->get('categorie')" class="mt-2" />
+                    <x-input-label for="category" :value="__('Kategoria')"/>
+                    <select name="category" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                        <option>Brak</option>
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}" >{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('category')" class="mt-2" />
                 </div>
                 <div class="flex bg-white dark:bg-gray-800/50">
                     <x-input-label for="salary" :value="__('Cena')" />
                     <x-text-input id="salary" class="block mt-1 w-full" type="number" name="salary" :value="old('salary')" autofocus autocomplete="salary" />
-                    <x-input-select :options="$payments" class="block mt-1 w-full" />
+                    <select name="payment" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                        <option>Brak</option>
+                        @foreach($payments as $payment)
+                            <option value="{{$payment->value}}" >{{$payment->value}}</option>
+                        @endforeach
+                    </select>
                     <x-input-error :messages="$errors->get('salary')" class="mt-2" />
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="employment" :value="__('Wymiar Pracy')" />
-                    <x-input-select :options="$employments" class="block mt-1 w-full" />
+                    <select name="employment" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                        <option>Brak</option>
+                        @foreach($employments as $employment)
+                            <option value="{{$employment->id}}" >{{$employment->name}}</option>
+                        @endforeach
+                    </select>
                     <x-input-error :messages="$errors->get('employment')" class="mt-2" />
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="contract" :value="__('Rodzaj umowy')" />
-                    <x-input-select :options="$contracts" class="block mt-1 w-full" />
+                    <select name="contract" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                        <option>Brak</option>
+                        @foreach($contracts as $contract)
+                            <option value="{{$contract->id}}" >{{$contract->name}}</option>
+                        @endforeach
+                    </select>
                     <x-input-error :messages="$errors->get('contract')" class="mt-2" />
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">

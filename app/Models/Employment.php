@@ -12,12 +12,10 @@ class Employment extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
-
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
     }
-
     public function scopeEmploymentFilter($query)
     {
         return $query

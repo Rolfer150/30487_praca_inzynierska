@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PaymentType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,16 +15,14 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 64)->unique();
-            $table->string('slug', 2048)->unique();
-            $table->string('image_path',128)->nullable();
+            $table->string('slug', 128)->unique();
+            $table->string('image_path',2048)->nullable();
             $table->longText('description')->nullable();
             $table->float('salary')->nullable();
             $table->float('min_salary')->nullable();
             $table->float('max_salary')->nullable();
-            $table->foreignId('payment_id')
-                ->nullable()
-                ->constrained('payments')
-                ->cascadeOnDelete();
+            $table->enum('payment',PaymentType::values())
+                ->default('brutto/godz');
             $table->integer('vacancy')->nullable();
             $table->foreignId('category_id')
                 ->nullable()
@@ -36,6 +35,10 @@ return new class extends Migration
             $table->foreignId('contract_id')
                 ->nullable()
                 ->constrained('contracts')
+                ->cascadeOnDelete();
+            $table->foreignId('workmode_id')
+                ->nullable()
+                ->constrained('workmodes')
                 ->cascadeOnDelete();
             $table->boolean('active');
             $table->dateTime('published_at');

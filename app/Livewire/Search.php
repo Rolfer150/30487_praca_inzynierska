@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
+use App\Models\Workmode;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
@@ -16,6 +17,7 @@ class Search extends Component
     {
         $employments = Employment::employmentFilter();
         $contracts = Contract::contractFilter();
+        $workmodes = Workmode::workmodeFilter();
 
         $query = Offer::query();
         if ($this->search)
@@ -25,7 +27,7 @@ class Search extends Component
                 ->orWhere('description', 'like', "%{$this->search}%");
         }
 
-        return view('livewire.search', compact('employments', 'contracts'));
+        return view('livewire.search', compact('employments', 'contracts', 'workmodes'));
     }
 
     public function searchFilter(Request $request)
