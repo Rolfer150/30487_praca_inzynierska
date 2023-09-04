@@ -31,7 +31,7 @@
         <div class="p-4 flex justify-center items-center shrink-0">
             {{--      Strona z ofertami pracy      --}}
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                <x-nav-link href="{{route('sidewidgets.offer')}}">
+                <x-nav-link href="{{route('livewire.search')}}">
                     {{ __('Oferty Pracy') }}
                 </x-nav-link>
             </div>

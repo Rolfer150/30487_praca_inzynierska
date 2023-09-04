@@ -20,7 +20,8 @@ class Employment extends Model
     {
         return $query
             ->join('offers', 'employments.id', '=', 'offers.employment_id')
-            ->select('employments.name', DB::raw('count(*) as employmentSum'))
+            ->where('offers.active', '=', 1)
+            ->select('employments.id', 'employments.name', DB::raw('count(*) as employmentSum'))
             ->groupBy('employments.id')
             ->get();
     }

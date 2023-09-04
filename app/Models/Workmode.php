@@ -20,7 +20,8 @@ class Workmode extends Model
     {
         return $query
             ->join('offers', 'workmodes.id', '=', 'offers.workmode_id')
-            ->select('workmodes.name', DB::raw('count(*) as workmodeSum'))
+            ->where('offers.active', '=', 1)
+            ->select('workmodes.id', 'workmodes.name', DB::raw('count(*) as workmodeSum'))
             ->groupBy('workmodes.id')
             ->get();
     }

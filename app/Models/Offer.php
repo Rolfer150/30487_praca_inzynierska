@@ -62,4 +62,11 @@ class Offer extends Model
     {
         return $this->published_at->format('F h:i Y');
     }
+
+    public function scopeSearch($query, $value)
+    {
+        $query
+            ->where('name', 'like', "%{$value}%")
+            ->orWhere('description', 'like', "%{$value}%");
+    }
 }

@@ -33,16 +33,16 @@ class OfferController extends Controller
      */
     public function index(): View
     {
-        $employments = Employment::employmentFilter();
-        $contracts = Contract::contractFilter();
-        $workmodes = Workmode::workmodeFilter();
+//        $employments = Employment::employmentFilter();
+//        $contracts = Contract::contractFilter();
+//        $workmodes = Workmode::workmodeFilter();
 
         $new_offers = Offer::query()
             ->where('active', '=', 1)
             ->orderBy('published_at', 'desc')
             ->paginate(8);
 
-        return view('sidewidgets.offer', compact('new_offers', 'employments', 'contracts', 'workmodes'));
+        return view('sidewidgets.offer', compact('new_offers'));
     }
 
     /**

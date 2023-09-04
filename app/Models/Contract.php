@@ -22,7 +22,8 @@ class Contract extends Model
     {
         return $query
             ->join('offers', 'contracts.id', '=', 'offers.contract_id')
-            ->select('contracts.name', DB::raw('count(*) as contractSum'))
+            ->where('offers.active', '=', 1)
+            ->select('contracts.id', 'contracts.name', DB::raw('count(*) as contractSum'))
             ->groupBy('contracts.id')
             ->get();
     }
