@@ -21,7 +21,7 @@ class OfferController extends Controller
     {
         $offers = Offer::query()
             ->where('active', '=', 1)
-            ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
 
@@ -39,7 +39,7 @@ class OfferController extends Controller
 
         $new_offers = Offer::query()
             ->where('active', '=', 1)
-            ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(8);
 
         return view('sidewidgets.offer', compact('new_offers'));
@@ -52,10 +52,10 @@ class OfferController extends Controller
     {
 //        dd(PaymentType::cases());
         $user = auth()->user();
-//        if (!$user)
-//        {
-//            return view('auth.login');
-//        }
+        if (!$user)
+        {
+            return view('auth.login');
+        }
         $payments = PaymentType::cases();
         $categories = Category::query()
             ->select('id', 'name')
@@ -77,7 +77,7 @@ class OfferController extends Controller
         $offer = new Offer($request->all());
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
-        $offer->published_at = Carbon::now();
+        $offer->created_at = Carbon::now();
         dd($request->input());
         $request->user()->offers()->save($offer);
 
@@ -91,7 +91,6 @@ class OfferController extends Controller
      */
     public function show(Offer $offer): View
     {
-//        dd(Carbon::now());
         if(!$offer->active)
         {
             throw new NotFoundHttpException();
@@ -101,7 +100,7 @@ class OfferController extends Controller
             ->where('active', '=', 1)
             ->where('category_id', '=', $offer->category_id)
             ->where('id', '!=', $offer->id)
-            ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->limit(6)
             ->get();
 

@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="md:flex gap-x-6 p-3 justify-center">
-        <form method="POST" action="{{ route('sidewidgets.store') }}">
+        <form method="POST" action="{{ route('sidewidgets.offerstore') }}">
             @csrf
             <div class="flex flex-col items-center">
                 <div class="bg-white dark:bg-gray-800/50">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="image_path" :value="__('Grafika')" />
-                    <x-text-input id="image_path" class="block mt-1 w-full" type="file" name="image_path" :value="old('image_path')" autofocus autocomplete="image_path" />
+                    <x-text-input id="image_path" class="block mt-1 w-full" type="file" name="image_path"/>
                     <x-input-error :messages="$errors->get('image_path')" class="mt-2" />
                 </div>
                 <x-primary-button class="ml-3">

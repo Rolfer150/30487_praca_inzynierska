@@ -6,6 +6,7 @@ border-gray-300 dark:border-0 m-1">
                 <h3 class="w-3/4 text-lg text-gray-600 dark:text-gray-400">{{$offer->name}}</h3>
                 <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($offer->salary) {{$offer->salary}} zł/
                     @if($offer->payment){{$offer->payment}}@endif @else Wypłata do ustalenia @endif</h3>
+                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">{{$offer->employment->name}}</h3>
             </div>
             <div class="right-0 pl-2">
                 <h3 class="text-gray-600 dark:text-gray-400">@if($offer->category->name)

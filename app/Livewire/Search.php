@@ -14,7 +14,9 @@ class Search extends Component
 {
     use WithPagination;
     public string $search = '';
+    public $clearAll = false;
     public int $perPage = 10;
+    public string $sortOffer = 'new';
     public array $filterEmployments = [];
     public array $filterContracts = [];
     public array $filterWorkmodes = [];
@@ -27,7 +29,7 @@ class Search extends Component
 
         $offer = Offer::query()
             ->where('active', '=', 1)
-            ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->search($this->search)
             ->when($this->filterEmployments != null, function ($q) {
                 return $q->whereIn('employment_id', $this->filterEmployments);
@@ -54,19 +56,25 @@ class Search extends Component
 
     }
 
-public function searchbar()
-{
-    return view('livewire.search',[
+    public function searchbar()
+    {
+        return view('livewire.search',[
 
-    ]);
-}
+        ]);
+    }
 
-public function clearall()
-{
-    $this->search = '';
-    $this->filterEmployments = [];
-    $this->filterContracts = [];
-    $this->filterWorkmodes = [];
-}
+    public function updatedClearAll($value)
+    {
+        if (!$value)
+        {
+            $this->filterEmployments = [];
+            $this->filterContracts = [];
+            $this->filterWorkmodes = [];
+//            $this->reset('search');
+//            $this->reset('filterEmployments');
+//            $this->reset('filterContracts');
+//            $this->reset('filterWorkmodes');
+        }
+    }
 
 }

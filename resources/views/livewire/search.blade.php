@@ -4,7 +4,7 @@
         <div>
             <div class="flex grid-cols-2 justify-center items-center">
                 <p class="w-1/3 text-lg">Filtry</p>
-                <button wire:click="clearall" class="text-xs w-2/3 text-gray-500 hover:text-orange-500">Wyczyść wszystkie filtry</button>
+                <button wire:model="clearAll" class="text-xs w-2/3 text-gray-500 hover:text-orange-500">Wyczyść wszystkie filtry</button>
             </div>
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
                 <p class="text-lg mb-3">Wymiar pracy</p>
@@ -70,8 +70,14 @@
 
         <div class="p-3">
             <div class="flex justify-between">
-                <h2 class="text-2xl text-gray-900 dark:text-gray-400">Najnowsze oferty</h2>
+                <h2 wire:model="sortOffer" class="text-2xl text-gray-900 dark:text-gray-400">Najnowsze oferty</h2>
                 <div>
+                    <label>Sortuj według</label>
+                    <select wire:model.live="sortOffer">
+                        <option value="new">Najnowsze</option>
+                        <option value="popular">Najpopularniejsze</option>
+                        <option value="near">Najbliższe</option>
+                    </select>
                     <label>Na stronę</label>
                     <select wire:model.live="perPage">
                         <option value="10">10</option>

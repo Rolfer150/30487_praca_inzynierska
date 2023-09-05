@@ -30,7 +30,6 @@ class OfferFactory extends Factory
             'description' => fake()->realText(4000),
             'active' => fake()->boolean,
             'vacancy' => fake()->numberBetween(1, 5),
-            'published_at' => fake()->dateTime,
             'user_id' => 1,
             'payment' => fake()->randomElement(PaymentType::cases()),
             'category_id' => Category::inRandomOrder()->first()->id,
