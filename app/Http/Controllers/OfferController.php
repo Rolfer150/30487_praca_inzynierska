@@ -6,6 +6,7 @@ use App\Enums\PaymentType;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
+use App\Models\Favourite;
 use App\Models\Offer;
 use App\Models\Workmode;
 use Carbon\Carbon;
@@ -26,6 +27,22 @@ class OfferController extends Controller
             ->get();
 
         return view('home', compact('offers'));
+    }
+
+    public function favouritesPage(): View
+    {
+        $favourites = Offer::query()
+            ->join('favourites', 'favourites.offer_id', '=', 'offers.id')
+            ->where('favourites.user_id', '=', auth()->user()->id)
+            ->orderBy('favourites.created_at', 'desc')
+            ->get();
+        return view('sidewidgets.favourites', compact('favourites'));
+    }
+
+    public function favouritesDestroy(Favourite $favourite)
+    {
+        $favourite->delete();
+        return redirect(route('favourites'));
     }
 
     /**
@@ -51,11 +68,11 @@ class OfferController extends Controller
     public function create(): View
     {
 //        dd(PaymentType::cases());
-        $user = auth()->user();
-        if (!$user)
-        {
-            return view('auth.login');
-        }
+//        $user = auth()->user();
+//        if (!$user)
+//        {
+//            return view('auth.login');
+//        }
         $payments = PaymentType::cases();
         $categories = Category::query()
             ->select('id', 'name')
@@ -131,25 +148,25 @@ class OfferController extends Controller
         //
     }
 
-    public function search(Request $request)
-    {
-        $q = $request->get('q');
-
+//    public function search(Request $request)
+//    {
+//        $q = $request->get('q');
+//
 //        $employments = Employment::employmentFilter();
 //        $contracts = Contract::contractFilter();
-
-        $searched_offers = Offer::query()
-            ->where('active', '=', 1)
-            ->whereDate('published_at', '<', Carbon::now())
-            ->orderBy('published_at', 'desc')
-            ->where(function ($query) use($q)
-            {
-                $query->where('name', 'like', "%$q%")
-                    ->orWhere('description', 'like', "%$q%");
-            })
-            ->paginate(8);
-
-//        dd($searched_offers);
-        return view('sidewidgets.search', compact('searched_offers', 'q'));
-    }
+//        $workmodes = Workmode::workmodeFilter();
+//
+//        $searched_offers = Offer::query()
+//            ->where('active', '=', 1)
+//            ->whereDate('published_at', '<', Carbon::now())
+//            ->orderBy('published_at', 'desc')
+//            ->where(function ($query) use($q)
+//            {
+//                $query->where('name', 'like', "%$q%")
+//                    ->orWhere('description', 'like', "%$q%");
+//            })
+//            ->paginate(8);
+//
+//        return view('sidewidgets.search', compact('searched_offers', 'q'));
+//    }
 }

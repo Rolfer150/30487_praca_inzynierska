@@ -11,12 +11,12 @@ class OfferApplicationController extends Controller
 {
     public function index(Offer $offer): View
     {
-        $user = auth()->user();
-
-        if (!$user)
-        {
-            return view('auth.login');
-        }
+//        $user = auth()->user();
+//
+//        if (!$user)
+//        {
+//            return view('auth.login');
+//        }
 
         return view('sidewidgets.applyoffer');
     }

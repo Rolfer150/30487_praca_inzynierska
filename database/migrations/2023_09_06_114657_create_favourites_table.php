@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offer_views', function (Blueprint $table) {
+        Schema::create('favourites', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_address', 64);
-            $table->string('user_agent', 256);
             $table->foreignId('offer_id')
                 ->constrained('offers')
                 ->cascadeOnDelete();
-            $table->foreignId('user_id')->nullable()
+            $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
             $table->timestamps();
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offer_views');
+        Schema::dropIfExists('favourites');
     }
 };

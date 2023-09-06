@@ -35,7 +35,8 @@ class OfferFactory extends Factory
             'category_id' => Category::inRandomOrder()->first()->id,
             'employment_id' => Employment::inRandomOrder()->first()->id,
             'contract_id' => Contract::inRandomOrder()->first()->id,
-            'workmode_id' => Workmode::inRandomOrder()->first()->id
+            'workmode_id' => Workmode::inRandomOrder()->first()->id,
+            'created_at' => fake()->date
         ];
     }
 }

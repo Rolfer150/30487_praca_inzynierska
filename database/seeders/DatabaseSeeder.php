@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
             WorkmodeSeeder::class,
             UserSeeder::class
         ]);
-        Offer::factory(100)->create();
+        Offer::factory(300)->create();
     }
 }

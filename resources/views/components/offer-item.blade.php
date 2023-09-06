@@ -11,6 +11,7 @@ border-gray-300 dark:border-0 m-1">
             <div class="right-0 pl-2">
                 <h3 class="text-gray-600 dark:text-gray-400">@if($offer->category->name)
                         {{$offer->category->name}}@else Brak kategorii @endif</h3>
+                <h3 class="text-gray-600 dark:text-gray-400">{{$offer->workmode->name}}</h3>
             </div>
         </div>
         <div class="p-2 flex items-center justify-center gap-2">

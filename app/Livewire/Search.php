@@ -7,18 +7,25 @@ use App\Models\Employment;
 use App\Models\Offer;
 use App\Models\Workmode;
 use Illuminate\Http\Request;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Search extends Component
 {
     use WithPagination;
+
+    #[Url(history: true)]
     public string $search = '';
-    public $clearAll = false;
     public int $perPage = 10;
+    #[Url(history: true)]
     public string $sortOffer = 'new';
+    public string $messageSortOffer = 'Najnowsze oferty';
+    #[Url(history: true)]
     public array $filterEmployments = [];
+    #[Url(history: true)]
     public array $filterContracts = [];
+    #[Url(history: true)]
     public array $filterWorkmodes = [];
 
     public function render()
@@ -26,10 +33,34 @@ class Search extends Component
         $employments = Employment::employmentFilter();
         $contracts = Contract::contractFilter();
         $workmodes = Workmode::workmodeFilter();
+        $messSortOffer = $this->messageSortOffer;
 
-        $offer = Offer::query()
+        if ($this->sortOffer === 'old')
+        {
+            $offer = $this->offerRender('created_at', 'asc');
+            $messSortOffer = 'Najstarsze oferty';
+        }
+        else{
+            $offer = $this->offerRender();
+            $messSortOffer;
+        }
+
+        return view('livewire.search', [
+            'offers' => $offer,
+            'employments' => $employments,
+            'contracts' => $contracts,
+            'workmodes' => $workmodes,
+            'messSortOffer' => $messSortOffer
+        ])->layout('layouts.app');
+    }
+
+    public function offerRender(string $value = 'created_at', string $sorting = 'desc')
+    {
+        return Offer::query()
             ->where('active', '=', 1)
-            ->orderBy('created_at', 'desc')
+            ->when($this->sortOffer === 'new' || $this->sortOffer === 'old', function ($q) use ($value, $sorting) {
+                return $q->orderBy($value, $sorting);
+            })
             ->search($this->search)
             ->when($this->filterEmployments != null, function ($q) {
                 return $q->whereIn('employment_id', $this->filterEmployments);
@@ -41,40 +72,38 @@ class Search extends Component
                 return $q->whereIn('workmode_id', $this->filterWorkmodes);
             })
             ->paginate($this->perPage);
-
-
-        return view('livewire.search', [
-            'offers' => $offer,
-            'employments' => $employments,
-            'contracts' => $contracts,
-            'workmodes' => $workmodes
-        ])->layout('layouts.app');
     }
 
-    public function searchFilter(Request $request)
+    public function searchFilter()
     {
 
     }
-
-    public function searchbar()
+    public function clearAll()
     {
-        return view('livewire.search',[
-
-        ]);
+        $this->reset('search');
+        $this->reset('filterEmployments');
+        $this->reset('filterContracts');
+        $this->reset('filterWorkmodes');
     }
 
-    public function updatedClearAll($value)
+    public function updatedSearch()
     {
-        if (!$value)
-        {
-            $this->filterEmployments = [];
-            $this->filterContracts = [];
-            $this->filterWorkmodes = [];
-//            $this->reset('search');
-//            $this->reset('filterEmployments');
-//            $this->reset('filterContracts');
-//            $this->reset('filterWorkmodes');
-        }
+        $this->resetPage();
+    }
+
+    public function updatedFilterEmployments()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterContracts()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterWorkmodes()
+    {
+        $this->resetPage();
     }
 
 }
