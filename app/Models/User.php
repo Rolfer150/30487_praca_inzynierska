@@ -48,6 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);

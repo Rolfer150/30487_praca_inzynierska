@@ -18,6 +18,7 @@ class Offer extends Model
     protected $casts = [
         'published_at' => 'datetime',
         'payment' => PaymentType::class];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -37,18 +38,20 @@ class Offer extends Model
     {
         return $this->BelongsTo(Contract::class);
     }
+
     public function payment(): BelongsTo
     {
         return $this->BelongsTo(Payment::class);
     }
+
     public function workmode(): BelongsTo
     {
         return $this->BelongsTo(Workmode::class);
     }
+
     public function getURLImage()
     {
-        if (str_starts_with($this->image_path, 'http'))
-        {
+        if (str_starts_with($this->image_path, 'http')) {
             return $this->image_path;
         }
         return '/storage/' . $this->image_path;
@@ -58,6 +61,7 @@ class Offer extends Model
     {
         return Str::words(strip_tags($this->description), 15);
     }
+
     public function formatedDate()
     {
         return $this->created_at->format('F h:i Y');

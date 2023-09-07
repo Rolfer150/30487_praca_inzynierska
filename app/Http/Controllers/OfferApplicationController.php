@@ -25,8 +25,7 @@ class OfferApplicationController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user)
-        {
+        if (!$user) {
             return view('auth.login');
         }
 

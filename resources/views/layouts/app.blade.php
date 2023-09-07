@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
     @livewireStyles
     <!-- Scripts -->
@@ -17,7 +17,7 @@
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen dark:bg-gray-900">
-    <x-navbar.navbar />
+    <x-navbar.navbar/>
 
 
     <!-- Page Heading -->
@@ -34,7 +34,7 @@
         {{ $slot }}
     </main>
 </div>
-<x-footer />
+<x-footer/>
 @livewireScripts
 </body>
 </html>

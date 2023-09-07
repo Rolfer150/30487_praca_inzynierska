@@ -17,32 +17,40 @@ class FavouritesButton extends Component
 
     public function render()
     {
-        $favourite = Favourite::where('offer_id', '=', $this->offer->id);
-        return view('livewire.favourites-button');
+        $hasAddedToFavourites = false;
+
+        $user = request()->user();
+
+        if ($user) {
+            $favourite = Favourite::where('offer_id', '=', $this->offer->id)
+            ->where('user_id', '=', $user->id)
+            ->first();
+            if ($favourite)
+            {
+                $hasAddedToFavourites = true;
+            }
+        }
+        return view('livewire.favourites-button', compact('hasAddedToFavourites'));
     }
 
     public function favouriteAdd()
     {
         $user = auth()->user();
-        if (!$user)
-        {
-            return $this->redirect('login');
+        if (!$user) {
+            return $this->redirect('/login');
         }
 
         $favourite = Favourite::where('offer_id', '=', $this->offer->id)
             ->where('user_id', '=', $user->id)
             ->first();
 
-        if (!$favourite)
-        {
+        if (!$favourite) {
             Favourite::create([
                 'offer_id' => $this->offer->id,
                 'user_id' => $user->id
             ]);
             return;
-        }
-        else
-        {
+        } else {
             $favourite->delete();
         }
 

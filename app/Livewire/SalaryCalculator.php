@@ -15,24 +15,18 @@ class SalaryCalculator extends Component
     public function calculate()
     {
         $sal = (float)$this->salary;
-        if($this->calculation == 'Brutto')
-        {
+        if ($this->calculation == 'Brutto') {
             $this->result = number_format($sal * 0.7658, 2);
-        }
-        elseif ($this->calculation == 'Netto')
-        {
+        } elseif ($this->calculation == 'Netto') {
             $this->result = number_format($sal + $sal * 0.7658, 2);
         }
     }
 
     public function update($property)
     {
-        if ($this->salary == 0)
-        {
+        if ($this->salary == 0) {
             $this->disabled = true;
-        }
-        else
-        {
+        } else {
             $this->disabled = false;
         }
     }

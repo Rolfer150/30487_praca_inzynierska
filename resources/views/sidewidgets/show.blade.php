@@ -39,7 +39,7 @@
                     APLIKUJ TERAZ
                 </a>
             </div>
-                <livewire:favourites-button :offer="$offer"/>
+            <livewire:favourites-button :offer="$offer"/>
         </div>
     </div>
     @if($category_offers)

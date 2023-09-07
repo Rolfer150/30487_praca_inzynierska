@@ -6,7 +6,10 @@
             <option>Brutto</option>
             <option>Netto</option>
         </select>
-        <button wire:click="calculate" class="disabled:cursor-not-allowed bg-indigo-50 disabled:opacity-70" {{$disabled ? ' disabled' : ''}}>Wynik</button>
+        <button wire:click="calculate"
+                class="disabled:cursor-not-allowed bg-indigo-50 disabled:opacity-70" {{$disabled ? ' disabled' : ''}}>
+            Wynik
+        </button>
         <p>{{$result}}</p>
         {{--            <div>--}}
         {{--                <table>--}}

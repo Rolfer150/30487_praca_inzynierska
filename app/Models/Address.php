@@ -11,6 +11,7 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = ['city', 'street', 'home_nr', 'flat_nr', 'zip_code', 'latitude', 'longitude'];
+
     public function addresses(): HasOne
     {
         return $this->hasOne(Company::class);

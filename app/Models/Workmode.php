@@ -12,10 +12,12 @@ class Workmode extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
     }
+
     public function scopeWorkmodeFilter($query)
     {
         return $query

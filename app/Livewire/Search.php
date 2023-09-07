@@ -35,12 +35,10 @@ class Search extends Component
         $workmodes = Workmode::workmodeFilter();
         $messSortOffer = $this->messageSortOffer;
 
-        if ($this->sortOffer === 'old')
-        {
+        if ($this->sortOffer === 'old') {
             $offer = $this->offerRender('created_at', 'asc');
             $messSortOffer = 'Najstarsze oferty';
-        }
-        else{
+        } else {
             $offer = $this->offerRender();
             $messSortOffer;
         }
@@ -78,6 +76,7 @@ class Search extends Component
     {
 
     }
+
     public function clearAll()
     {
         $this->reset('search');

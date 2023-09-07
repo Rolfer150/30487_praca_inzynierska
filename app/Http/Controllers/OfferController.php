@@ -28,23 +28,6 @@ class OfferController extends Controller
 
         return view('home', compact('offers'));
     }
-
-    public function favouritesPage(): View
-    {
-        $favourites = Offer::query()
-            ->join('favourites', 'favourites.offer_id', '=', 'offers.id')
-            ->where('favourites.user_id', '=', auth()->user()->id)
-            ->orderBy('favourites.created_at', 'desc')
-            ->get();
-        return view('sidewidgets.favourites', compact('favourites'));
-    }
-
-    public function favouritesDestroy(Favourite $favourite)
-    {
-        $favourite->delete();
-        return redirect(route('favourites'));
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -83,7 +66,7 @@ class OfferController extends Controller
         $contracts = Contract::query()
             ->select('id', 'name')
             ->get();
-        return view('sidewidgets.addoffer', compact('categories','payments', 'employments', 'contracts'));
+        return view('sidewidgets.addoffer', compact('categories', 'payments', 'employments', 'contracts'));
     }
 
     /**
@@ -103,13 +86,12 @@ class OfferController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  Offer  $offer
+     * @param Offer $offer
      * @return View
      */
     public function show(Offer $offer): View
     {
-        if(!$offer->active)
-        {
+        if (!$offer->active) {
             throw new NotFoundHttpException();
         }
 
