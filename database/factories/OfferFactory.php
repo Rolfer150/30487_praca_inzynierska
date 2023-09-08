@@ -22,7 +22,7 @@ class OfferFactory extends Factory
      */
     public function definition(): array
     {
-        $offer_name = fake()->unique()->realText(20);
+        $offer_name = fake()->unique()->realText(64);
         return [
             'name' => $offer_name,
             'slug' => Str::slug($offer_name),

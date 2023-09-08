@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Offer;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,8 +20,13 @@ class DatabaseSeeder extends Seeder
             ContractSeeder::class,
             EmploymentSeeder::class,
             WorkmodeSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class
         ]);
         Offer::factory(300)->create();
+        User::factory(80)->create()->each(function ($user)
+        {
+            $user->assignRole('user');
+        });
     }
 }

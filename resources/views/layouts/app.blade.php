@@ -33,8 +33,8 @@
     <main class="text-gray-600 dark:text-gray-400">
         {{ $slot }}
     </main>
+    <x-footer/>
 </div>
-<x-footer/>
 @livewireScripts
 </body>
 </html>

@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->string('home_nr', 5);
             $table->string('flat_nr', 5)->nullable();
             $table->string('zip_code', 6);
-            $table->float('latitude', 8, 6);
-            $table->float('longitude', 8, 6);
+            $table->float('latitude', 8, 6)->nullable();
+            $table->float('longitude', 8, 6)->nullable();
             $table->timestamps();
         });
     }

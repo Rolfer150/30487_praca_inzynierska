@@ -29,7 +29,7 @@ class OfferResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Card::make()
+                Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Grid::make(2)->schema([
                             Forms\Components\TextInput::make('name')
@@ -38,16 +38,15 @@ class OfferResource extends Resource
                                 ->maxLength(64)
                                 ->unique()
                                 ->live(onBlur: true)
-                                ->afterStateUpdated(function(string $operation, $state, Forms\Set $set) {
-                                    if ($operation !== 'create')
-                                    {
+                                ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
+                                    if ($operation !== 'create') {
                                         return;
                                     }
 
                                     $set('slug', Str::slug($state));
                                 }),
                             Forms\Components\TextInput::make('slug')
-                                ->label("URL")
+                                ->label("Slug")
                                 ->required()
                                 ->maxLength(2048),
                             Forms\Components\TextInput::make('salary')
@@ -65,7 +64,7 @@ class OfferResource extends Resource
                             ->label("Aktywna")
                             ->required(),
                     ])->columnSpan(8),
-                Forms\Components\Card::make()->schema([
+                Forms\Components\Section::make()->schema([
                     Forms\Components\TextInput::make('vacancy')
                         ->numeric()
                         ->label("Wakat"),
@@ -149,7 +148,6 @@ class OfferResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user.email')
                     ->label("E-mail")
-                    ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')

@@ -17,7 +17,7 @@ class WorkmodeResource extends Resource
 {
     protected static ?string $model = Workmode::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office';
+    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static ?string $navigationLabel = 'Tryby pracy';
 
