@@ -6,7 +6,6 @@ use App\Enums\PaymentType;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
-use App\Models\Favourite;
 use App\Models\Offer;
 use App\Models\Workmode;
 use Carbon\Carbon;
@@ -66,7 +65,10 @@ class OfferController extends Controller
         $contracts = Contract::query()
             ->select('id', 'name')
             ->get();
-        return view('sidewidgets.addoffer', compact('categories', 'payments', 'employments', 'contracts'));
+        $workmodes = Workmode::query()
+            ->select('id', 'name')
+            ->get();
+        return view('sidewidgets.addoffer', compact('categories', 'payments', 'employments', 'contracts', 'workmodes'));
     }
 
     /**
@@ -78,7 +80,7 @@ class OfferController extends Controller
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
         $offer->created_at = Carbon::now();
-        dd($request->input());
+//        dd($request->input());
         $request->user()->offers()->save($offer);
 
         return redirect(route('home'));

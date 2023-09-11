@@ -19,7 +19,6 @@
 <div class="min-h-screen dark:bg-gray-900">
     <x-navbar.navbar/>
 
-
     <!-- Page Heading -->
     @if (isset($header))
         <header class="bg-white dark:bg-gray-900 shadow">

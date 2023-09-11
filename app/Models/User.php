@@ -60,6 +60,10 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         return $this->hasOne(Company::class);
     }
 
+    public function offerApplications(): HasMany
+    {
+        return $this->hasMany(OfferApplication::class);
+    }
     public function applicationFiles(): HasMany
     {
         return $this->hasMany(ApplicationFile::class);

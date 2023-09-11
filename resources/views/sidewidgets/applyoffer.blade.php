@@ -8,7 +8,7 @@
         <x-text-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" autofocus
                       autocomplete="email"/>
         <x-input-label for="email" :value="__('Załączniki')"/>
-        <x-text-input id="file" class="block mt-1 w-full" type="file" multiple="" name="file"/>
+        <x-text-input id="file" class="block mt-1 w-full" type="file" multiple="" name="filesUpload"/>
 
         <x-primary-button class="ml-3">
             {{ __('Potwierdź') }}
