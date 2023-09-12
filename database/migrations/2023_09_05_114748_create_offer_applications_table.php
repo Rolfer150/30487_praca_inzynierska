@@ -21,6 +21,9 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained('offers');
             $table->timestamps();
+            $table->foreignId('appfiles_id')
+                ->nullable()
+                ->constrained('application_files');
         });
     }
 

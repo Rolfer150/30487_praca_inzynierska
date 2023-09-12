@@ -80,7 +80,7 @@ class OfferController extends Controller
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
         $offer->created_at = Carbon::now();
-//        dd($request->input());
+        dd($request->input());
         $request->user()->offers()->save($offer);
 
         return redirect(route('home'));
