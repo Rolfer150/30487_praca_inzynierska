@@ -80,7 +80,7 @@ class OfferController extends Controller
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
         $offer->created_at = Carbon::now();
-        dd($request->input());
+//        dd($request->input());
         $request->user()->offers()->save($offer);
 
         return redirect(route('home'));
@@ -97,15 +97,27 @@ class OfferController extends Controller
             throw new NotFoundHttpException();
         }
 
+
+        $applied = Offer::query()
+            ->join('offer_applications', 'offer_applications.id', '=', 'offers.id')
+            ->where('offer_applications.user_id', '=', auth()->user()->id)
+            ->select('offers.id','offer_applications.offer_id', 'offers.user_id')
+            ->get();
+
+        dd($applied);
+        $canApply = $applied->get('offer_applications.offer_id') !== $offer->id;
+//        dd($canApply);
+//        dd($isApplied);
         $category_offers = Offer::query()
             ->where('active', '=', 1)
+            ->where('id', '=', $applied->get('offer_applications.offer_id'))
             ->where('category_id', '=', $offer->category_id)
             ->where('id', '!=', $offer->id)
             ->orderBy('created_at', 'desc')
             ->limit(6)
             ->get();
 
-        return view("sidewidgets.show", compact('offer', 'category_offers'));
+        return view("sidewidgets.show", compact('offer', 'category_offers', 'canApply'));
     }
 
     /**

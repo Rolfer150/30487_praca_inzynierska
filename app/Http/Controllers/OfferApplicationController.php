@@ -7,6 +7,7 @@ use App\Models\Offer;
 use App\Models\OfferApplication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class OfferApplicationController extends Controller
@@ -19,17 +20,16 @@ class OfferApplicationController extends Controller
 //        {
 //            return view('auth.login');
 //        }
-//        dd($offer);
+        Session::put('id', $offer->id);
         return view('sidewidgets.applyoffer', compact('offer'));
     }
 
-    public function store(Request $request, Offer $offer): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        dd($offer);
         $apply = new OfferApplication;
-        $apply->offer_id = $request->applyID;
-        dd($apply->offer_id);
-        dd($request->user()->offerApplications()->save($apply));
+        $sessionID = intval(Session::get('id'));
+        $apply->offer_id = $sessionID;
+
         if ($request->hasFile('filesUpload'))
         {
             foreach ($request->file('filesUpload') as $file)
@@ -40,6 +40,9 @@ class OfferApplicationController extends Controller
                 $request->user()->applicationFiles()->save($appFile);
             }
         }
+
+        $request->user()->offerApplications()->save($apply);
+        Session::flush();
 
         return redirect(route('home'));
     }

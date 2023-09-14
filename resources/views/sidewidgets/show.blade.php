@@ -34,10 +34,15 @@
         {{-- Prawy panel --}}
         <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 rounded-lg w-1/4">
             <div class="flex justify-center">
-                <a href="{{route('sidewidgets.applyoffer', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                @if($canApply)
+                    <a href="{{route('sidewidgets.applyoffer', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">
-                    APLIKUJ TERAZ
-                </a>
+                        APLIKUJ TERAZ
+                    </a>
+                    @else
+                    <p>Nie można aplikować</p>
+                @endif
+
             </div>
             <livewire:favourites-button :offer="$offer"/>
         </div>
