@@ -40,7 +40,11 @@
                         APLIKUJ TERAZ
                     </a>
                     @else
-                    <p>Nie można aplikować</p>
+                    <h1>Twoja aplikacja została już nadana.</h1>
+                    <form method="get" action="{{route('sidewidgets.applyindex')}}">
+                        <button type="submit" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                transition-colors transition-colors content-center">OBSERWUJ STATUS APLIKACJI</button>
+                    </form>
                 @endif
 
             </div>

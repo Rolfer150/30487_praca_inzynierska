@@ -13,16 +13,19 @@ Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('side
 
 
 Route::get('/offers', Search::class)->name('livewire.search');
-Route::get('/search', [OfferController::class, 'search'])->name('sidewidgets.search');
+Route::get('/offers/search', [OfferController::class, 'search'])->name('sidewidgets.search');
 
 
 Route::get('/calculator', SalaryCalculator::class)->name('livewire.salary-calculator');
 
 Route::middleware('auth')->group(function () {
-    Route::post('offers/store', [OfferController::class, 'store'])->name('sidewidgets.offerstore');
-    Route::get('/offers/apply/{offer:slug}', [OfferApplicationController::class, 'index'])->name('sidewidgets.applyoffer');
-    Route::post('/offers/apply/store', [OfferApplicationController::class, 'store'])->name('sidewidgets.applystore');
-    Route::get('/addoffer', [OfferController::class, 'create'])->name('sidewidgets.addoffer');
+    Route::get('/myoffers/addoffer', [OfferController::class, 'create'])->name('sidewidgets.addoffer');
+    Route::post('/myoffers/store', [OfferController::class, 'store'])->name('sidewidgets.offerstore');
+    Route::get('/myoffers/appliedoffers', [OfferApplicationController::class, 'index'])->name('sidewidgets.applyindex');
+    Route::get('/myoffers/apply/{offer:slug}', [OfferApplicationController::class, 'apply'])->name('sidewidgets.applyoffer');
+    Route::post('/myoffers/apply/store', [OfferApplicationController::class, 'store'])->name('sidewidgets.applystore');
+    Route::delete('/myoffers/apply/{offer_application}', [OfferApplicationController::class, 'destroy'])->name('sidewidgets.applydestroy');
+
 
     Route::get('/favourites', [FavouriteController::class, 'index'])->name('favourites');
     Route::delete('/favourites/{favourite}', [FavouriteController::class, 'destroy'])->name('favourites.destroy');

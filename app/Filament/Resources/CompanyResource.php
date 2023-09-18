@@ -22,6 +22,9 @@ class CompanyResource extends Resource
 
     protected static ?string $navigationLabel = 'Firmy';
 
+
+    protected static ?string $navigationGroup = 'Kontent';
+
     public static function form(Form $form): Form
     {
         return $form

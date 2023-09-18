@@ -16,11 +16,19 @@
 
         <x-slot name="content">
             <x-dropdown-link :href="route('profile.edit')">
-                {{ __('Profile') }}
+                {{ __('Profil') }}
+            </x-dropdown-link>
+
+            <x-dropdown-link :href="route('sidewidgets.addoffer')">
+                {{ __('Dodaj Ofertę') }}
             </x-dropdown-link>
 
             <x-dropdown-link :href="route('favourites')">
                 {{ __('Obserwowane') }}
+            </x-dropdown-link>
+
+            <x-dropdown-link :href="route('sidewidgets.applyindex')">
+                {{ __('Moje Aplikacje') }}
             </x-dropdown-link>
 
             <!-- Authentication -->
@@ -30,7 +38,7 @@
                 <x-dropdown-link :href="route('logout')"
                                  onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                    {{ __('Log Out') }}
+                    {{ __('Wyloguj się') }}
                 </x-dropdown-link>
             </form>
         </x-slot>

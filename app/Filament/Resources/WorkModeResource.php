@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\WorkmodeResource\Pages;
 use App\Filament\Resources\WorkmodeResource\RelationManagers;
-use App\Models\Workmode;
+use App\Models\WorkMode;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class WorkmodeResource extends Resource
+class WorkModeResource extends Resource
 {
-    protected static ?string $model = Workmode::class;
+    protected static ?string $model = WorkMode::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static ?string $navigationLabel = 'Tryby pracy';
 
-    protected static ?string $navigationGroup = 'Kontent';
+    protected static ?string $navigationGroup = 'Dane';
 
     public static function form(Form $form): Form
     {
@@ -68,7 +68,7 @@ class WorkmodeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageWorkmodes::route('/'),
+            'index' => Pages\ManageWorkModes::route('/'),
         ];
     }
 }

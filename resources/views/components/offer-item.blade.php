@@ -20,7 +20,7 @@ border-gray-300 dark:border-0 m-1">
                     @else
                         Brak kategorii
                     @endif</h3>
-                <h3 class="text-gray-600 dark:text-gray-400">{{$offer->workmode->name}}</h3>
+                <h3 class="text-gray-600 dark:text-gray-400">{{$offer->work_mode->name}}</h3>
             </div>
         </div>
         <div class="p-2 flex items-center justify-center gap-2">

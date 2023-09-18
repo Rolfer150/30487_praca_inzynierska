@@ -48,12 +48,6 @@
                     {{ __('Kalkulator Wypłaty') }}
                 </x-nav-link>
             </div>
-            {{--      Strona z opcjami dotyczącymi ofert pracy (,)      --}}
-            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                <x-nav-link href="{{route('sidewidgets.addoffer')}}">
-                    {{ __('Moje Oferty') }}
-                </x-nav-link>
-            </div>
         </div>
         {{--    Prawa część navbaru    --}}
         <div class=" p-4">

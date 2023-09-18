@@ -38,15 +38,15 @@
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
                 <p class="text-lg mb-3">Tryb pracy</p>
                 <ul>
-                    @foreach($workmodes as $workmode)
-                        <li wire:key="{{$workmode->id}}">
-                            <input type="checkbox" wire:model="filterWorkmodes" value="{{$workmode->id}}" class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
+                    @foreach($workModes as $workMode)
+                        <li wire:key="{{$workMode->id}}">
+                            <input type="checkbox" wire:model="filterWorkModes" value="{{$workMode->id}}" class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                             dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                            {{$workmode->name}} ({{$workmode->workmodeSum}})
+                            {{$workMode->name}} ({{$workMode->workModeSum}})
                         </li>
                     @endforeach
                 </ul>
-                <div>Wynik: {{ var_export($filterWorkmodes) }}</div>
+                <div>Wynik: {{ var_export($filterWorkModes) }}</div>
             </div>
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
                 <div class="flex w-full justify-between items-center">

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
-class Workmode extends Model
+class WorkMode extends Model
 {
     use HasFactory;
 
@@ -18,13 +18,13 @@ class Workmode extends Model
         return $this->hasMany(Offer::class);
     }
 
-    public function scopeWorkmodeFilter($query)
+    public function scopeWorkModeFilter($query)
     {
         return $query
-            ->join('offers', 'workmodes.id', '=', 'offers.workmode_id')
+            ->join('offers', 'work_modes.id', '=', 'offers.work_mode_id')
             ->where('offers.active', '=', 1)
-            ->select('workmodes.id', 'workmodes.name', DB::raw('count(*) as workmodeSum'))
-            ->groupBy('workmodes.id')
+            ->select('work_modes.id', 'work_modes.name', DB::raw('count(*) as workModeSum'))
+            ->groupBy('work_modes.id')
             ->get();
     }
 }

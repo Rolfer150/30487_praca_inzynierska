@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Workmode;
+use App\Models\WorkMode;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class WorkmodeSeeder extends Seeder
+class WorkModeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -31,7 +31,7 @@ class WorkmodeSeeder extends Seeder
 
         foreach ($workmodes as $key => $value)
         {
-            Workmode::create($value);
+            WorkMode::create($value);
         }
     }
 }

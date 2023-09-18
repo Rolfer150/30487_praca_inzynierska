@@ -21,7 +21,7 @@ class ContractResource extends Resource
 
     protected static ?string $navigationLabel = 'Umowy o pracę';
 
-    protected static ?string $navigationGroup = 'Kontent';
+    protected static ?string $navigationGroup = 'Dane';
 
     public static function form(Form $form): Form
     {

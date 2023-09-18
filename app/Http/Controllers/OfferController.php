@@ -7,7 +7,8 @@ use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
-use App\Models\Workmode;
+use App\Models\OfferApplication;
+use App\Models\WorkMode;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class OfferController extends Controller
 
         return view('home', compact('offers'));
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +36,7 @@ class OfferController extends Controller
     {
 //        $employments = Employment::employmentFilter();
 //        $contracts = Contract::contractFilter();
-//        $workmodes = Workmode::workmodeFilter();
+//        $workmodes = WorkMode::workmodeFilter();
 
         $new_offers = Offer::query()
             ->where('active', '=', 1)
@@ -65,7 +67,7 @@ class OfferController extends Controller
         $contracts = Contract::query()
             ->select('id', 'name')
             ->get();
-        $workmodes = Workmode::query()
+        $workmodes = WorkMode::query()
             ->select('id', 'name')
             ->get();
         return view('sidewidgets.addoffer', compact('categories', 'payments', 'employments', 'contracts', 'workmodes'));
@@ -97,20 +99,13 @@ class OfferController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $canApply = true;
+        if (auth()->user()) {
+            $canApply = !$offer->userHasApplied();
+        }
 
-        $applied = Offer::query()
-            ->join('offer_applications', 'offer_applications.id', '=', 'offers.id')
-            ->where('offer_applications.user_id', '=', auth()->user()->id)
-            ->select('offers.id','offer_applications.offer_id', 'offers.user_id')
-            ->get();
-
-        dd($applied);
-        $canApply = $applied->get('offer_applications.offer_id') !== $offer->id;
-//        dd($canApply);
-//        dd($isApplied);
         $category_offers = Offer::query()
             ->where('active', '=', 1)
-            ->where('id', '=', $applied->get('offer_applications.offer_id'))
             ->where('category_id', '=', $offer->category_id)
             ->where('id', '!=', $offer->id)
             ->orderBy('created_at', 'desc')
@@ -150,7 +145,7 @@ class OfferController extends Controller
 //
 //        $employments = Employment::employmentFilter();
 //        $contracts = Contract::contractFilter();
-//        $workmodes = Workmode::workmodeFilter();
+//        $workmodes = WorkMode::workmodeFilter();
 //
 //        $searched_offers = Offer::query()
 //            ->where('active', '=', 1)

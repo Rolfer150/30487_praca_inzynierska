@@ -6,6 +6,7 @@ use App\Enums\PaymentType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Offer extends Model
@@ -44,9 +45,21 @@ class Offer extends Model
         return $this->BelongsTo(Payment::class);
     }
 
-    public function workmode(): BelongsTo
+    public function work_mode(): BelongsTo
     {
-        return $this->BelongsTo(Workmode::class);
+        return $this->BelongsTo(WorkMode::class);
+    }
+
+    public function offerApplications(): HasMany
+    {
+        return $this->hasMany(OfferApplication::class);
+    }
+
+    public function userHasApplied(): bool
+    {
+        $offerApplication = $this->offerApplications();
+        return auth()->user()->id == $offerApplication->value('user_id')
+            && $this->id == $offerApplication->value('offer_id');
     }
 
     public function getURLImage()

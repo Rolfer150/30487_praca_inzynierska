@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
-use App\Models\Workmode;
+use App\Models\WorkMode;
 use Illuminate\Http\Request;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -26,30 +26,27 @@ class Search extends Component
     #[Url(history: true)]
     public array $filterContracts = [];
     #[Url(history: true)]
-    public array $filterWorkmodes = [];
+    public array $filterWorkModes = [];
 
     public function render()
     {
         $employments = Employment::employmentFilter();
         $contracts = Contract::contractFilter();
-        $workmodes = Workmode::workmodeFilter();
+        $workModes = WorkMode::workmodeFilter();
         $messSortOffer = $this->messageSortOffer;
 
         if ($this->sortOffer === 'old') {
-            $offer = $this->offerRender('created_at', 'asc');
+            $offers = $this->offerRender('created_at', 'asc');
             $messSortOffer = 'Najstarsze oferty';
         } else {
-            $offer = $this->offerRender();
+            $offers = $this->offerRender();
             $messSortOffer;
         }
 
-        return view('livewire.search', [
-            'offers' => $offer,
-            'employments' => $employments,
-            'contracts' => $contracts,
-            'workmodes' => $workmodes,
-            'messSortOffer' => $messSortOffer
-        ])->layout('layouts.app');
+        return view('livewire.search', compact(
+            'employments', 'contracts', 'workModes', 'offers', 'messSortOffer'
+        ))
+            ->layout('layouts.app');
     }
 
     public function offerRender(string $value = 'created_at', string $sorting = 'desc')
@@ -66,8 +63,8 @@ class Search extends Component
             ->when($this->filterContracts != null, function ($q) {
                 return $q->whereIn('contract_id', $this->filterContracts);
             })
-            ->when($this->filterWorkmodes != null, function ($q) {
-                return $q->whereIn('workmode_id', $this->filterWorkmodes);
+            ->when($this->filterWorkModes != null, function ($q) {
+                return $q->whereIn('work_mode_id', $this->filterWorkModes);
             })
             ->paginate($this->perPage);
     }
@@ -82,7 +79,7 @@ class Search extends Component
         $this->reset('search');
         $this->reset('filterEmployments');
         $this->reset('filterContracts');
-        $this->reset('filterWorkmodes');
+        $this->reset('filterWorkModes');
     }
 
     public function updatedSearch()
@@ -100,7 +97,7 @@ class Search extends Component
         $this->resetPage();
     }
 
-    public function updatedFilterWorkmodes()
+    public function updatedFilterWorkModes()
     {
         $this->resetPage();
     }

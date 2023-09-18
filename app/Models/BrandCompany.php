@@ -9,5 +9,5 @@ class BrandCompany extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['brand_id', 'company_id'];
+    protected $table = 'brand_company';
 }

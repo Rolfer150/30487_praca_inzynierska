@@ -21,7 +21,7 @@ class EmploymentResource extends Resource
 
     protected static ?string $navigationLabel = 'Wymiary pracy';
 
-    protected static ?string $navigationGroup = 'Kontent';
+    protected static ?string $navigationGroup = 'Dane';
 
     public static function form(Form $form): Form
     {

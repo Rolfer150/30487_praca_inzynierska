@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ContractSeeder::class,
             EmploymentSeeder::class,
-            WorkmodeSeeder::class,
+            WorkModeSeeder::class,
             RoleSeeder::class,
             UserSeeder::class
         ]);

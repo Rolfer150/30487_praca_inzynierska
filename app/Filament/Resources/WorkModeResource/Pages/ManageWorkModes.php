@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\WorkmodeResource\Pages;
 
-use App\Filament\Resources\WorkmodeResource;
+use App\Filament\Resources\WorkModeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManageWorkmodes extends ManageRecords
+class ManageWorkModes extends ManageRecords
 {
-    protected static string $resource = WorkmodeResource::class;
+    protected static string $resource = WorkModeResource::class;
 
     protected function getHeaderActions(): array
     {

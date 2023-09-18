@@ -21,7 +21,7 @@ class Company extends Model
 
     public function brands(): BelongsToMany
     {
-        return $this->belongsToMany(Brand::class, 'brand_company', 'company_id', 'brand_id');
+        return $this->belongsToMany(Brand::class);
     }
 
     public function addresses(): HasMany

@@ -25,6 +25,8 @@ class OfferResource extends Resource
 
     protected static ?string $navigationLabel = 'Oferty';
 
+    protected static ?string $navigationGroup = 'Kontent';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -80,9 +82,9 @@ class OfferResource extends Resource
                         ->label("Rodzaj umowy")
                         ->relationship('contract', 'name')
                         ->required(),
-                    Forms\Components\Select::make('workmode_id')
+                    Forms\Components\Select::make('work_mode_id')
                         ->label("Tryb pracy")
-                        ->relationship('workmode', 'name')
+                        ->relationship('work_mode', 'name')
                         ->required(),
                     Forms\Components\FileUpload::make('image_path')
                         ->label("Logo firmy")
@@ -125,7 +127,7 @@ class OfferResource extends Resource
                     ->label("Rodzaj umowy")
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('workmode.name')
+                Tables\Columns\TextColumn::make('work_mode.name')
                     ->label("Tryb pracy")
                     ->numeric()
                     ->sortable(),
@@ -181,9 +183,9 @@ class OfferResource extends Resource
                     ->label("Rodzaje umowy")
                     ->relationship('contract', 'name'),
 
-                Tables\Filters\SelectFilter::make('workmode')
+                Tables\Filters\SelectFilter::make('work_mode')
                     ->label("Tryby pracy")
-                    ->relationship('workmode', 'name'),
+                    ->relationship('work_mode', 'name'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->float('min_salary')->nullable();
             $table->float('max_salary')->nullable();
             $table->enum('payment', PaymentType::values())
-                ->default('brutto/godz');
+                ->default(PaymentType::MBRUTTO);
             $table->integer('vacancy')->nullable();
             $table->foreignId('category_id')
                 ->nullable()
@@ -36,9 +36,9 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained('contracts')
                 ->cascadeOnDelete();
-            $table->foreignId('workmode_id')
+            $table->foreignId('work_mode_id')
                 ->nullable()
-                ->constrained('workmodes')
+                ->constrained('work_modes')
                 ->cascadeOnDelete();
             $table->boolean('active');
             $table->foreignIdFor(User::class, 'user_id');
