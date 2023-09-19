@@ -19,6 +19,7 @@ Route::get('/offers/search', [OfferController::class, 'search'])->name('sidewidg
 Route::get('/calculator', SalaryCalculator::class)->name('livewire.salary-calculator');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/myoffers', [OfferController::class, 'index'])->name('sidewidgets.myoffers');
     Route::get('/myoffers/addoffer', [OfferController::class, 'create'])->name('sidewidgets.addoffer');
     Route::post('/myoffers/store', [OfferController::class, 'store'])->name('sidewidgets.offerstore');
     Route::get('/myoffers/appliedoffers', [OfferApplicationController::class, 'index'])->name('sidewidgets.applyindex');

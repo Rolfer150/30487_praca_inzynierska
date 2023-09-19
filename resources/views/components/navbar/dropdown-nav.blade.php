@@ -19,6 +19,10 @@
                 {{ __('Profil') }}
             </x-dropdown-link>
 
+            <x-dropdown-link :href="route('sidewidgets.myoffers')">
+                {{ __('Moje Oferty') }}
+            </x-dropdown-link>
+
             <x-dropdown-link :href="route('sidewidgets.addoffer')">
                 {{ __('Dodaj Ofertę') }}
             </x-dropdown-link>

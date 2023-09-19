@@ -29,21 +29,30 @@ class OfferController extends Controller
         return view('home', compact('offers'));
     }
 
+//    public function showOffers(): View
+//    {
+//        $employments = Employment::employmentFilter();
+//        $contracts = Contract::contractFilter();
+//        $workmodes = WorkMode::workmodeFilter();
+//
+//        $new_offers = Offer::query()
+//            ->where('active', '=', 1)
+//            ->orderBy('created_at', 'desc')
+//            ->paginate(8);
+//
+//        return view('sidewidgets.offer', compact('new_offers'));
+//    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-//        $employments = Employment::employmentFilter();
-//        $contracts = Contract::contractFilter();
-//        $workmodes = WorkMode::workmodeFilter();
-
-        $new_offers = Offer::query()
-            ->where('active', '=', 1)
+        $myOffers = Offer::query()
+            ->where('user_id', '=', auth()->user()->id)
             ->orderBy('created_at', 'desc')
-            ->paginate(8);
-
-        return view('sidewidgets.offer', compact('new_offers'));
+            ->get();
+        return view('sidewidgets.myoffers', compact('myOffers'));
     }
 
     /**
@@ -99,9 +108,14 @@ class OfferController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $canApply = true;
-        if (auth()->user()) {
-            $canApply = !$offer->userHasApplied();
+        $canNotApply = '';
+
+        $user = auth()->user();
+        if ($user) {
+            if ($offer->isUsersOffer())
+                $canNotApply = 'userMadeThisOffer';
+            if ($offer->userHasApplied())
+                $canNotApply = 'userHasApplied';
         }
 
         $category_offers = Offer::query()
@@ -112,7 +126,7 @@ class OfferController extends Controller
             ->limit(6)
             ->get();
 
-        return view("sidewidgets.show", compact('offer', 'category_offers', 'canApply'));
+        return view("sidewidgets.show", compact('offer', 'category_offers', 'canNotApply'));
     }
 
     /**

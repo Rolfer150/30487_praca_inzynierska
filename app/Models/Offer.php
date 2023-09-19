@@ -61,6 +61,10 @@ class Offer extends Model
         return auth()->user()->id == $offerApplication->value('user_id')
             && $this->id == $offerApplication->value('offer_id');
     }
+    public function isUsersOffer(): bool
+    {
+        return auth()->user()->id == $this->user_id;
+    }
 
     public function getURLImage()
     {

@@ -34,17 +34,22 @@
         {{-- Prawy panel --}}
         <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 rounded-lg w-1/4">
             <div class="flex justify-center">
-                @if($canApply)
-                    <a href="{{route('sidewidgets.applyoffer', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                @if($canNotApply == 'userMadeThisOffer')
+                    <a href="{{route('sidewidgets.myoffers')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">
-                        APLIKUJ TERAZ
+                        ZOBACZ SZCZEGÓŁY TWOJEJ OFERTY
                     </a>
-                    @else
+                @elseif($canNotApply == 'userHasApplied')
                     <h1>Twoja aplikacja została już nadana.</h1>
                     <form method="get" action="{{route('sidewidgets.applyindex')}}">
                         <button type="submit" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">OBSERWUJ STATUS APLIKACJI</button>
                     </form>
+                    @else
+                    <a href="{{route('sidewidgets.applyoffer', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                transition-colors transition-colors content-center">
+                        APLIKUJ TERAZ
+                    </a>
                 @endif
 
             </div>

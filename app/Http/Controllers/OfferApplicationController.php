@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfferApplicationController extends Controller
 {
@@ -24,7 +25,7 @@ class OfferApplicationController extends Controller
     public function apply(Offer $offer): View
     {
         if ($offer->userHasApplied()) {
-            return redirect(view('sidewidgets.show')->with('warning', 'Aplikacja na daną ofertę pracy została już złożona!'));
+            throw new NotFoundHttpException('Aplikacja na daną ofertę pracy została już złożona!');
         }
         Session::put('id', $offer->id);
 
