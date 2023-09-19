@@ -27,6 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/myoffers/apply/{offer_application}', [OfferApplicationController::class, 'destroy'])->name('sidewidgets.applydestroy');
 
 
-    Route::get('/favourites', [FavouriteController::class, 'index'])->name('favourites');
+    Route::get('/myoffers/favourites', [FavouriteController::class, 'index'])->name('favourites');
     Route::delete('/favourites/{favourite}', [FavouriteController::class, 'destroy'])->name('favourites.destroy');
 });

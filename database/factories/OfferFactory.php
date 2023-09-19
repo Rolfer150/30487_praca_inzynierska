@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Employment;
 use App\Models\Contract;
+use App\Models\User;
 use App\Models\WorkMode;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -30,7 +31,7 @@ class OfferFactory extends Factory
             'description' => fake()->realText(4000),
             'active' => fake()->boolean,
             'vacancy' => fake()->numberBetween(1, 5),
-            'user_id' => 1,
+            'user_id' => User::inRandomOrder()->first()->id,
             'payment' => fake()->randomElement(PaymentType::cases()),
             'category_id' => Category::inRandomOrder()->first()->id,
             'employment_id' => Employment::inRandomOrder()->first()->id,

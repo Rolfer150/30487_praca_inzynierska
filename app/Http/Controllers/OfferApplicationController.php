@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OfferApplicationStatus;
 use App\Models\ApplicationFile;
 use App\Models\Offer;
 use App\Models\OfferApplication;
@@ -36,22 +37,27 @@ class OfferApplicationController extends Controller
         $sessionID = intval(Session::get('id'));
         $apply->offer_id = $sessionID;
 
+        $request->user()->offerApplications()->save($apply);
+
         if ($request->hasFile('filesUpload')) {
             foreach ($request->file('filesUpload') as $file) {
                 $fileName = $file->getClientOriginalName();
                 $appFile = new ApplicationFile;
                 $appFile->name = $fileName;
                 $request->user()->applicationFiles()->save($appFile);
+
+                $apply->applicationFiles()->attach($appFile->id);
             }
         }
 
-        $request->user()->offerApplications()->save($apply);
-
-        return redirect(route('home'));
+        return redirect(route('home'))->with('status', 'Aplikowanie zakończono pomyślnie!');
     }
 
-    public function destroy(Offer $offer)
+    public function destroy(OfferApplication $offerApplication)
     {
-        dd($offer);
+        $offerApplication->status = OfferApplicationStatus::ANNULLED->value;
+        $offerApplication->save();
+        $offerApplication->delete();
+        return redirect(route('sidewidgets.applyindex'));
     }
 }

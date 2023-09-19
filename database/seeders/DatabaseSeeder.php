@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class
         ]);
-        Offer::factory(300)->create();
         User::factory(80)->create()->each(function ($user)
         {
             $user->assignRole('user');
         });
+        Offer::factory(300)->create();
     }
 }

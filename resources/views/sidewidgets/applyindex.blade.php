@@ -10,10 +10,10 @@
             <p>{{$apply->offer->name}}</p>
             <p>{{$apply->status}}</p>
         </div>
-{{--        <form method="post" action="{{route('favourites.destroy', $favourite->id)}}">--}}
-{{--            @csrf--}}
-{{--            @method('DELETE')--}}
-{{--            <button type="submit">Usuń</button>--}}
-{{--        </form>--}}
+        <form method="post" action="{{route('sidewidgets.applydestroy', $apply->id)}}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Usuń</button>
+        </form>
     @endforeach
 </x-app-layout>

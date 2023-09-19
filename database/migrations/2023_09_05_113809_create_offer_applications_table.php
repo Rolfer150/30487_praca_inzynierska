@@ -21,9 +21,7 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained('offers');
             $table->timestamps();
-            $table->foreignId('app_files_id')
-                ->nullable()
-                ->constrained('application_files');
+            $table->softDeletes();
         });
     }
 

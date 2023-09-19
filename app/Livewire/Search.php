@@ -32,15 +32,23 @@ class Search extends Component
     {
         $employments = Employment::employmentFilter();
         $contracts = Contract::contractFilter();
-        $workModes = WorkMode::workmodeFilter();
+        $workModes = WorkMode::workModeFilter();
         $messSortOffer = $this->messageSortOffer;
+        $offers = $this->offerRender();
 
-        if ($this->sortOffer === 'old') {
+        if ($this->sortOffer === 'new')
+        {
+            $messSortOffer;
+        }
+        elseif ($this->sortOffer === 'old') {
             $offers = $this->offerRender('created_at', 'asc');
             $messSortOffer = 'Najstarsze oferty';
-        } else {
-            $offers = $this->offerRender();
-            $messSortOffer;
+        }
+        elseif ($this->sortOffer === 'popular') {
+            $messSortOffer = 'Najpopularniejsze oferty';
+        }
+        elseif ($this->sortOffer === 'near') {
+            $messSortOffer = 'Oferty znajdujące się w Twojej okolicy';
         }
 
         return view('livewire.search', compact(
