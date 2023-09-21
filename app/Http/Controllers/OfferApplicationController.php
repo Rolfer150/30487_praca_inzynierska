@@ -24,9 +24,8 @@ class OfferApplicationController extends Controller
 
     public function apply(Offer $offer): View
     {
-        if ($offer->userHasApplied()) {
-            throw new NotFoundHttpException('Aplikacja na daną ofertę pracy została już złożona!');
-        }
+        abort_if($offer->userHasApplied(),404);
+        
         Session::put('id', $offer->id);
 
         return view('sidewidgets.applyoffer', compact('offer'));

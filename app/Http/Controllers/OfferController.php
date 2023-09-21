@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PaymentType;
+use App\Http\Requests\CreateOfferRequest;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
-use App\Models\OfferApplication;
 use App\Models\WorkMode;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfferController extends Controller
 {
@@ -85,7 +84,7 @@ class OfferController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CreateOfferRequest $request): RedirectResponse
     {
         $offer = new Offer($request->all());
         $offer->slug = Str::slug($request->name);
@@ -94,7 +93,7 @@ class OfferController extends Controller
 //        dd($request->input());
         $request->user()->offers()->save($offer);
 
-        return redirect(route('home'));
+        return redirect(route('home'))->with('message', 'Oferta została dodana!');
     }
 
     /**
@@ -104,8 +103,12 @@ class OfferController extends Controller
      */
     public function show(Offer $offer): View
     {
-        if (!$offer->active) {
-            throw new NotFoundHttpException();
+        try {
+            $offer::where('id', '=', $offer->id)
+                ->where('active', '=', 1)
+                ->firstOrFail();
+        } catch (\Exception $exception) {
+            return view('errors.offerNotActive');
         }
 
         $canNotApply = '';

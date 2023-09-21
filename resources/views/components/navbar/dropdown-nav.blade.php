@@ -19,6 +19,10 @@
                 {{ __('Profil') }}
             </x-dropdown-link>
 
+            <x-dropdown-link :href="route('sidewidgets.notificationsindex')">
+                {{  __('Powiadomienia') }}
+            </x-dropdown-link>
+
             <x-dropdown-link :href="route('sidewidgets.myoffers')">
                 {{ __('Moje Oferty') }}
             </x-dropdown-link>
@@ -27,7 +31,7 @@
                 {{ __('Dodaj Ofertę') }}
             </x-dropdown-link>
 
-            <x-dropdown-link :href="route('favourites')">
+            <x-dropdown-link :href="route('sidewidgets.favouritesindex')">
                 {{ __('Obserwowane') }}
             </x-dropdown-link>
 

@@ -7,6 +7,7 @@ use App\Models\Employment;
 use App\Models\Offer;
 use App\Models\WorkMode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -40,14 +41,17 @@ class Search extends Component
         {
             $messSortOffer;
         }
-        elseif ($this->sortOffer === 'old') {
+        elseif ($this->sortOffer === 'old')
+        {
             $offers = $this->offerRender('created_at', 'asc');
             $messSortOffer = 'Najstarsze oferty';
         }
-        elseif ($this->sortOffer === 'popular') {
+        elseif ($this->sortOffer === 'popular')
+        {
             $messSortOffer = 'Najpopularniejsze oferty';
         }
-        elseif ($this->sortOffer === 'near') {
+        elseif ($this->sortOffer === 'near')
+        {
             $messSortOffer = 'Oferty znajdujące się w Twojej okolicy';
         }
 
@@ -61,21 +65,31 @@ class Search extends Component
     {
         return Offer::query()
             ->where('active', '=', 1)
-            ->when($this->sortOffer === 'new' || $this->sortOffer === 'old', function ($q) use ($value, $sorting) {
+            ->when($this->sortOffer === 'new' || $this->sortOffer === 'old', function ($q) use ($value, $sorting)
+            {
                 return $q->orderBy($value, $sorting);
             })
             ->search($this->search)
-            ->when($this->filterEmployments != null, function ($q) {
+            ->when($this->filterEmployments != null, function ($q)
+            {
                 return $q->whereIn('employment_id', $this->filterEmployments);
             })
-            ->when($this->filterContracts != null, function ($q) {
+            ->when($this->filterContracts != null, function ($q)
+            {
                 return $q->whereIn('contract_id', $this->filterContracts);
             })
-            ->when($this->filterWorkModes != null, function ($q) {
+            ->when($this->filterWorkModes != null, function ($q)
+            {
                 return $q->whereIn('work_mode_id', $this->filterWorkModes);
             })
             ->paginate($this->perPage);
+//        return $this;
     }
+
+//    public function getEmploymentSum()
+//    {
+//        return $sumWithEmployment = $this->offerRender()->select(DB::raw('count(*)'));
+//    }
 
     public function searchFilter()
     {
