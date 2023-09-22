@@ -1,18 +1,7 @@
 <x-app-layout>
     <h3>Powiadomienia</h3>
-    {{--    @foreach($favourites as $favourite)--}}
-    {{--        <x-offer-item :offer="$favourite" wire:key="{{$favourite->id}}"></x-offer-item>--}}
-    {{--    @endforeach--}}
-{{--    @foreach($favourites as $favourite)--}}
-{{--        <div class="bg-gray-500 text-white">--}}
-{{--            <p>{{$favourite->id}}</p>--}}
-{{--            <p>{{$favourite->name}}</p>--}}
-{{--            <p>{{$favourite->shortDescription()}}</p>--}}
-{{--        </div>--}}
-{{--        <form method="post" action="{{route('sidewidgets.favouritesdestroy', $favourite->id)}}">--}}
-{{--            @csrf--}}
-{{--            @method('DELETE')--}}
-{{--            <button type="submit">Usuń</button>--}}
-{{--        </form>--}}
-{{--    @endforeach--}}
+        @foreach(auth()->user()->notifications as $notification)
+            <label>{{ $notification->data['title']}}</label>
+            <p>{{ $notification->created_at }} {{$notification->data['description']}}</p>
+        @endforeach
 </x-app-layout>

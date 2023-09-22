@@ -6,6 +6,8 @@ use App\Enums\OfferApplicationStatus;
 use App\Models\ApplicationFile;
 use App\Models\Offer;
 use App\Models\OfferApplication;
+use App\Notifications\ApplicationReceivedNotification;
+use App\Notifications\ApplicationSentNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -25,7 +27,7 @@ class OfferApplicationController extends Controller
     public function apply(Offer $offer): View
     {
         abort_if($offer->userHasApplied(),404);
-        
+
         Session::put('id', $offer->id);
 
         return view('sidewidgets.applyoffer', compact('offer'));
@@ -49,6 +51,10 @@ class OfferApplicationController extends Controller
                 $apply->applicationFiles()->attach($appFile->id);
             }
         }
+
+        auth()->user()->notify(new ApplicationSentNotification($apply));
+        $owner = $apply->offer->user;
+        $owner->notify(new ApplicationReceivedNotification($apply));
 
         return redirect(route('home'))->with('status', 'Aplikowanie zakończono pomyślnie!');
     }

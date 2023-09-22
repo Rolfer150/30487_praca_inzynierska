@@ -9,6 +9,7 @@ use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
 use App\Models\WorkMode;
+use App\Notifications\OfferCreatedNotification;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -92,6 +93,7 @@ class OfferController extends Controller
         $offer->created_at = Carbon::now();
 //        dd($request->input());
         $request->user()->offers()->save($offer);
+//        auth()->user()->notify(new OfferCreatedNotification());
 
         return redirect(route('home'))->with('message', 'Oferta została dodana!');
     }

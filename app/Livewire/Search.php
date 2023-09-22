@@ -37,11 +37,7 @@ class Search extends Component
         $messSortOffer = $this->messageSortOffer;
         $offers = $this->offerRender();
 
-        if ($this->sortOffer === 'new')
-        {
-            $messSortOffer;
-        }
-        elseif ($this->sortOffer === 'old')
+        if ($this->sortOffer === 'old')
         {
             $offers = $this->offerRender('created_at', 'asc');
             $messSortOffer = 'Najstarsze oferty';
@@ -69,7 +65,6 @@ class Search extends Component
             {
                 return $q->orderBy($value, $sorting);
             })
-            ->search($this->search)
             ->when($this->filterEmployments != null, function ($q)
             {
                 return $q->whereIn('employment_id', $this->filterEmployments);
@@ -82,6 +77,7 @@ class Search extends Component
             {
                 return $q->whereIn('work_mode_id', $this->filterWorkModes);
             })
+            ->search($this->search)
             ->paginate($this->perPage);
 //        return $this;
     }
