@@ -1,6 +1,6 @@
 <x-app-layout>
     <h3>Oferty Obserwowane</h3>
-    {{--    @foreach($favourites as $favourite)--}}
+    {{--    @foreach($favourite as $favourite)--}}
     {{--        <x-offer-item :offer="$favourite" wire:key="{{$favourite->id}}"></x-offer-item>--}}
     {{--    @endforeach--}}
     @foreach($favourites as $favourite)

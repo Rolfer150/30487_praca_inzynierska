@@ -22,9 +22,12 @@ class CreateOfferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'category' => 'required',
-
+            'name' => ['required', 'unique:offers', 'max:64'],
+            'slug' => ['required', 'unique:offers', 'max:80'],
+            'category_id' => ['required'],
+            'employment_id' => ['required'],
+            'contract_id' => ['required'],
+            'work_mode_id' => ['required'],
         ];
     }
 }

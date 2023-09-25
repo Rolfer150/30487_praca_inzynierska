@@ -2,12 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
 use App\Models\WorkMode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,11 +28,15 @@ class Search extends Component
     #[Url(history: true)]
     public array $filterWorkModes = [];
 
+    #[Url(history: true)]
+    public array $filterCategories = [];
+
     public function render()
     {
         $employments = Employment::employmentFilter();
         $contracts = Contract::contractFilter();
         $workModes = WorkMode::workModeFilter();
+        $categories = Category::categoryFilter();
         $messSortOffer = $this->messageSortOffer;
         $offers = $this->offerRender();
 
@@ -52,7 +55,7 @@ class Search extends Component
         }
 
         return view('livewire.search', compact(
-            'employments', 'contracts', 'workModes', 'offers', 'messSortOffer'
+            'employments', 'contracts', 'workModes', 'offers', 'messSortOffer', 'categories'
         ))
             ->layout('layouts.app');
     }
@@ -77,6 +80,10 @@ class Search extends Component
             {
                 return $q->whereIn('work_mode_id', $this->filterWorkModes);
             })
+            ->when($this->filterCategories != null, function ($q)
+            {
+                return $q->whereIn('category_id', $this->filterCategories);
+            })
             ->search($this->search)
             ->paginate($this->perPage);
 //        return $this;
@@ -98,6 +105,7 @@ class Search extends Component
         $this->reset('filterEmployments');
         $this->reset('filterContracts');
         $this->reset('filterWorkModes');
+        $this->reset('filterCategories');
     }
 
     public function updatedSearch()
@@ -116,6 +124,10 @@ class Search extends Component
     }
 
     public function updatedFilterWorkModes()
+    {
+        $this->resetPage();
+    }
+    public function updatedFilterCategories()
     {
         $this->resetPage();
     }

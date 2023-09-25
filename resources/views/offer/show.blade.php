@@ -4,7 +4,7 @@
         <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 w-3/4 rounded-lg">
             <div class="flex">
                 <div class="w-36 l-36">
-                    <img alt="alt="{{$offer->slug}}"" class="rounded-md object-cover" src="{{$offer->getURLImage()}}" />
+                    <img alt="{{$offer->slug}}" class="rounded-md object-cover" src="{{$offer->getURLImage()}}" />
                 </div>
                 <div class="pl-4">
                     <div class="flex items-center">
@@ -35,7 +35,7 @@
         <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 rounded-lg w-1/4">
             <div class="flex justify-center">
                 @if($canNotApply == 'userMadeThisOffer')
-                    <a href="{{route('sidewidgets.myoffers')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                    <a href="{{route('offer.myoffers')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">
                         ZOBACZ SZCZEGÓŁY TWOJEJ OFERTY
                     </a>
@@ -46,7 +46,7 @@
                 transition-colors transition-colors content-center">OBSERWUJ STATUS APLIKACJI</button>
                     </form>
                     @else
-                    <a href="{{route('sidewidgets.applyoffer', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                    <a href="{{route('offer-application.index', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">
                         APLIKUJ TERAZ
                     </a>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Offer extends Model
@@ -45,7 +46,7 @@ class Offer extends Model
         return $this->BelongsTo(Payment::class);
     }
 
-    public function work_mode(): BelongsTo
+    public function workMode(): BelongsTo
     {
         return $this->BelongsTo(WorkMode::class);
     }
@@ -53,6 +54,11 @@ class Offer extends Model
     public function offerApplications(): HasMany
     {
         return $this->hasMany(OfferApplication::class);
+    }
+
+    public function questionnaire(): HasOne
+    {
+        return $this->hasOne(Questionnaire::class);
     }
 
     public function userHasApplied(): bool

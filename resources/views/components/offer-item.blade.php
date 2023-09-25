@@ -1,6 +1,6 @@
 <div class="dark:bg-gray-900 h-48 mt-6 hover:text-gray-300 rounded-lg rounded-lg border-[1px]
 border-gray-300 dark:border-0 m-1">
-    <a href="{{route('sidewidgets.show', $offer)}}">
+    <a href="{{route('offer.show', $offer)}}">
         <div class="p-2 gap-4">
             <div class="pb-1 pl-2 flex items-center">
                 <h3 class="w-3/4 text-lg text-gray-600 dark:text-gray-400">{{$offer->name}}</h3>
@@ -20,7 +20,7 @@ border-gray-300 dark:border-0 m-1">
                     @else
                         Brak kategorii
                     @endif</h3>
-                <h3 class="text-gray-600 dark:text-gray-400">{{$offer->work_mode->name}}</h3>
+                <h3 class="text-gray-600 dark:text-gray-400">{{$offer->workMode->name}}</h3>
             </div>
         </div>
         <div class="p-2 flex items-center justify-center gap-2">

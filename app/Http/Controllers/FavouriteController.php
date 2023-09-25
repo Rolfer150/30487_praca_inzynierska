@@ -15,11 +15,11 @@ class FavouriteController extends Controller
     public function index(): View
     {
         $favourites = Offer::query()
-            ->join('favourites', 'favourites.offer_id', '=', 'offers.id')
-            ->where('favourites.user_id', '=', auth()->user()->id)
-            ->orderBy('favourites.created_at', 'desc')
+            ->join('favourite', 'favourite.offer_id', '=', 'offers.id')
+            ->where('favourite.user_id', '=', auth()->user()->id)
+            ->orderBy('favourite.created_at', 'desc')
             ->get();
-        return view('sidewidgets.favourites', compact('favourites'));
+        return view('sidewidgets.favourite', compact('favourites'));
     }
 
     /**
@@ -68,6 +68,6 @@ class FavouriteController extends Controller
     public function destroy(Favourite $favourite)
     {
         $favourite->delete();
-        return redirect(route('favourites'));
+        return redirect(route('favourite'));
     }
 }

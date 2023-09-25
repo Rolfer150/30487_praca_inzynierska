@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -58,6 +56,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function company(): HasOne
     {
         return $this->hasOne(Company::class);
+    }
+
+    public function questionnaires(): HasMany
+    {
+        return $this->hasMany(Questionnaire::class);
     }
 
     public function offerApplications(): HasMany

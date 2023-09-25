@@ -19,23 +19,23 @@
                 {{ __('Profil') }}
             </x-dropdown-link>
 
-            <x-dropdown-link :href="route('sidewidgets.notificationsindex')">
+            <x-dropdown-link :href="route('notification.index')">
                 {{  __('Powiadomienia') }}
             </x-dropdown-link>
 
-            <x-dropdown-link :href="route('sidewidgets.myoffers')">
+            <x-dropdown-link :href="route('offer.myoffers')">
                 {{ __('Moje Oferty') }}
             </x-dropdown-link>
 
-            <x-dropdown-link :href="route('sidewidgets.addoffer')">
-                {{ __('Dodaj Ofertę') }}
+            <x-dropdown-link :href="route('questionnaire.index')">
+                {{__('Ankiety')}}
             </x-dropdown-link>
 
-            <x-dropdown-link :href="route('sidewidgets.favouritesindex')">
+            <x-dropdown-link :href="route('favourite.index')">
                 {{ __('Obserwowane') }}
             </x-dropdown-link>
 
-            <x-dropdown-link :href="route('sidewidgets.applyindex')">
+            <x-dropdown-link :href="route('offer-application.index')">
                 {{ __('Moje Aplikacje') }}
             </x-dropdown-link>
 

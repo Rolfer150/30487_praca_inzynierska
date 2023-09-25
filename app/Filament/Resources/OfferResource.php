@@ -38,7 +38,7 @@ class OfferResource extends Resource
                                 ->label("Tytuł Oferty")
                                 ->required()
                                 ->maxLength(64)
-                                ->unique()
+                                ->unique(ignorable: fn($record) => $record)
                                 ->live(onBlur: true)
                                 ->afterStateUpdated(function (string $operation, $state, Forms\Set $set) {
                                     if ($operation !== 'create') {
@@ -50,6 +50,7 @@ class OfferResource extends Resource
                             Forms\Components\TextInput::make('slug')
                                 ->label("Slug")
                                 ->required()
+                                ->unique(ignorable: fn($record) => $record)
                                 ->maxLength(2048),
                             Forms\Components\TextInput::make('salary')
                                 ->numeric()
@@ -84,7 +85,7 @@ class OfferResource extends Resource
                         ->required(),
                     Forms\Components\Select::make('work_mode_id')
                         ->label("Tryb pracy")
-                        ->relationship('work_mode', 'name')
+                        ->relationship('workMode', 'name')
                         ->required(),
                     Forms\Components\FileUpload::make('image_path')
                         ->label("Logo firmy")
@@ -185,7 +186,7 @@ class OfferResource extends Resource
 
                 Tables\Filters\SelectFilter::make('work_mode')
                     ->label("Tryby pracy")
-                    ->relationship('work_mode', 'name'),
+                    ->relationship('workMode', 'name'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

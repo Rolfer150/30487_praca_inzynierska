@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="md:flex gap-x-6 p-3 justify-center">
-        <form method="POST" action="{{ route('sidewidgets.offerstore') }}">
+        <form method="POST" action="{{ route('offer.store') }}">
             @csrf
             <div class="flex flex-col items-center">
                 <div class="bg-white dark:bg-gray-800/50">

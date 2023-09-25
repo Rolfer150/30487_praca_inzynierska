@@ -4,38 +4,43 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferApplicationController;
-use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\QuestionnaireController;
 use App\Livewire\SalaryCalculator;
 use App\Livewire\Search;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/offers', [OfferController::class, 'index'])->name('sidewidgets.offer');
-Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('sidewidgets.show');
-
+Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('offer.show');
 
 Route::get('/offers', Search::class)->name('livewire.search');
-Route::get('/offers/search', [OfferController::class, 'search'])->name('sidewidgets.search');
+//Route::get('/offers/search', [OfferController::class, 'search'])->name('sidewidgets.search');
 
 
 Route::get('/calculator', SalaryCalculator::class)->name('livewire.salary-calculator');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'myoffers'], function () {
-        Route::get('/', [OfferController::class, 'index'])->name('sidewidgets.myoffers');
-        Route::get('/addoffer', [OfferController::class, 'create'])->name('sidewidgets.addoffer');
-        Route::post('/store', [OfferController::class, 'store'])->name('sidewidgets.offerstore');
-        Route::get('/appliedoffers', [OfferApplicationController::class, 'index'])->name('sidewidgets.applyindex');
-        Route::get('/apply/{offer:slug}', [OfferApplicationController::class, 'apply'])->name('sidewidgets.applyoffer');
-        Route::post('/apply/store', [OfferApplicationController::class, 'store'])->name('sidewidgets.applystore');
-        Route::delete('/apply/{offer_application}', [OfferApplicationController::class, 'destroy'])->name('sidewidgets.applydestroy');
+        Route::get('/', [OfferController::class, 'index'])->name('offer.myoffers');
+        Route::get('/addoffer', [OfferController::class, 'create'])->name('offer.create');
+        Route::post('/store', [OfferController::class, 'store'])->name('offer.store');
+        Route::get('/appliedoffers', [OfferApplicationController::class, 'index'])->name('offer-application.index');
+        Route::get('/apply/{offer:slug}', [OfferApplicationController::class, 'apply'])->name('offer-application.create');
+        Route::post('/apply/store', [OfferApplicationController::class, 'store'])->name('offer-application.store');
+        Route::delete('/apply/{offer_application}', [OfferApplicationController::class, 'destroy'])->name('offer-application.destroy');
     });
 
-    Route::group(['prefix' => 'favourites'], function () {
-        Route::get('/', [FavouriteController::class, 'index'])->name('sidewidgets.favouritesindex');
-        Route::delete('/{favourite}', [FavouriteController::class, 'destroy'])->name('sidewidgets.favouritesdestroy');
+    Route::group(['prefix' => 'favourite'], function () {
+        Route::get('/', [FavouriteController::class, 'index'])->name('favourite.index');
+        Route::delete('/{favourite}', [FavouriteController::class, 'destroy'])->name('favourite.destroy');
     });
 
     Route::group(['prefix' => 'notifications'], function () {
-        Route::get('/', [NotificationController::class, 'index'])->name('sidewidgets.notificationsindex');
+        Route::get('/', [NotificationController::class, 'index'])->name('notification.index');
+    });
+
+    Route::group(['prefix' => 'questionnaire'], function () {
+        Route::get('/',[QuestionnaireController::class, 'index'])->name('questionnaire.index');
+        Route::get('/create', [QuestionnaireController::class, 'create'])->name('questionnaire.create');
+        Route::post('/store', [QuestionnaireController::class, 'store'])->name('questionnaire.store');
     });
 });

@@ -21,7 +21,7 @@ class OfferApplicationController extends Controller
         $applies = OfferApplication::query()
             ->where('user_id', '=', auth()->user()->id)
             ->get();
-        return view('sidewidgets.applyindex', compact('applies'));
+        return view('offerapplication.index', compact('applies'));
     }
 
     public function apply(Offer $offer): View
@@ -30,7 +30,7 @@ class OfferApplicationController extends Controller
 
         Session::put('id', $offer->id);
 
-        return view('sidewidgets.applyoffer', compact('offer'));
+        return view('offerapplication.create', compact('offer'));
     }
 
     public function store(Request $request): RedirectResponse

@@ -52,7 +52,7 @@ class OfferController extends Controller
             ->where('user_id', '=', auth()->user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('sidewidgets.myoffers', compact('myOffers'));
+        return view('offer.myoffers', compact('myOffers'));
     }
 
     /**
@@ -79,7 +79,7 @@ class OfferController extends Controller
         $workmodes = WorkMode::query()
             ->select('id', 'name')
             ->get();
-        return view('sidewidgets.addoffer', compact('categories', 'payments', 'employments', 'contracts', 'workmodes'));
+        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'workmodes'));
     }
 
     /**
@@ -131,7 +131,7 @@ class OfferController extends Controller
             ->limit(6)
             ->get();
 
-        return view("sidewidgets.show", compact('offer', 'category_offers', 'canNotApply'));
+        return view("offer.show", compact('offer', 'category_offers', 'canNotApply'));
     }
 
     /**
