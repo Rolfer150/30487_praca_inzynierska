@@ -5,6 +5,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferApplicationController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Livewire\QuestionnaireForm;
 use App\Livewire\SalaryCalculator;
 use App\Livewire\Search;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'questionnaire'], function () {
         Route::get('/',[QuestionnaireController::class, 'index'])->name('questionnaire.index');
-        Route::get('/create', [QuestionnaireController::class, 'create'])->name('questionnaire.create');
+        Route::get('/create', QuestionnaireForm::class)->name('livewire.questionnaire');
         Route::post('/store', [QuestionnaireController::class, 'store'])->name('questionnaire.store');
     });
 });

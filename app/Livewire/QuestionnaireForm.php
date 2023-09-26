@@ -4,14 +4,33 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Questionnaire;
+use Illuminate\Http\Request;
 
 class QuestionnaireForm extends Component
 {
-    public int $questionCounter = 1;
+    public $questions = [''];
+    public array $inputs = [];
 
     public function render()
     {
-        $questionCounter = $this->questionCounter;
-        return view('livewire.questionnaire', compact('questionCounter'));
+        return view('livewire.questionnaire')
+            ->layout('layouts.app');
+    }
+
+    public function addQuestion()
+    {
+        $this->questions[] = '';
+    }
+
+    public function removeQuestion($key)
+    {
+        unset($this->questions[$key]);
+        $this->questions = array_values($this->questions);
+    }
+
+    public function submit()
+    {
+        echo ('Cześć');
+
     }
 }

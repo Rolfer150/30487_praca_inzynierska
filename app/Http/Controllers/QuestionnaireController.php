@@ -29,6 +29,11 @@ class QuestionnaireController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
+        $questionnaire = new Questionnaire;
+//        foreach ()
+        $questionnaire->questions()->create()
+
         return redirect(route('questionnaire.index'));
     }
 
