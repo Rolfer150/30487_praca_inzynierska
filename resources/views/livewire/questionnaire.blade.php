@@ -10,18 +10,23 @@
                     <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                 </div>
                 <button wire:click.prevent="addQuestion()">Dodaj Pytanie</button>
-                @foreach($questions as $key => $value)
+                @foreach($questions as $qkey => $qvalue)
                     <div class="bg-white dark:bg-gray-800/50 mt-6">
                         <div>
-                            <input type="text" placeholder="Wprowadź pytanie" name="question.{{$key}}" wire:model="questions.{{$key}}">
+                            <label>Tytuł pytania {{$qkey}}</label>
+                            <input type="text" placeholder="Wprowadź pytanie" name="question.{{$qkey}}[name]" wire:model="questions.{{$qkey}}">
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800/50 mt-6">
-                        <div>
-                            <input type="text" placeholder="Wprowadź odpowiedź" name="answer.{{$key}}" wire:model="answer.{{$key}}">
+                    <button wire:click.prevent="addAnswer({{$qkey}})">Dodaj Odpowiedź {{$qkey}}</button>
+                    @foreach($answers as $akey => $avalue)
+                        <div class="bg-white dark:bg-gray-800/50 mt-6">
+                            <div>
+                                <input type="text" placeholder="Wprowadź odpowiedź" name="question.{{$qkey}}[answer.{{$akey}}][name]" wire:model="answer.{{$akey}}">
+                            </div>
                         </div>
-                    </div>
-                    <button wire:click.prevent="removeQuestion({{$key}})">Usuń Pytanie</button>
+                    @endforeach
+
+                    <button wire:click.prevent="removeQuestion({{$qkey}})">Usuń Pytanie</button>
                 @endforeach
                 <x-primary-button class="ml-3">
                     {{ __('Potwierdź') }}

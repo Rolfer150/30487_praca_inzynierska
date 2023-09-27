@@ -3,13 +3,13 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Questionnaire;
 use Illuminate\Http\Request;
 
 class QuestionnaireForm extends Component
 {
-    public $questions = [''];
-    public array $inputs = [];
+    public array $questions = [];
+
+    public array $answers = [];
 
     public function render()
     {
@@ -28,9 +28,16 @@ class QuestionnaireForm extends Component
         $this->questions = array_values($this->questions);
     }
 
-    public function submit()
+    public function addAnswer($key)
     {
-        echo ('Cześć');
-
+        $this->answers[] = '';
+//        array_push($this->questions, $this->answers[] = '');
     }
+
+    public function removeAnswer($key)
+    {
+        unset($this->answers[$key]);
+        $this->answers = array_values($this->answers);
+    }
+
 }

@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
+            $table->enum();
             $table->foreignIdFor(Questionnaire::class, 'questionnaire_id');
             $table->timestamps();
         });

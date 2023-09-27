@@ -13,7 +13,11 @@ class QuestionnaireController extends Controller
      */
     public function index()
     {
-        return view('questionnaire.index');
+        $questionnaires = Questionnaire::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        return view('questionnaire.index', compact('questionnaires'));
     }
 
     /**
@@ -29,10 +33,9 @@ class QuestionnaireController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
+        dd($request->all());
         $questionnaire = new Questionnaire;
-//        foreach ()
-        $questionnaire->questions()->create()
+        $questionnaire->questions()->create();
 
         return redirect(route('questionnaire.index'));
     }
