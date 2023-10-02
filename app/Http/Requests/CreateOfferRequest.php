@@ -11,7 +11,7 @@ class CreateOfferRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,6 @@ class CreateOfferRequest extends FormRequest
     {
         return [
             'name' => ['required', 'unique:offers', 'max:64'],
-            'slug' => ['required', 'unique:offers', 'max:80'],
             'category_id' => ['required'],
             'employment_id' => ['required'],
             'contract_id' => ['required'],

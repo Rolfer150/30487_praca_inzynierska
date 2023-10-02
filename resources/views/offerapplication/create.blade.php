@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('sidewidgets.applystore', $offer->id) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('offer-application.store', $offer->id) }}" enctype="multipart/form-data">
         @csrf
         <p name="applyID">{{$offer->id}}</p>
 {{--        <x-input-label for="name" :value="__('Imię')"/>--}}

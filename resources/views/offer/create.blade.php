@@ -9,7 +9,7 @@
                                   required autofocus autocomplete="name"/>
                     <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                 </div>
-                <div class="bg-white dark:bg-gray-800/50">
+                <div class="bg-white d ark:bg-gray-800/50">
                     <x-input-label for="category" :value="__('Kategoria')"/>
                     <select name="category"
                             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">

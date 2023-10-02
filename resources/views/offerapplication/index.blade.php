@@ -10,7 +10,7 @@
             <p>{{$apply->offer->name}}</p>
             <p>{{$apply->status}}</p>
         </div>
-        <form method="post" action="{{route('sidewidgets.applydestroy', $apply->id)}}">
+        <form method="post" action="{{route('offer-application.destroy', $apply->id)}}">
             @csrf
             @method('DELETE')
             <button type="submit">Usuń</button>

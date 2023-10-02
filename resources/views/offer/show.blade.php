@@ -41,12 +41,12 @@
                     </a>
                 @elseif($canNotApply == 'userHasApplied')
                     <h1>Twoja aplikacja została już nadana.</h1>
-                    <form method="get" action="{{route('sidewidgets.applyindex')}}">
+                    <form method="get" action="{{route('offer-application.index')}}">
                         <button type="submit" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">OBSERWUJ STATUS APLIKACJI</button>
                     </form>
                     @else
-                    <a href="{{route('offer-application.index', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
+                    <a href="{{route('offer-application.create', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
                 transition-colors transition-colors content-center">
                         APLIKUJ TERAZ
                     </a>

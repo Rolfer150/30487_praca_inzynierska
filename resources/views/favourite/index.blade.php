@@ -9,7 +9,7 @@
             <p>{{$favourite->name}}</p>
             <p>{{$favourite->shortDescription()}}</p>
         </div>
-        <form method="post" action="{{route('sidewidgets.favouritesdestroy', $favourite->id)}}">
+        <form method="post" action="{{route('favourite.destroy', $favourite->id)}}">
             @csrf
             @method('DELETE')
             <button type="submit">Usuń</button>

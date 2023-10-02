@@ -92,7 +92,7 @@
 
         <div class="p-3">
             <div class="flex justify-between">
-                <h2 wire:model="sortOffer" class="text-2xl text-gray-900 dark:text-gray-400">{{$messSortOffer}}</h2>
+                <h2 wire:model="sortOffer" class="text-3xl text-gray-900 dark:text-gray-400">{{$messSortOffer}}</h2>
                 <div>
                     <label>Sortuj według</label>
                     <select wire:model.live="sortOffer">
