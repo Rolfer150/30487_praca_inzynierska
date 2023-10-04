@@ -1,39 +1,43 @@
 {{--<x-app-layout>--}}
-    <div class="md:flex gap-x-6 p-3 justify-center">
-        <form method="POST" action="{{ route('questionnaire.store') }}">
-            @csrf
-            <div class="flex flex-col items-center">
-                <div class="bg-white dark:bg-gray-800/50">
-                    <x-input-label for="name" :value="__('Tytuł Ankiety')"/>
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                                  required autofocus autocomplete="name"/>
-                    <x-input-error :messages="$errors->get('name')" class="mt-2"/>
-                </div>
-                <button wire:click.prevent="addQuestion()">Dodaj Pytanie</button>
-                @foreach($questions as $qkey => $qvalue)
-                    <div class="bg-white dark:bg-gray-800/50 mt-6">
-                        <div>
-                            <label>Tytuł pytania {{$qkey}}</label>
-                            <input type="text" placeholder="Wprowadź pytanie" name="question.{{$qkey}}[name]" wire:model="questions.{{$qkey}}">
-                        </div>
-                    </div>
-                    <button wire:click.prevent="addAnswer({{$qkey}})">Dodaj Odpowiedź {{$qkey}}</button>
-                    @foreach($answers as $akey => $avalue)
-                        <div class="bg-white dark:bg-gray-800/50 mt-6">
-                            <div>
-                                <input type="text" placeholder="Wprowadź odpowiedź" name="question.{{$qkey}}[answer.{{$akey}}][name]" wire:model="answer.{{$akey}}">
-                            </div>
-                        </div>
-                    @endforeach
-
-                    <button wire:click.prevent="removeQuestion({{$qkey}})">Usuń Pytanie</button>
-                @endforeach
-                <x-primary-button class="ml-3">
-                    {{ __('Potwierdź') }}
-                </x-primary-button>
+{{--    <div class="md:flex gap-x-6 p-3 justify-center">--}}
+{{--        <form method="POST" action="{{ route('questionnaire.store') }}">--}}
+{{--            @csrf--}}
+{{--            <div class="flex flex-col items-center">--}}
+{{--                <div class="bg-white dark:bg-gray-800/50">--}}
+{{--                    <x-input-label for="name" :value="__('Tytuł Ankiety')"/>--}}
+{{--                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"--}}
+{{--                                  required autofocus autocomplete="name"/>--}}
+{{--                    <x-input-error :messages="$errors->get('name')" class="mt-2"/>--}}
+{{--                </div>--}}
+<div>
+    <button wire:click.prevent="addQuestion()">Dodaj Pytanie</button>
+    @foreach($questions as $qkey => $qvalue)
+        <div class="bg-white dark:bg-gray-800/50 mt-6">
+            <div>
+                <label>Tytuł pytania</label>
+                <input type="text" placeholder="Wprowadź pytanie" name="questions[{{$qkey}}][name]" wire:model="questions.{{$qkey}}.name">
             </div>
-        </form>
-    </div>
+        </div>
+        <button wire:click.prevent="addAnswer({{$qkey}})">Dodaj Odpowiedź</button>
+        @foreach($qvalue['answers'] as $akey => $avalue)
+            <div class="bg-white dark:bg-gray-800/50 mt-6">
+                <div>
+                    <input type="text" placeholder="Wprowadź odpowiedź" name="questions[{{$qkey}}][answers][{{$akey}}][name]" wire:model="questions.{{$qkey}}.answers.{{$akey}}">
+                </div>
+            </div>
+            <button wire:click.prevent="removeAnswer({{$qkey}}, {{$akey}})">Usuń Odpowiedź {{$akey + 1}}</button>
+        @endforeach
+
+        <button wire:click.prevent="removeQuestion({{$qkey}})">Usuń Pytanie {{$qkey + 1}}</button>
+    @endforeach
+</div>
+
+{{--                <x-primary-button class="ml-3">--}}
+{{--                    {{ __('Potwierdź') }}--}}
+{{--                </x-primary-button>--}}
+{{--            </div>--}}
+{{--        </form>--}}
+{{--    </div>--}}
 {{--</x-app-layout>--}}
 
 

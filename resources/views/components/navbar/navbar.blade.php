@@ -11,6 +11,9 @@
             </div>
             {{--        Tryb jasny/ciemny        --}}
             <div class="shrink-0">
+
+{{--                <button x-data @click="$store.darkMode.toggle()">Ciemny: <strong x-data x-text="$store.darkMode.dark"></strong></button>--}}
+
                 {{--        Ikona trybu ciemnego        --}}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="moon cursor-pointer w-6 h-6 ml-12 text-gray-700 hover:text-gray-500">

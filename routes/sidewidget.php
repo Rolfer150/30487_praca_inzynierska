@@ -41,7 +41,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'questionnaire'], function () {
         Route::get('/',[QuestionnaireController::class, 'index'])->name('questionnaire.index');
-        Route::get('/create', QuestionnaireForm::class)->name('livewire.questionnaire');
+//        Route::get('/create', QuestionnaireForm::class)->name('livewire.questionnaire');
+        Route::get('/create', [QuestionnaireController::class, 'create'])->name('questionnaire.create');
         Route::post('/store', [QuestionnaireController::class, 'store'])->name('questionnaire.store');
+        Route::get('/edit/{questionnaire}', [QuestionnaireController::class, 'edit'])->name('questionnaire.edit');
+        Route::post('/{questionnaire}', [QuestionnaireController::class, 'update'])->name('questionnaire.update');
+        Route::delete('/{questionnaire}', [QuestionnaireController::class, 'destroy'])->name('questionnaire.destroy');
     });
 });

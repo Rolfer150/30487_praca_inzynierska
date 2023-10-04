@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
 use App\Models\Question;
 use App\Models\Questionnaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class QuestionnaireController extends Controller
 {
@@ -25,7 +27,13 @@ class QuestionnaireController extends Controller
      */
     public function create()
     {
-        return view('questionnaire.create');
+        $userOffers = Offer::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->where('active', '=', 1)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return view('questionnaire.create', compact('userOffers'));
     }
 
     /**
@@ -33,9 +41,31 @@ class QuestionnaireController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+//        dd($request->input('offers'));
+        $name = $request->input('name');
         $questionnaire = new Questionnaire;
-        $questionnaire->questions()->create();
+        $questionnaire->name = $name;
+        $questionnaire->slug = Str::slug($name);
+        $questionnaire->description = $request->input('description');
+        $questionnaire->offer_id = $request->input('offer');
+        $request->user()->questionnaires()->save($questionnaire);
+
+        $offers = Offer::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->whereNull('questionnaire_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        foreach ($request->input('offers') as $key => $value)
+        {
+            if ($value === $offers->id)
+            {
+                $offers->questionnaire_id->fill($questionnaire->id);
+            }
+        }
+
+        $question = $questionnaire->questions()->createMany('questions[]');
+        $question->answers()->createMany('answers');
 
         return redirect(route('questionnaire.index'));
     }
@@ -53,7 +83,7 @@ class QuestionnaireController extends Controller
      */
     public function edit(Questionnaire $questionnaire)
     {
-        //
+        return view('questionnaire.edit', compact('questionnaire'));
     }
 
     /**

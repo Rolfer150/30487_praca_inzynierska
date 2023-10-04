@@ -9,8 +9,6 @@ class QuestionnaireForm extends Component
 {
     public array $questions = [];
 
-    public array $answers = [];
-
     public function render()
     {
         return view('livewire.questionnaire')
@@ -19,25 +17,26 @@ class QuestionnaireForm extends Component
 
     public function addQuestion()
     {
-        $this->questions[] = '';
+        $this->questions[] = [
+            'answers' => [],
+        ];
     }
 
-    public function removeQuestion($key)
+    public function removeQuestion($qKey)
     {
-        unset($this->questions[$key]);
+        unset($this->questions[$qKey]);
         $this->questions = array_values($this->questions);
     }
 
-    public function addAnswer($key)
+    public function addAnswer($qKey)
     {
-        $this->answers[] = '';
-//        array_push($this->questions, $this->answers[] = '');
+        $this->questions[$qKey]['answers'][] = '';
     }
 
-    public function removeAnswer($key)
+    public function removeAnswer($qKey, $aKey)
     {
-        unset($this->answers[$key]);
-        $this->answers = array_values($this->answers);
+        unset($this->questions[$qKey]['answers'][$aKey]);
+        $this->questions[$qKey]['answers'] = array_values($this->questions[$qKey]['answers']);
     }
 
 }

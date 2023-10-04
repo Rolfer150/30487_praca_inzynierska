@@ -52,8 +52,23 @@ class CompanyResource extends Resource
                 Forms\Components\TextInput::make('employees_amount')
                     ->label("Liczba pracowników")
                     ->numeric(),
-//                Forms\Components\Select::make('city')
-//                    ->rela
+                Forms\Components\TextInput::make('addresses.city')
+                    ->label("Miasto")
+                    ->required(),
+                Forms\Components\TextInput::make('addresses.street')
+                    ->label("Ulica")
+                    ->required(),
+                Forms\Components\TextInput::make('addresses.home_nr')
+                    ->label("Numer domu")
+                    ->numeric()
+                    ->required(),
+                Forms\Components\TextInput::make('addresses.flat_nr')
+                    ->label("Numer mieszkania")
+                    ->numeric(),
+                Forms\Components\TextInput::make('addresses.zip_code')
+                    ->label("Kod pocztowy")
+                    ->required(),
+
             ]);
     }
 
@@ -61,7 +76,27 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                    ->label("ID")
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label("Nazwa")
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->label("Slug")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('employees_amount')
+                    ->label("Liczba pracowników")
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('addresses.city')
+                    ->label("Miasto")
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label("Data Utworzenia")
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //

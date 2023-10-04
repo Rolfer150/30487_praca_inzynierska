@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Questionnaire extends Model
 {
-    protected $fillable = ['name', 'user_id', 'offer_id'];
+    protected $fillable = ['name', 'description', 'user_id', 'offer_id'];
 
     public function user(): BelongsTo
     {

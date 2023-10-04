@@ -15,11 +15,9 @@ return new class extends Migration
         Schema::create('questionnaires', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32);
+            $table->string('slug', 64);
             $table->string('description', 128);
             $table->foreignIdFor(User::class, 'user_id');
-            $table->foreignId('offer_id')
-                ->nullable()
-                ->constrained('offers');
             $table->timestamps();
         });
     }
