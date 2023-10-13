@@ -15,7 +15,7 @@ class Offer extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'slug', 'image_path', 'description', 'payment', 'salary', 'min_salary', 'max_salary', 'vacancy',
-        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'contract_id', 'workmode_id'];
+        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'contract_id', 'work_mode_id'];
 
     protected $casts = [
         'published_at' => 'datetime',

@@ -10,42 +10,58 @@ use App\Livewire\SalaryCalculator;
 use App\Livewire\Search;
 use Illuminate\Support\Facades\Route;
 
-//Route::get('/offers', [OfferController::class, 'index'])->name('sidewidgets.offer');
-Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('offer.show');
+        //Route::get('/offers', [OfferController::class, 'index'])->name('sidewidgets.offer');
+        Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('offer.show');
 
-Route::get('/offers', Search::class)->name('livewire.search');
+        Route::get('/offers', Search::class)->name('livewire.search');
 //Route::get('/offers/search', [OfferController::class, 'search'])->name('sidewidgets.search');
 
+        Route::get('/calculator', SalaryCalculator::class)->name('livewire.salary-calculator');
 
-Route::get('/calculator', SalaryCalculator::class)->name('livewire.salary-calculator');
-
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'myoffers'], function () {
-        Route::get('/', [OfferController::class, 'index'])->name('offer.myoffers');
-        Route::get('/addoffer', [OfferController::class, 'create'])->name('offer.create');
-        Route::post('/store', [OfferController::class, 'store'])->name('offer.store');
-        Route::get('/appliedoffers', [OfferApplicationController::class, 'index'])->name('offer-application.index');
-        Route::get('/apply/{offer:slug}', [OfferApplicationController::class, 'apply'])->name('offer-application.create');
-        Route::post('/apply/store', [OfferApplicationController::class, 'store'])->name('offer-application.store');
-        Route::delete('/apply/{offer_application}', [OfferApplicationController::class, 'destroy'])->name('offer-application.destroy');
+        Route::controller(OfferController::class)
+            ->name('offer.')
+            ->group(function (){
+                Route::get('/','index')->name('myoffers');
+                Route::get('/addoffer','create')->name('create');
+                Route::post('/store','store')->name('store');
+            });
+        Route::controller(OfferApplicationController::class)
+            ->name('offer-application.')
+            ->group(function (){
+                Route::get('/appliedoffers','index')->name('index');
+                Route::get('/apply/{offer:slug}','apply')->name('create');
+                Route::post('/apply/store','store')->name('store');
+                Route::delete('/apply/{offer_application}','destroy')->name('destroy');
+            });
     });
 
-    Route::group(['prefix' => 'favourite'], function () {
-        Route::get('/', [FavouriteController::class, 'index'])->name('favourite.index');
-        Route::delete('/{favourite}', [FavouriteController::class, 'destroy'])->name('favourite.destroy');
+    Route::group(['prefix' => 'favourite',
+        'controller' => FavouriteController::class,
+        'as' => 'favourite.'],
+        function () {
+            Route::get('/','index')->name('index');
+            Route::delete('/{favourite}','destroy')->name('destroy');
     });
 
-    Route::group(['prefix' => 'notifications'], function () {
-        Route::get('/', [NotificationController::class, 'index'])->name('notification.index');
+    Route::group(['prefix' => 'notification',
+        'controller' => NotificationController::class,
+        'as' => 'notification.'],
+        function () {
+            Route::get('/','index')->name('index');
     });
 
-    Route::group(['prefix' => 'questionnaire'], function () {
-        Route::get('/',[QuestionnaireController::class, 'index'])->name('questionnaire.index');
-//        Route::get('/create', QuestionnaireForm::class)->name('livewire.questionnaire');
-        Route::get('/create', [QuestionnaireController::class, 'create'])->name('questionnaire.create');
-        Route::post('/store', [QuestionnaireController::class, 'store'])->name('questionnaire.store');
-        Route::get('/edit/{questionnaire}', [QuestionnaireController::class, 'edit'])->name('questionnaire.edit');
-        Route::post('/{questionnaire}', [QuestionnaireController::class, 'update'])->name('questionnaire.update');
-        Route::delete('/{questionnaire}', [QuestionnaireController::class, 'destroy'])->name('questionnaire.destroy');
+    Route::group(['prefix' => 'questionnaire',
+        'controller' => QuestionnaireController::class,
+        'as' => 'questionnaire.'],
+        function () {
+            Route::get('/','index')->name('index');
+    //        Route::get('/create', QuestionnaireForm::class)->name('livewire.questionnaire');
+            Route::get('/create','create')->name('create');
+            Route::post('/store','store')->name('store');
+            Route::get('/edit/{questionnaire}','edit')->name('edit');
+            Route::post('/{questionnaire}','update')->name('update');
+            Route::delete('/{questionnaire}','destroy')->name('destroy');
     });
 });

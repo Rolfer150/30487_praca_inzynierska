@@ -10,17 +10,25 @@ border-gray-300 dark:border-0 m-1">
                             {{$offer->payment}}
                         @endif
                     @else
-                        Wypłata do ustalenia
+                        <p>Wypłata do ustalenia</p>
                     @endif</h3>
-                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">{{$offer->employment->name}}</h3>
+                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($offer->employment_id)
+                        {{$offer->employment->name}}
+                    @else
+                        <p>Brak umowy o pracę</p>
+                @endif</h3>
             </div>
             <div class="right-0 pl-2">
-                <h3 class="text-gray-600 dark:text-gray-400">@if($offer->category->name)
+                <h3 class="text-gray-600 dark:text-gray-400">@if($offer->category_id)
                         {{$offer->category->name}}
                     @else
-                        Brak kategorii
+                        <p>Brak kategorii</p>
                     @endif</h3>
-                <h3 class="text-gray-600 dark:text-gray-400">{{$offer->workMode->name}}</h3>
+                <h3 class="text-gray-600 dark:text-gray-400">@if($offer->work_mode_id)
+                        {{$offer->workMode->name}}
+                    @else
+                        <p>Brak trybu pracy</p>
+                @endif</h3>
             </div>
         </div>
         <div class="p-2 flex items-center justify-center gap-2">

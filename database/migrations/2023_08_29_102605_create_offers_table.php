@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->float('max_salary')->nullable();
             $table->enum('payment', PaymentType::values())
                 ->default(PaymentType::MBRUTTO->value);
-            $table->integer('vacancy')->nullable();
+            $table->integer('vacancy')->default(1);
             $table->foreignId('category_id')
                 ->nullable()
                 ->constrained('categories')

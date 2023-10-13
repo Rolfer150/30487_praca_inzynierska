@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notification;
 class OfferCreatedNotification extends Notification
 {
     use Queueable;
+    public $create;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($create)
     {
-        //
+        $this->create = $create;
     }
 
     /**
@@ -37,7 +38,8 @@ class OfferCreatedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'title' => 'Utworzenie oferty pracy',
+            'description' => 'Oferta "' . $this->create->name . '" została utworzona.'
         ];
     }
 }

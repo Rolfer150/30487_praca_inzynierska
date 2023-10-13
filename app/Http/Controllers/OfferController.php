@@ -85,16 +85,19 @@ class OfferController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CreateOfferRequest $request): RedirectResponse
     {
 //        dd($request->input());
-        $offer = new Offer($request->all());
+
+        $offer = new Offer($request->validated());
+//        dd($offer->category_id);
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
         $offer->created_at = Carbon::now();
 
+//        dd($offer);
         $request->user()->offers()->save($offer);
-        auth()->user()->notify(new OfferCreatedNotification());
+        auth()->user()->notify(new OfferCreatedNotification($offer));
 
         return redirect(route('home'));
     }

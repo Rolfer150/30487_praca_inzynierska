@@ -11,9 +11,9 @@
                 </div>
                 <div class="bg-white d ark:bg-gray-800/50">
                     <x-input-label for="category" :value="__('Kategoria')"/>
-                    <select name="category"
+                    <select name="category_id"
                             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                        <option>Brak</option>
+                        <option value="">Brak</option>
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
@@ -26,7 +26,7 @@
                                   :value="old('salary')" autofocus autocomplete="salary"/>
                     <select name="payment"
                             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                        <option>Brak</option>
+                        <option value="">Brak</option>
                         @foreach($payments as $payment)
                             <option value="{{$payment->value}}">{{$payment->value}}</option>
                         @endforeach
@@ -35,9 +35,9 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="employment" :value="__('Wymiar Pracy')"/>
-                    <select name="employment"
+                    <select name="employment_id"
                             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                        <option>Brak</option>
+                        <option value="">Brak</option>
                         @foreach($employments as $employment)
                             <option value="{{$employment->id}}">{{$employment->name}}</option>
                         @endforeach
@@ -46,9 +46,9 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="contract" :value="__('Rodzaj umowy')"/>
-                    <select name="contract"
+                    <select name="contract_id"
                             class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                        <option>Brak</option>
+                        <option value="">Brak</option>
                         @foreach($contracts as $contract)
                             <option value="{{$contract->id}}">{{$contract->name}}</option>
                         @endforeach
