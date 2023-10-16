@@ -27,10 +27,10 @@ class CreateOfferRequest extends FormRequest
             'vacancy' => ['nullable'],
             'description' => ['nullable'],
             'image_path' => ['nullable'],
-            'category_id' => ['required'],
-            'employment_id' => ['required'],
-            'contract_id' => ['required'],
-            'work_mode_id' => ['required'],
+//            'category_id' => ['required'],
+//            'employment_id' => ['required'],
+//            'contract_id' => ['required'],
+//            'work_mode_id' => ['required'],
         ];
     }
 

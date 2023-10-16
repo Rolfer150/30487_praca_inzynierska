@@ -76,10 +76,10 @@ class OfferController extends Controller
         $contracts = Contract::query()
             ->select('id', 'name')
             ->get();
-        $workmodes = WorkMode::query()
+        $work_modes = WorkMode::query()
             ->select('id', 'name')
             ->get();
-        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'workmodes'));
+        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'work_modes'));
     }
 
     /**
@@ -87,7 +87,7 @@ class OfferController extends Controller
      */
     public function store(CreateOfferRequest $request): RedirectResponse
     {
-//        dd($request->input());
+//        dd($request->validated());
 
         $offer = new Offer($request->validated());
 //        dd($offer->category_id);
