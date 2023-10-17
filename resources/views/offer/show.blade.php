@@ -17,8 +17,8 @@
                         <p class="ml-7">{{$offer->contract->name}}</p>
                     </div>
                     <div class="flex mt-4">
-                        @if($offer->salary && $offer->payment_id)
-                            <p>{{$offer->salary}} {{$offer->payment->name}}</p>
+                        @if($offer->salary && $offer->payment)
+                            <p>{{$offer->salary}} {{$offer->payment}}</p>
                         @else
                             <p>Cena do ustalenia</p>
                         @endif
@@ -30,52 +30,32 @@
 {{--                <p>{!! $offer->description !!}</p>--}}
 {{--            </div>--}}
             <div>
-                <h1>Job description</h1>
-                <p>Jesteśmy Brand Active - agencja Shopify & eCommerce istniejąca na rynku od 2016 roku.Tworzymy i wdrażamy sklepy dostosowując je do aktualnych trendów i potrzeb naszych Klientów. Swoje działania koncentrujemy na platformie Shopify i Shopify Plus, zapewniamy też integracje z takimi systemami jak PIM,ERP,CRM czy POS. Podejście MACH, które praktykujemy, umożliwia naszym Klientom realizacje innowacyjnych projektów o wielopoziomowej architekturze. Stawiamy na dynamiczny rozwój czego potwierdzeniem jest m.in wyróżnienie w rankingu Delloite Technology Fast 50 (Raising Stars)</p>
-
-
-
-                <h2 class="mt-6 font-bold">TWOIM ZADANIEM BĘDZIE</h2>
-
+                <h1 class="mt-6 font-bold">Opis pracy</h1>
+                <p>{{$offer->description}}</p>
+                <h2 class="mt-6 font-bold">Twoje zadania:</h2>
                 <ul>
-                    <li>implementacja customowych szablonów w Shopify</li>
-                    <li>tworzenie customizacji w oparciu o Liquid Shopify</li>
+                    @foreach($offer->tasks as $task)
+                        <li>{{$task}}</li>
+                    @endforeach
                 </ul>
-
-
-
-                współpraca przy wdrażaniu customowych aplikacji w Shopify
-                realizacja projektów dla polskich i globalnych marek
-
-
-                NASZE OCZEKIWANIA:
-
-                ponad dwa lata komercyjnego doświadczenia jako Frontend Developer
-                min. roczne doświadczenie w pracy jako developer Shopify
-                doświdczenie z JavaScript, CSS, SASS
-                znajomość Figmy,API REST(podstawy)Git,
-                doświadczenie z Liquid lub innym szablonem
-                znajomość języka angielskiego w mowie i piśmie na poziomie B2
-
-
-                MILE WIDZIANE:
-
-                Znajomość React/jQuery/GraphQL/Node.js/MySql/TypeScript
-                doświadczenie w konfiguracji aplikacji z Shopify app store
-
-
-                ZAPEWNIAMY:
-
-                kontrakt B2B lub umowę o pracę
-                atrakcyjne wynagrodzenie (B2B: 60 - 85 zł/h net+VAT, UoP:8300 - 12000 zł brutto)
-                rozwój w najnowszych technologiach eCommerce tj. Shopify Plus, PIM Akeneo, PWA
-                ambitne globalne projekty eCommerce dla znanych marek
-                możliwość rozwoju marki osobistej (publikacje, prelekcje)
-                jasną kulturę organizacyjną i transparentną strategię
-                lekcje języka angielskiego z native speakerem
-                prywatną opiekę medyczną
-                elastyczny system pracy
-                pracę zdalnie/hybrydowo/z biura
+                <h2 class="mt-6 font-bold">Nasze oczekiwania:</h2>
+                <ul>
+                    @foreach($offer->expectancies as $expectance)
+                        <li>{{$expectance}}</li>
+                    @endforeach
+                </ul>
+                <h2 class="mt-6 font-bold">Mile widziane:</h2>
+                <ul>
+                    @foreach($offer->additionals as $additional)
+                        <li>{{$additional}}</li>
+                    @endforeach
+                </ul>
+                <h2 class="mt-6 font-bold">Zapewniamy:</h2>
+                <ul>
+                    @foreach($offer->assurances as $assurance)
+                        <li>{{$assurance}}</li>
+                    @endforeach
+                </ul>
             </div>
         </div>
 

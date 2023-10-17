@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
         {
             $user->assignRole('user');
         });
-        Offer::factory(300)->create();
+        Offer::factory(500)->create();
     }
 }

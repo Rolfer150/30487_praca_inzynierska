@@ -95,7 +95,6 @@ class OfferController extends Controller
         $offer->active = true;
         $offer->created_at = Carbon::now();
 
-//        dd($offer);
         $request->user()->offers()->save($offer);
         auth()->user()->notify(new OfferCreatedNotification($offer));
 
@@ -149,7 +148,7 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Offer $offer)
+    public function update(CreateOfferRequest $request, Offer $offer)
     {
         //
     }

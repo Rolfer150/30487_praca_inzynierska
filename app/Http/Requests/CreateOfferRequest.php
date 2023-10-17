@@ -26,24 +26,13 @@ class CreateOfferRequest extends FormRequest
             'payment' => ['nullable'],
             'vacancy' => ['nullable'],
             'description' => ['nullable'],
+            'tasks' => ['nullable'],
+            'expectancies' => ['nullable'],
+            'additionals' => ['nullable'],
+            'assurances' => ['nullable'],
             'image_path' => ['nullable'],
-//            'category_id' => ['required'],
-//            'employment_id' => ['required'],
-//            'contract_id' => ['required'],
-//            'work_mode_id' => ['required'],
         ];
     }
-
-//    protected function prepareForValidation(): void
-//    {
-//        $this->merge([
-//            'category_id' => $this->category_id,
-//            'employment_id' => $this->employment_id,
-//            'contract_id' => $this->contract_id,
-//            'work_mode_id' => $this->work_mode_id,
-//        ]);
-//    }
-
     public function validated($key = null, $default = null)
     {
         $validated = parent::validated($key, $default);

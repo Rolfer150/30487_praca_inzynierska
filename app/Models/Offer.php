@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PaymentType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,12 +15,25 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'image_path', 'description', 'payment', 'salary', 'min_salary', 'max_salary', 'vacancy',
-        'active', 'published_at', 'user_id', 'category_id', 'employment_id', 'contract_id', 'work_mode_id'];
+    protected $fillable = ['name', 'slug', 'image_path', 'description', 'tasks', 'expectancies', 'additionals',
+        'assurances', 'payment', 'salary', 'min_salary', 'max_salary', 'vacancy', 'active', 'published_at', 'user_id',
+        'category_id', 'employment_id', 'contract_id', 'work_mode_id'];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'tasks' => 'array',
+        'expectancies' => 'array',
+        'additionals' => 'array',
+        'assurances' => 'array',
         'payment' => PaymentType::class];
+
+    protected function data(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => json_decode($value, true),
+            set: fn($value) => json_encode($value)
+        );
+    }
 
     public function user(): BelongsTo
     {
@@ -93,7 +107,7 @@ class Offer extends Model
     public function scopeSearch($query, $value)
     {
         $query
-            ->where('name', 'like', "%{$value}%")
-            ->orWhere('description', 'like', "%{$value}%");
+            ->where('name', 'like', "%{$value}%");
+//            ->orWhere('data', 'like', "%{$value}%");
     }
 }

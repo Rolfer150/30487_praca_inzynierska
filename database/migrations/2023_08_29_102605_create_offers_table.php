@@ -18,6 +18,10 @@ return new class extends Migration {
             $table->string('slug', 128);
             $table->string('image_path', 2048)->nullable();
             $table->longText('description')->nullable();
+            $table->json('tasks')->nullable();
+            $table->json('expectancies')->nullable();
+            $table->json('additionals')->nullable();
+            $table->json('assurances')->nullable();
             $table->float('salary')->nullable();
             $table->float('min_salary')->nullable();
             $table->float('max_salary')->nullable();

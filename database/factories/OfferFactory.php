@@ -24,15 +24,51 @@ class OfferFactory extends Factory
     public function definition(): array
     {
         $offer_name = fake()->unique()->realText(64);
+        $payment = fake()->randomElement(PaymentType::cases());
+
+        if ($payment == PaymentType::HBRUTTO || $payment == PaymentType::HNETTO)
+        {
+            $salary = fake()->numberBetween(10, 500);
+        }
+        else
+        {
+            $salary = fake()->numberBetween(1500, 50000);
+        }
+
         return [
             'name' => $offer_name,
             'slug' => Str::slug($offer_name),
             'image_path' => fake()->imageUrl,
-            'description' => fake()->realText(4000),
+            'description' => fake()->realText(512),
+            'tasks' => [
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+            ],
+            'expectancies' => [
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+            ],
+            'additionals' => [
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+            ],
+            'assurances' => [
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+                    fake()->realText(64),
+            ],
             'active' => fake()->boolean,
             'vacancy' => fake()->numberBetween(1, 5),
             'user_id' => User::inRandomOrder()->first()->id,
-            'payment' => fake()->randomElement(PaymentType::cases()),
+            'payment' => $payment,
+            'salary' => $salary,
             'category_id' => Category::inRandomOrder()->first()->id,
             'employment_id' => Employment::inRandomOrder()->first()->id,
             'contract_id' => Contract::inRandomOrder()->first()->id,

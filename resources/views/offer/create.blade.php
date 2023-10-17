@@ -78,6 +78,7 @@
                                       :value="old('description')" autofocus autocomplete="description"/>
                     <x-input-error :messages="$errors->get('description')" class="mt-2"/>
                 </div>
+                <livewire:job-description />
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="image_path" :value="__('Grafika')"/>
                     <x-text-input id="image_path" class="block mt-1 w-full" type="file" name="image_path"/>
