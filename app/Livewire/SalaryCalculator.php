@@ -12,17 +12,52 @@ class SalaryCalculator extends Component
     public bool $disabled = false;
     public bool $advanced = false;
 
-    public function calculate()
+    public function calculate(): void
     {
         $sal = (float)$this->salary;
+
         if ($this->calculation == 'Brutto') {
-            $this->result = number_format($sal * 0.7658, 2);
+            // Obliczanie netto na podstawie brutto
+
+            // Ustaw stawki składek (proszę dostosować je do obecnych przepisów):
+            $socialSecurityRate = 0.0976; // 9.76%
+            $healthInsuranceRate = 0.0775; // 9%
+            $retirementInsuranceRate = 0.015; // 1.5%
+            $disabilityInsuranceRate = 0.0245; // 1.5%
+
+            // Obliczanie składek:
+            $socialSecurity = $sal * $socialSecurityRate;
+            $healthInsurance = $sal * $healthInsuranceRate;
+            $retirementInsurance = $sal * $retirementInsuranceRate;
+            $disabilityInsurance = $sal * $disabilityInsuranceRate;
+
+            // Obliczanie netto:
+            $netSalary = $sal - ($socialSecurity + $healthInsurance + $retirementInsurance + $disabilityInsurance);
+
+            $this->result = number_format($netSalary, 2);
         } elseif ($this->calculation == 'Netto') {
-            $this->result = number_format($sal + $sal * 0.7658, 2);
+            // Obliczanie brutto na podstawie netto
+
+            // Ustaw stawki składek (proszę dostosować je do obecnych przepisów):
+            $socialSecurityRate = 0.0976; // 9.76%
+            $healthInsuranceRate = 0.0775; // 9%
+            $retirementInsuranceRate = 0.015; // 1.5%
+            $disabilityInsuranceRate = 0.0245; // 1.5%
+
+            // Obliczanie składek:
+            $socialSecurity = $sal * $socialSecurityRate;
+            $healthInsurance = $sal * $healthInsuranceRate;
+            $retirementInsurance = $sal * $retirementInsuranceRate;
+            $disabilityInsurance = $sal * $disabilityInsuranceRate;
+
+            // Obliczanie brutto:
+            $grossSalary = $sal + $socialSecurity + $healthInsurance + $retirementInsurance + $disabilityInsurance;
+
+            $this->result = number_format($grossSalary, 2);
         }
     }
 
-    public function update($property)
+    public function update($property): void
     {
         if ($this->salary == 0) {
             $this->disabled = true;

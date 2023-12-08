@@ -3,9 +3,7 @@
         {{-- Lewy panel --}}
         <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 w-3/4 rounded-lg">
             <div class="flex">
-                <div class="w-36 l-36">
-                    <img alt="{{$offer->slug}}" class="rounded-md object-cover" src="{{$offer->getURLImage()}}" />
-                </div>
+                <img alt="{{$offer->slug}}" class="w-36 h-36 rounded-full object-cover" src="{{$offer->getURLImage()}}" />
                 <div class="pl-4">
                     <div class="flex items-center">
                         <h1 class="text-2xl text-gray-600 dark:text-gray-400">{{$offer->name}}</h1>

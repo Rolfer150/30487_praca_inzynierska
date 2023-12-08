@@ -26,20 +26,14 @@ class OfferFactory extends Factory
         $offer_name = fake()->unique()->realText(64);
         $payment = fake()->randomElement(PaymentType::cases());
 
-        if ($payment == PaymentType::HBRUTTO || $payment == PaymentType::HNETTO)
-        {
-            $salary = fake()->numberBetween(10, 500);
-        }
-        else
-        {
-            $salary = fake()->numberBetween(1500, 50000);
-        }
+        if ($payment == PaymentType::HBRUTTO || $payment == PaymentType::HNETTO) $salary = fake()->numberBetween(10, 500);
+        else $salary = fake()->numberBetween(1500, 50000);
 
         return [
             'name' => $offer_name,
             'slug' => Str::slug($offer_name),
             'image_path' => fake()->imageUrl,
-            'description' => fake()->realText(512),
+            'description' => fake()->text(512),
             'tasks' => [
                     fake()->realText(64),
                     fake()->realText(64),

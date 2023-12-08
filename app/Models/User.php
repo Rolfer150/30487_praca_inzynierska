@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\EducationalStage;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,9 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'surname', 'image_path', 'email', 'password', 'birth_date', 'phone_number', 'education', 'school',
+        'short_description', 'description', 'address'
     ];
 
     /**
@@ -44,10 +46,24 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
      * @var array<string, string>
      */
     protected $casts = [
+        'education' => EducationalStage::class,
+        'address' => 'array',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
+    protected function data(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => json_decode($value, true),
+            set: fn($value) => json_encode($value)
+        );
+    }
+
+    public function brands(): BelongsToMany
+    {
+        return $this->belongsToMany(Brand::class);
+    }
     public function offers(): HasMany
     {
         return $this->hasMany(Offer::class);
@@ -75,5 +91,13 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasRole('admin');
+    }
+
+    public function getURLImage()
+    {
+        if (str_starts_with($this->image_path, 'http')) {
+            return $this->image_path;
+        }
+        return '/storage/' . $this->image_path;
     }
 }

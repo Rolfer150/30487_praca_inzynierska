@@ -15,9 +15,11 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'image_path', 'description', 'tasks', 'expectancies', 'additionals',
-        'assurances', 'payment', 'salary', 'min_salary', 'max_salary', 'vacancy', 'active', 'published_at', 'user_id',
-        'category_id', 'employment_id', 'contract_id', 'work_mode_id'];
+    protected $fillable = [
+        'name', 'slug', 'image_path', 'description', 'tasks', 'expectancies', 'additionals', 'assurances', 'payment',
+        'salary', 'min_salary', 'max_salary', 'vacancy', 'active', 'published_at', 'user_id', 'category_id',
+        'employment_id', 'contract_id', 'work_mode_id'
+    ];
 
     protected $casts = [
         'published_at' => 'datetime',
@@ -25,7 +27,8 @@ class Offer extends Model
         'expectancies' => 'array',
         'additionals' => 'array',
         'assurances' => 'array',
-        'payment' => PaymentType::class];
+        'payment' => PaymentType::class
+    ];
 
     protected function data(): Attribute
     {

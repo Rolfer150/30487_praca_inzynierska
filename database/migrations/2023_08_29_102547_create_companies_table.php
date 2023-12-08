@@ -13,17 +13,15 @@ return new class extends Migration {
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 64)->unique();
-            $table->string('slug', 128)->unique();
-            $table->string('url', 2048)->nullable();
+            $table->string('name', 16)->unique();
+            $table->string('slug', 32)->unique();
+            $table->string('image_path', 2048)->nullable();
+            $table->string('website', 2048)->nullable();
             $table->string('email')->nullable();
-            $table->double('phone_number')->nullable();
+            $table->string('phone_number')->nullable();
             $table->longText('description')->nullable();
             $table->integer('employees_amount')->nullable();
-            $table->foreignId('address_id')
-                ->nullable()
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->json('address')->nullable();
             $table->foreignIdFor(User::class, 'user_id');
             $table->timestamps();
         });

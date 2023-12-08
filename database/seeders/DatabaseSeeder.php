@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Brand;
+use App\Models\Company;
 use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -16,6 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            BrandSeeder::class,
             CategorySeeder::class,
             ContractSeeder::class,
             EmploymentSeeder::class,
@@ -23,10 +27,17 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class
         ]);
+
         User::factory(80)->create()->each(function ($user)
         {
             $user->assignRole('user');
         });
-        Offer::factory(500)->create();
+        Offer::factory(1000)->create();
+        Company::factory(100)->create();
+
+        $brands = Brand::all();
+        Company::all()->each(function ($company) use ($brands) {
+            $company->brands()->saveMany($brands->random(2));
+        });
     }
 }

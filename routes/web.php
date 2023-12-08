@@ -26,6 +26,7 @@ Route::middleware('auth')
     ->name('profile.')
     ->group(function () {
     Route::get('/profile','edit')->name('edit');
+    Route::get('/profile{user}','show')->name('show');
     Route::patch('/profile','update')->name('update');
     Route::delete('/profile','destroy')->name('destroy');
 });

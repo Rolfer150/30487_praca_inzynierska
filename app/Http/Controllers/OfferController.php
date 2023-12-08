@@ -95,6 +95,14 @@ class OfferController extends Controller
         $offer->active = true;
         $offer->created_at = Carbon::now();
 
+        if ($request->hasFile('image_path'))
+        {
+            $file = $request->file('image_path');
+            $fileName = $file->getClientOriginalName();
+            $filePath = 'offer/' . $fileName;
+            $file->storeAs('public/offer', $fileName);
+            $offer->image_path = $filePath;
+        }
         $request->user()->offers()->save($offer);
         auth()->user()->notify(new OfferCreatedNotification($offer));
 
