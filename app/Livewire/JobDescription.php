@@ -6,6 +6,8 @@ use Livewire\Component;
 
 class JobDescription extends Component
 {
+    public $expectancies = null;
+    public $skillLevel = null;
     public array $jobDescriptions = [
         'tasks' => [
             '0' => 'wartosc',

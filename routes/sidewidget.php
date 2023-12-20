@@ -6,11 +6,17 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferApplicationController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\SystemController;
+use App\Http\Controllers\UserController;
 use App\Livewire\EmployerSearch;
+use App\Livewire\UserSearch;
 use App\Livewire\QuestionnaireForm;
 use App\Livewire\SalaryCalculator;
 use App\Livewire\OfferSearch;
+use App\System\System;
 use Illuminate\Support\Facades\Route;
+
+        Route::get('/system', [SystemController::class, 'index'])->name('system.index');
 
         //Route::get('/offers', [OfferController::class, 'index'])->name('sidewidgets.offer');
         Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('offer.show');
@@ -18,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 
         Route::get('/offers', OfferSearch::class)->name('livewire.search');
         Route::get('/employers', EmployerSearch::class)->name('livewire.employer');
+
+        Route::get('/users', UserSearch::class)->name('livewire.user');
+        Route::get('/users/{user:slug}', [UserController::class, 'show'])->name('user.show');
 //Route::get('/offers/search', [OfferController::class, 'search'])->name('sidewidgets.search');
 
         Route::get('/calculator', SalaryCalculator::class)->name('livewire.salary-calculator');

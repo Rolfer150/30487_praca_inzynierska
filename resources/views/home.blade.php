@@ -10,7 +10,6 @@
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             {{--  <x-application-logov2 />  --}}
             <div class="col-span-5 w-full justify-items-center">
-                <img src="{{asset('storage/zagadnienia.jpg')}}">
                 @if($offers)
                     @foreach($offers as $offer)
                         <x-offer-item :offer="$offer"></x-offer-item>

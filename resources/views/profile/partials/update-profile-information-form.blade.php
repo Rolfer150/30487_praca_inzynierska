@@ -84,9 +84,9 @@
                 </div>
 
                 <div class="mr-3 w-1/2">
-                    <x-input-label for="brand" :value="__('Branża zawodowa')" />
-                    <x-simple-select :options="$brands" multiple="brands" :searchable="false" placeholder="Wybierz Twoje wykształcenie" id="brands" name="brands"  class="mt-1 block w-full"></x-simple-select>
-                    <x-input-error class="mt-2" :messages="$errors->get('education')" />
+                    <x-input-label for="brands" :value="__('Branża zawodowa')" />
+                    <x-simple-select :options="$brands" multiple="brands" :searchable="false" placeholder="Wybierz Twoje wykształcenie..." id="brands" name="brands"  class="mt-1 block w-full"></x-simple-select>
+                    <x-input-error class="mt-2" :messages="$errors->get('brands')" />
                 </div>
             </div>
 
@@ -101,12 +101,12 @@
                     <div class="flex mt-3">
                         <div class="w-4/5 mr-3">
                             <x-input-label for="address[street]" :value="__('Ulica')" />
-                            <x-text-input id="address[street]" name="address[street]" type="text" class="mt-1 block w-full" :value="old('address[street]', $user->address['street'])" required autofocus autocomplete="address[street]" placeholder="Wpisz nazwę ulicy..." />
+                            <x-text-input id="address[street]" name="address[street]" type="text" class="mt-1 block w-full" :value="old('address[street]', $user->getAddress('street'))" required autofocus autocomplete="address[street]" placeholder="Wpisz nazwę ulicy..." />
                             <x-input-error class="mt-2" :messages="$errors->get('address[street]')" />
                         </div>
                         <div class="w-1/5">
                             <x-input-label for="address[home_nr]" :value="__('Nr domu')" />
-                            <x-text-input id="address[home_nr]" name="address[home_nr]" type="text" class="mt-1 block w-full" :value="old('address[home_nr]', $user->address['home_nr'])" required autofocus autocomplete="address[home_nr]" placeholder="Wpisz numer domu..." />
+                            <x-text-input id="address[home_nr]" name="address[home_nr]" type="text" class="mt-1 block w-full" :value="old('address[home_nr]', $user->getAddress('home_nr'))" required autofocus autocomplete="address[home_nr]" placeholder="Wpisz numer domu..." />
                             <x-input-error class="mt-2" :messages="$errors->get('address[home_nr]')" />
                         </div>
                     </div>
@@ -114,23 +114,24 @@
                     <div class="flex mt-3">
                         <div class="w-1/5">
                             <x-input-label for="address[zip_code]" :value="__('Kod pocztowy')" />
-                            <x-text-input id="address[zip_code]" name="address[zip_code]" type="text" class="mt-1 block w-full" :value="old('address[zip_code]', $user->address['zip_code'])" required autofocus autocomplete="address[zip_code]" placeholder="Wpisz kod pocztowy..." />
+                            <x-text-input id="address[zip_code]" name="address[zip_code]" type="text" class="mt-1 block w-full" :value="old('address[zip_code]', $user->getAddress('zip_code'))" required autofocus autocomplete="address[zip_code]" placeholder="Wpisz kod pocztowy..." />
                             <x-input-error class="mt-2" :messages="$errors->get('address[zip_code]')" />
                         </div>
                         <div class="w-4/5 ml-3">
                             <x-input-label for="address[city]" :value="__('Miejscowość')" />
-                            <x-text-input id="address[city]" name="address[city]" type="text" class="mt-1 block w-full" :value="old('address[city]', $user->address['city'])" required autofocus autocomplete="address[city]" placeholder="Wpisz nazwę miasta..." />
+                            <x-text-input id="address[city]" name="address[city]" type="text" class="mt-1 block w-full" :value="old('address[city]', $user->getAddress('city'))" required autofocus autocomplete="address[city]" placeholder="Wpisz nazwę miasta..." />
                             <x-input-error class="mt-2" :messages="$errors->get('address[city]')" />
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-3">
-                    <x-input-label for="short_description" :value="__('Krótki opis')" />
-                    <x-text-input id="short_description" name="short_description" type="text" class="mt-1 block w-full" :value="old('short_description', $user->short_description)" required autofocus autocomplete="short_description" placeholder="Podaj krótki opis..." />
-                    <x-input-error class="mt-2" :messages="$errors->get('short_description')" />
-                </div>
+                    <livewire:add-skill :skills="$skills" :user="$user" :skill-level="$skillLevel" />
             </div>
+        </div>
+
+        <div class="mt-3">
+            <x-input-label for="short_description" :value="__('Krótki opis')" />
+            <x-text-input id="short_description" name="short_description" type="text" class="mt-1 block w-full" :value="old('short_description', $user->short_description)" required autofocus autocomplete="short_description" placeholder="Podaj krótki opis..." />
+            <x-input-error class="mt-2" :messages="$errors->get('short_description')" />
         </div>
 
         <div class="mt-3">

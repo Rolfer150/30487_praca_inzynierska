@@ -47,25 +47,27 @@ class QuestionnaireController extends Controller
         $questionnaire->name = $name;
         $questionnaire->slug = Str::slug($name);
         $questionnaire->description = $request->input('description');
-        $questionnaire->offer_id = $request->input('offer');
+//        $questionnaire->offer_id = $request->input('offers');
         $request->user()->questionnaires()->save($questionnaire);
 
         $offers = Offer::query()
             ->where('user_id', '=', auth()->user()->id)
             ->whereNull('questionnaire_id')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->first();
 
         foreach ($request->input('offers') as $key => $value)
         {
-            if ($value === $offers->id)
+            if ($value == $offers->id)
             {
                 $offers->questionnaire_id->fill($questionnaire->id);
             }
         }
 
-        $question = $questionnaire->questions()->createMany('questions[]');
-        $question->answers()->createMany('answers');
+        $questionnaire->questions()->createMany($request->questions);
+
+        $question = new Question;
+        $question->answers()->createMany($request->questions['answers']);
 
         return redirect(route('questionnaire.index'));
     }

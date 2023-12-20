@@ -109,8 +109,6 @@ class Offer extends Model
 
     public function scopeSearch($query, $value)
     {
-        $query
-            ->where('name', 'like', "%{$value}%");
-//            ->orWhere('data', 'like', "%{$value}%");
+        $query->where('name', 'like', "%{$value}%");
     }
 }

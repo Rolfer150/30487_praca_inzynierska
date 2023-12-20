@@ -39,5 +39,8 @@ class DatabaseSeeder extends Seeder
         Company::all()->each(function ($company) use ($brands) {
             $company->brands()->saveMany($brands->random(2));
         });
+        User::all()->each(function ($user) use ($brands) {
+            $user->brands()->saveMany($brands->random(2));
+        });
     }
 }

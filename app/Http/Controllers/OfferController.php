@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PaymentType;
+use App\Enums\ProgrammingSkills;
+use App\Enums\SkillLevel;
 use App\Http\Requests\CreateOfferRequest;
 use App\Models\Category;
 use App\Models\Contract;
@@ -79,7 +81,9 @@ class OfferController extends Controller
         $work_modes = WorkMode::query()
             ->select('id', 'name')
             ->get();
-        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'work_modes'));
+        $expectancies = ProgrammingSkills::cases();
+        $skillLevel = SkillLevel::cases();
+        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'work_modes', 'expectancies', 'skillLevel'));
     }
 
     /**

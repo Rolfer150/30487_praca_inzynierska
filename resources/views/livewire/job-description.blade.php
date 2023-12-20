@@ -15,8 +15,18 @@
         <div class="flex">
             <div class="bg-white dark:bg-gray-800/50">
                 <x-input-label for="expectancies" :value="__('Twoje oczekiwania')"/>
-                <x-text-input id="expectancies" class="block mt-1 w-full" name="expectancies[]"
-                              :value="old('expectancies')" autofocus autocomplete="expectancies"/>
+                <div class="flex gap-3">
+                    <select id="expectancies_skill" name="expectancies[]" placeholder="Wybierz Twoje oczekiwania..." class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                        @foreach($expectancies as $expect)
+                            <option value="{{$expect->value}}">{{$expect->value}}</option>
+                        @endforeach
+                    </select>
+                    <select id="expectancies_skill_level" name="expectancies[]" placeholder="Wybierz Twoje oczekiwania..." class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                        @foreach($skillLevel as $skillLvl)
+                            <option value="{{$skillLvl->value}}">{{$skillLvl->value}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <x-input-error :messages="$errors->get('expectancies')" class="mt-2"/>
             </div>
             <button wire:click.prevent="addDescription('expectancies')">Dodaj</button>

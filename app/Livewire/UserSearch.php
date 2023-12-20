@@ -4,10 +4,13 @@ namespace App\Livewire;
 
 use App\Models\Brand;
 use App\Models\Company;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-class EmployerSearch extends Component
+
+class UserSearch extends Component
 {
     use WithPagination;
 
@@ -15,22 +18,26 @@ class EmployerSearch extends Component
     public string $search = '';
     public int $perPage = 10;
     #[Url(history: true)]
-    public array $filterBrands = [];
+    public array $filterUsers = [];
+
     public function render()
     {
         $brands = Brand::brandFilter();
-        $employerCompanies = $this->employerRender();
-        return view('livewire.employer-search', compact('employerCompanies', 'brands'))
-            ->layout('layouts.app');
+        $users = $this->userRender();
+        return view('livewire.user-search', compact( 'users', 'brands'))->layout('layouts.app');
     }
 
-    public function employerRender()
+    public function userRender()
     {
-        return Company::query()
-            ->when($this->filterBrands != null, function ($q)
+        return User::query()
+            ->when(Auth::user(), function ($q)
+            {
+                return $q->whereNot('id', '=', Auth::user()->id);
+            })
+            ->when($this->filterUsers != null, function ($q)
             {
                 return $q->whereHas('brands', function ($q) {
-                    $q->where('id', $this->filterBrands);
+                    $q->where('id', $this->filterUsers);
                 });
             })
             ->search($this->search)
@@ -45,7 +52,7 @@ class EmployerSearch extends Component
     public function clearAll()
     {
         $this->reset('search');
-        $this->reset('filterBrands');
+        $this->reset('filterUsers');
     }
 
     public function updatedSearch()

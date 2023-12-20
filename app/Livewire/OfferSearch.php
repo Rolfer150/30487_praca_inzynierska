@@ -81,7 +81,6 @@ class OfferSearch extends Component
             })
             ->search($this->search)
             ->paginate($this->perPage);
-//        return $this;
     }
 
 //    public function getEmploymentSum()

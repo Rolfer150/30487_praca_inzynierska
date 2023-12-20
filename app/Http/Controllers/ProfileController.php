@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\EducationalStage;
+use App\Enums\ProgrammingSkills;
+use App\Enums\SkillLevel;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Brand;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,6 +31,8 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
             'education' => EducationalStage::cases(),
+            'skills' => ProgrammingSkills::cases(),
+            'skillLevel' => SkillLevel::cases(),
             'brands' => Brand::query()
                 ->pluck('name')
                 ->all()
@@ -40,11 +45,12 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
-        $request->user()->education = $request->education;
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        $request->user()->education = $request->education;
 
         if ($request->hasFile('image_path'))
         {
@@ -62,17 +68,38 @@ class ProfileController extends Controller
             'zip_code' => $request->address['zip_code']
         ];
         $request->user()->address = $addressArray;
+//dd($request->skills);
 
-        foreach ($request->brands as $brand)
+        if ($request->skills)
         {
-            $brands = Brand::query()
-                ->where('name', '=', $brand)
-                ->pluck('id')
-                ->all();
-            $request->user()->brands()->attach($brands);
+            Skill::query()
+                ->where('user_id', '=', $request->user()->id)
+                ->delete();
+            foreach ($request->skills as $skill)
+            {
+//            dd($skill);
+                $skillModel = new Skill;
+                $skillModel->skill = $skill['skill'];
+                $skillModel->skill_level = $skill['skillLevel'];
+
+//            dd($skillModel);
+                $request->user()->skills()->save($skillModel);
+            }
         }
 
-//        dd($brandArray);
+        if ($request->brands)
+        {
+//            $request->user()->brands()->detach($request->brands);
+            foreach ($request->brands as $brand)
+            {
+                $brands = Brand::query()
+                    ->where('name', '=', $brand)
+                    ->pluck('id')
+                    ->all();
+                $request->user()->brands()->attach($brands);
+            }
+        }
+
         $request->user()->save();
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

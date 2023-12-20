@@ -39,10 +39,16 @@
                     {{ __('Oferty Pracy') }}
                 </x-nav-link>
             </div>
-            {{--      Strona z listą pracodawców i informacjami na ich temat      --}}
+            {{--      Strona z listą firm i informacjami na ich temat      --}}
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <x-nav-link href="{{route('livewire.employer')}}">
-                    {{ __('Pracodawcy') }}
+                    {{ __('Firmy') }}
+                </x-nav-link>
+            </div>
+            {{--      Strona z listą profili użytkownika i informacjami na ich temat      --}}
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <x-nav-link href="{{route('livewire.user')}}">
+                    {{ __('Profile') }}
                 </x-nav-link>
             </div>
             {{--      Strona z kalkulatorem obliczania wypłat brutto/netto      --}}

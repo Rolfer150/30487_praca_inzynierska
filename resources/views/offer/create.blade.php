@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="md:flex gap-x-6 p-3 justify-center">
+    <div class="md:flex gap-x-6 p-3 justify-center max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 shadow">
         <form method="POST" action="{{ route('offer.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col items-center">
@@ -79,7 +79,7 @@
                     <x-input-error :messages="$errors->get('description')" class="mt-2"/>
                 </div>
 
-                <livewire:job-description />
+                <livewire:job-description :expectancies="$expectancies" :skill-level="$skillLevel" />
 
                 <div class="bg-white dark:bg-gray-800/50">
                     <x-input-label for="image_path" :value="__('Grafika')"/>

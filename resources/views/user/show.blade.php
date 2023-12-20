@@ -14,12 +14,12 @@
                             <h1 class="text-3xl text-gray-600 dark:text-gray-400 text-center font-bold">{{ $user->name }} {{ $user->surname }}</h1>
                             <h2 class="text-center">{{ $user->short_description }}</h2>
                         </div>
-                        <div class="flex justify-center mt-4">
-                            <a href="{{route('profile.edit')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800
-                            transition-colors transition-colors content-center">
-                                ZMIEŃ SZCZEGÓŁY KONTA
-                            </a>
-                        </div>
+{{--                        <div class="flex justify-center mt-4">--}}
+{{--                            <a href="{{route('profile.edit')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800--}}
+{{--                            transition-colors transition-colors content-center">--}}
+{{--                                ZMIEŃ SZCZEGÓŁY KONTA--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                             <div class="mt-4">
                                 <h1>Lokacja:</h1>
                                 @if($user->address)
-                                <p>{{ $user->address['city'] }}</p>
+                                    <p>{{ $user->address['city'] }}</p>
                                 @endif
                             </div>
                         </div>
@@ -91,24 +91,24 @@
                 <div class="mt-8">
                     <h1 class="text-2xl">O mnie</h1>
                     <div class="mt-4">
-                       <p>{{ $user->description }}</p>
+                        <p>{{ $user->description }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
-{{--    @if($category_offers)--}}
-{{--        <div class="gap-x-6 pl-3 pr-3 pb-3">--}}
-{{--            <div class="p-6 bg-gray-200/50 dark:bg-gray-800/50 rounded-lg border-[1px] border-gray-300 dark:border-0">--}}
-{{--                <h1>Polecane oferty o tej samej kategorii</h1>--}}
-{{--                <div class="grid xl:col-span-4 lg:grid-cols-3 md:grid-cols-2 sm:col-span-1">--}}
-{{--                    @foreach($category_offers as $offer_cat)--}}
-{{--                        <x-offer-item :offer="$offer_cat"></x-offer-item>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    @endif--}}
+    {{--    @if($category_offers)--}}
+    {{--        <div class="gap-x-6 pl-3 pr-3 pb-3">--}}
+    {{--            <div class="p-6 bg-gray-200/50 dark:bg-gray-800/50 rounded-lg border-[1px] border-gray-300 dark:border-0">--}}
+    {{--                <h1>Polecane oferty o tej samej kategorii</h1>--}}
+    {{--                <div class="grid xl:col-span-4 lg:grid-cols-3 md:grid-cols-2 sm:col-span-1">--}}
+    {{--                    @foreach($category_offers as $offer_cat)--}}
+    {{--                        <x-offer-item :offer="$offer_cat"></x-offer-item>--}}
+    {{--                    @endforeach--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
 </x-app-layout>
 

@@ -1,9 +1,9 @@
 <div class="flex items-center" x-data="imagePreview()">
-    <div class="rounded-md bg-gray-200 mr-3">
+    <div class="rounded-full bg-gray-200 mr-3">
         @if($image)
-            <img src="{{ $image }}" id="imagePreview"  alt="" class="w-24 h-24 rounded-md object-cover">
+            <img src="{{ $image }}" id="imagePreview"  alt="" class="rounded-full w-24 h-24 object-cover">
         @else
-            <img src="{{ asset('storage/user/user-profile-default.jpg') }}" id="imagePreview"  alt="" class="w-24 h-24 rounded-md object-cover">
+            <img src="{{ asset('storage/user/user-profile-default.jpg') }}" id="imagePreview"  alt="" class="w-24 h-24 rounded-full object-cover">
         @endif
 
     </div>

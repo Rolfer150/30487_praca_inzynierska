@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\EducationalStage;
+use Carbon\Carbon;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -26,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'surname', 'image_path', 'email', 'password', 'birth_date', 'phone_number', 'education', 'school',
+        'slug', 'name', 'surname', 'image_path', 'email', 'password', 'birth_date', 'phone_number', 'education', 'school',
         'short_description', 'description', 'address'
     ];
 
@@ -95,9 +96,30 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 
     public function getURLImage()
     {
-        if (str_starts_with($this->image_path, 'http')) {
-            return $this->image_path;
-        }
+        if (str_starts_with($this->image_path, 'http')) return $this->image_path;
+
         return '/storage/' . $this->image_path;
+    }
+
+    public function getAge(): int
+    {
+        return Carbon::parse($this->birth_date)->age;
+    }
+
+    public function getAddress(string $column)
+    {
+        return $this->address == null ? null : $this->address[$column];
+    }
+
+    public function skills(): HasMany
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        $query
+            ->where('name', 'like', "%{$value}%");
+//            ->orWhere('data', 'like', "%{$value}%");
     }
 }

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/przyklad', [\App\Http\Controllers\PrzykladController::class, 'show']);
+
 Route::get('/',  [OfferController::class, 'mainPage'])->name('home');
 
 Route::get('/dashboard', function () {
@@ -26,7 +28,7 @@ Route::middleware('auth')
     ->name('profile.')
     ->group(function () {
     Route::get('/profile','edit')->name('edit');
-    Route::get('/profile{user}','show')->name('show');
+    Route::get('/profile/{user:slug}','show')->name('show');
     Route::patch('/profile','update')->name('update');
     Route::delete('/profile','destroy')->name('destroy');
 });
