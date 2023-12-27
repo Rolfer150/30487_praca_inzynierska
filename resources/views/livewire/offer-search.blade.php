@@ -1,7 +1,6 @@
 <div class="md:flex gap-x-2 p-3">
     {{--    Lewy Panel    --}}
-    <div
-        class="flex justify-center p-6 w-1/4 bg-white dark:bg-gray-800/50 rounded-lg border-[1px] border-gray-300 dark:border-0">
+    <div class="flex justify-center p-6 w-1/4 bg-white dark:bg-gray-800/50 rounded-lg border-[1px] border-gray-300 dark:border-0 ml-16">
         <div>
             <div class="flex grid-cols-2 justify-center items-center">
                 <p class="w-1/3 text-lg">Filtry</p>
@@ -20,7 +19,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <div>Wynik: {{ var_export($filterEmployments) }}</div>
+{{--                <div>Wynik: {{ var_export($filterEmployments) }}</div>--}}
             </div>
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
                 <p class="text-lg mb-3">Rodzaj umowy</p>
@@ -34,7 +33,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <div>Wynik: {{ var_export($filterContracts) }}</div>
+{{--                <div>Wynik: {{ var_export($filterContracts) }}</div>--}}
             </div>
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
                 <p class="text-lg mb-3">Tryb pracy</p>
@@ -48,7 +47,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <div>Wynik: {{ var_export($filterWorkModes) }}</div>
+{{--                <div>Wynik: {{ var_export($filterWorkModes) }}</div>--}}
             </div>
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
                 <p class="text-lg mb-3">Kategorie</p>
@@ -62,7 +61,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <div>Wynik: {{ var_export($filterCategories) }}</div>
+{{--                <div>Wynik: {{ var_export($filterCategories) }}</div>--}}
             </div>
 
             <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">
@@ -82,7 +81,7 @@
                 p-3 w-1/5 hover:bg-orange-500">Filtruj</button>
     </div>
     {{--    Prawy Panel    --}}
-    <div class="w-3/4 p-3 bg-white dark:bg-gray-800/50 rounded-lg">
+    <div class="w-3/4 p-3 bg-white dark:bg-gray-800/50 rounded-lg mr-16">
         <div class="p-3 flex" wire:model="search">
             <input type="text" placeholder="Szukaj..."
                    class="w-full focus:border-orange-500 focus:ring-orange-500
@@ -96,23 +95,31 @@
         <div class="p-3">
             <div class="flex justify-between">
                 <h2 wire:model="sortOffer" class="text-3xl text-gray-900 dark:text-gray-400">{{$messSortOffer}}</h2>
-                <div>
-                    <label>Sortuj według</label>
-                    <select wire:model.live="sortOffer">
-                        <option value="new">Najnowsze</option>
-                        <option value="old">Najstarsze</option>
-                        <option value="popular">Najpopularniejsze</option>
-                        <option value="near">Najbliższe</option>
-                    </select>
-                    <div>Wynik: {{ var_export($sortOffer) }}</div>
-                    <label>Na stronę</label>
-                    <select wire:model.live="perPage">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <div>Wynik: {{ var_export($perPage) }}</div>
+                <div class="flex gap-3">
+                    <div>
+                        <label>Sortuj według</label>
+                        <select wire:model.live="sortOffer" class="mt-1 block w-full rounded-md shadow-sm border-gray-300
+                        dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600
+                        focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                            <option value="new">Najnowsze</option>
+                            <option value="old">Najstarsze</option>
+                            <option value="popular">Najpopularniejsze</option>
+                            <option value="near">Najbliższe</option>
+                        </select>
+                    </div>
+{{--                    <div>Wynik: {{ var_export($sortOffer) }}</div>--}}
+                    <div>
+                        <label>Na stronę</label>
+                        <select wire:model.live="perPage" class="mt-1 block w-full rounded-md shadow-sm border-gray-300
+                        dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600
+                        focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+{{--                    <div>Wynik: {{ var_export($perPage) }}</div>--}}
                 </div>
             </div>
             <div class=" space-x-3 grid xl:col-span-3 lg:grid-cols-2 md:grid-cols-1 sm:col-span-1">

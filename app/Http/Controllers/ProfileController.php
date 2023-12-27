@@ -30,7 +30,7 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
-            'education' => EducationalStage::cases(),
+            'educations' => EducationalStage::cases(),
             'skills' => ProgrammingSkills::cases(),
             'skillLevel' => SkillLevel::cases(),
             'brands' => Brand::query()
