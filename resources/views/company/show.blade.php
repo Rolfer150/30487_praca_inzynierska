@@ -1,73 +1,105 @@
 <x-app-layout>
     <div class="md:flex gap-x-6 p-3">
-        {{-- Lewy panel --}}
-        <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 w-3/4 rounded-lg">
-            <div class="flex">
-                <div class="w-36 l-36">
-                    <img alt="{{$company->slug}}" class="rounded-md object-cover" src="{{$company->getURLImage()}}" />
-                </div>
-                <div class="pl-4">
-                    <div class="flex items-center">
-                        <h1 class="text-2xl text-gray-600 dark:text-gray-400">{{$company->name}}</h1>
+        {{-- Lewa strona --}}
+        <div
+            class="ml-24 border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 w-1/3 rounded-lg justify-center">
+            {{-- Lewy górny panel --}}
+            <div class="">
+                <div class="justify-center items-center">
+                    <div class="flex justify-center">
+                        <img alt="profile-image" class="w-36 h-36 rounded-full object-cover"
+                             src="{{ $company->getURLImage() }}"/>
                     </div>
-                    <div class="flex mt-4">
-                        @foreach($company->brands as $brand)
-                            <p class="ml-7">{{$brand->name}}</p>
-                        @endforeach
-                    </div>
-                    <div class="flex mt-4">
-                        <p class="ml-7">Liczba pracowników: {{$company->employees_amount}}</p>
-                    </div>
-                </div>
-                <div class="pl-4">
-                    <div class="flex items-center">
-                        <h1 class="text-2xl text-gray-600 dark:text-gray-400">Adres</h1>
-                    </div>
-                    <div class="flex mt-4">
-                        <div>
-                            <p class="ml-7">{{$street}}</p>
-                            <p class="ml-7">{{$home_nr}}</p>
-                        </div>
-                        <div>
-                            <p class="ml-7">{{$zip_code}}</p>
-                            <p class="ml-7">{{$city}}</p>
-                        </div>
 
+                    <div class="pl-4">
+                        <div class="mt-4">
+                            <h1 class="text-3xl text-gray-600 dark:text-gray-400 text-center font-bold">{{ $company->name }}</h1>
+                            <h2 class="text-center">{{ $company->short_description }}</h2>
+                        </div>
+{{--                        <div class="flex justify-center mt-4">--}}
+{{--                            <a href="{{route('profile.edit')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800--}}
+{{--                            transition-colors transition-colors content-center">--}}
+{{--                                ZMIEŃ SZCZEGÓŁY KONTA--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
-            {{--            <div class="pt-4">--}}
-            {{--                <p>{!! $offer->description !!}</p>--}}
-            {{--            </div>--}}
-            <div>
-                <h1 class="mt-6 font-bold">Opis pracy</h1>
-                <p>{{$company->description}}</p>
+
+            {{-- Lewy dolny panel --}}
+            <div class="mt-8">
+                <div>
+                    <div class="mt-4 mb-4">
+                        <h1 class="text-2xl font-bold text-center">Informacje podstawowe</h1>
+                    </div>
+                    <div>
+                        <div class="mt-4">
+                            <h1>Strona WWW:</h1>
+                            <a href="{{$company->website}}">{{ $company->website }}</a>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+
+                            <div class="mt-4">
+                                <h1>Lokacja:</h1>
+                                @if($company->address)
+                                    <p>{{ $company->address['city'] }}</p>
+                                @endif
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4">
+                                <h1>Adres email:</h1>
+                                <p>{{ $company->email }}</p>
+                            </div>
+                            <div class="mt-4">
+                                <h1>Numer telefonu:</h1>
+                                <p>{{ $company->phone_number }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        {{-- Prawy panel --}}
-        <div class="border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 rounded-lg w-1/4">
-{{--            <div class="flex justify-center">--}}
-{{--                @if($canNotApply == 'userMadeThisOffer')--}}
-{{--                    <a href="{{route('offer.myoffers')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800--}}
-{{--                transition-colors transition-colors content-center">--}}
-{{--                        ZOBACZ SZCZEGÓŁY TWOJEJ OFERTY--}}
-{{--                    </a>--}}
-{{--                @elseif($canNotApply == 'userHasApplied')--}}
-{{--                    <h1>Twoja aplikacja została już nadana.</h1>--}}
-{{--                    <form method="get" action="{{route('offer-application.index')}}">--}}
-{{--                        <button type="submit" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800--}}
-{{--                transition-colors transition-colors content-center">OBSERWUJ STATUS APLIKACJI</button>--}}
-{{--                    </form>--}}
-{{--                @else--}}
-{{--                    <a href="{{route('offer-application.create', $offer)}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800--}}
-{{--                transition-colors transition-colors content-center">--}}
-{{--                        APLIKUJ TERAZ--}}
-{{--                    </a>--}}
-{{--                @endif--}}
+        {{-- Prawa strona --}}
+        <div class="mr-24 border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 rounded-lg w-2/3">
+            {{-- Prawy panel --}}
+            <div>
+                <div>
+                    <div>
+                        <h1 class="text-2xl">Edukacja</h1>
+                        <div class="flex">
+                            <p class="mr-4">{{ $company->education }}</p>
+                            <p>{{ $company->school }}</p>
+                        </div>
+                    </div>
 
-{{--            </div>--}}
-{{--            <livewire:favourites-button :offer="$offer"/>--}}
+                    <div class="mt-8">
+                        <h1 class="text-2xl">Branże pracy</h1>
+                        <div class="flex">
+                            @foreach($company->brands as $brand)
+                                <p class="mr-4">{{ $brand->name }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h1 class="text-2xl">Umiejętności</h1>
+                        <div class="flex">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h1 class="text-2xl">O mnie</h1>
+                    <div class="mt-4">
+                        <p>{{ $company->description }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @if($company_brands)

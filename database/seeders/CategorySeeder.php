@@ -32,9 +32,21 @@ class CategorySeeder extends Seeder
                     'slug' => 'administracja-baz-danych'
                 ],
                 [
+                    'name' => 'IT - Rozwój oprogramowania',
+                    'slug' => 'it-rozwoj-oprogramowania'
+                ],
+                [
+                    'name' => 'Obsługa klienta',
+                    'slug' => 'obsluga-klienta'
+                ],
+                [
                     'name' => 'Opieka medyczna',
                     'slug' => 'opieka-medyczna'
-                ]
+                ],
+                [
+                    'name' => 'Energetyka',
+                    'slug' => 'energetyka'
+                ],
             ];
 
         foreach ($categories as $key => $value)

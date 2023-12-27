@@ -22,6 +22,7 @@ class Contract extends Model
             ->where('offers.active', '=', 1)
             ->select('contracts.id', 'contracts.name', DB::raw('count(*) as contractSum'))
             ->groupBy('contracts.id')
+            ->orderBy('contracts.id')
             ->get();
     }
 }

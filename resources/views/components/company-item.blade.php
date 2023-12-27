@@ -4,24 +4,24 @@ border-gray-300 dark:border-0 m-1">
         <div class="p-2 gap-4">
             <div class="pb-1 pl-2 flex items-center">
                 <h3 class="w-3/4 text-lg text-gray-600 dark:text-gray-400">{{$company->name}}</h3>
-{{--                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($company->salary)--}}
-{{--                        {{$offer->salary}} zł/--}}
-{{--                        @if($offer->payment)--}}
-{{--                            {{$offer->payment}}--}}
-{{--                        @endif--}}
-{{--                    @else--}}
-{{--                        <p>Wypłata do ustalenia</p>--}}
-{{--                    @endif</h3>--}}
-{{--                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($offer->employment_id)--}}
-{{--                        {{$offer->employment->name}}--}}
-{{--                    @else--}}
-{{--                        <p>Brak umowy o pracę</p>--}}
-{{--                    @endif</h3>--}}
+                {{--                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($company->salary)--}}
+                {{--                        {{$offer->salary}} zł/--}}
+                {{--                        @if($offer->payment)--}}
+                {{--                            {{$offer->payment}}--}}
+                {{--                        @endif--}}
+                {{--                    @else--}}
+                {{--                        <p>Wypłata do ustalenia</p>--}}
+                {{--                    @endif</h3>--}}
+                {{--                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($offer->employment_id)--}}
+                {{--                        {{$offer->employment->name}}--}}
+                {{--                    @else--}}
+                {{--                        <p>Brak umowy o pracę</p>--}}
+                {{--                    @endif</h3>--}}
             </div>
             <div class="right-0 pl-2">
                 <h3 class="text-gray-600 dark:text-gray-400"> {{$company->email}}</h3>
-                @foreach($company->brands as $brand)
-                    <h3 class="text-gray-600 dark:text-gray-400"> {{$brand->name}}</h3>
+                @foreach($company->categories as $category)
+                    <h3 class="text-gray-600 dark:text-gray-400"> {{$category->name}}</h3>
                 @endforeach
 
             </div>

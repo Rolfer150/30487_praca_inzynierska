@@ -13,7 +13,7 @@
                 <ul>
                     @foreach($brands as $brand)
                         <li wire:key="{{$brand->id}}">
-                            <input type="checkbox" wire:model="filterBrands" value="{{$brand->id}}"
+                            <input type="checkbox" wire:model="filterUsers" value="{{$brand->id}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
                             {{$brand->name}} ({{$brand->brandSum}})

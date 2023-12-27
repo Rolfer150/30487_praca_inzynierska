@@ -22,6 +22,7 @@ class Employment extends Model
             ->where('offers.active', '=', 1)
             ->select('employments.id', 'employments.name', DB::raw('count(*) as employmentSum'))
             ->groupBy('employments.id')
+            ->orderBy('employments.id')
             ->get();
     }
 }

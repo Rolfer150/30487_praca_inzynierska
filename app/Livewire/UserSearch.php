@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,12 @@ class UserSearch extends Component
     public int $perPage = 10;
     #[Url(history: true)]
     public array $filterUsers = [];
-
     public function render()
     {
-        $brands = Brand::brandFilter();
+        $brands = Category::categoryFilter();
         $users = $this->userRender();
-        return view('livewire.user-search', compact( 'users', 'brands'))->layout('layouts.app');
+        return view('livewire.user-search', compact( 'users', 'brands'))
+            ->layout('layouts.app');
     }
 
     public function userRender()
@@ -36,7 +37,7 @@ class UserSearch extends Component
             })
             ->when($this->filterUsers != null, function ($q)
             {
-                return $q->whereHas('brands', function ($q) {
+                return $q->whereHas('categories', function ($q) {
                     $q->where('id', $this->filterUsers);
                 });
             })
@@ -60,7 +61,7 @@ class UserSearch extends Component
         $this->resetPage();
     }
 
-    public function updatedFilterBrands()
+    public function updatedFilterCategories()
     {
         $this->resetPage();
     }

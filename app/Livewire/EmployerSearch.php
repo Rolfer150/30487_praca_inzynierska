@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Company;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -15,22 +16,22 @@ class EmployerSearch extends Component
     public string $search = '';
     public int $perPage = 10;
     #[Url(history: true)]
-    public array $filterBrands = [];
+    public array $filterEmployer = [];
     public function render()
     {
-        $brands = Brand::brandFilter();
+        $categories = Category::categoryFilter();
         $employerCompanies = $this->employerRender();
-        return view('livewire.employer-search', compact('employerCompanies', 'brands'))
+        return view('livewire.employer-search', compact('employerCompanies', 'categories'))
             ->layout('layouts.app');
     }
 
     public function employerRender()
     {
         return Company::query()
-            ->when($this->filterBrands != null, function ($q)
+            ->when($this->filterEmployer != null, function ($q)
             {
-                return $q->whereHas('brands', function ($q) {
-                    $q->where('id', $this->filterBrands);
+                return $q->whereHas('categories', function ($q) {
+                    $q->where('id', $this->filterEmployer);
                 });
             })
             ->search($this->search)
@@ -45,7 +46,7 @@ class EmployerSearch extends Component
     public function clearAll()
     {
         $this->reset('search');
-        $this->reset('filterBrands');
+        $this->reset('filterEmployer');
     }
 
     public function updatedSearch()
@@ -53,7 +54,7 @@ class EmployerSearch extends Component
         $this->resetPage();
     }
 
-    public function updatedFilterBrands()
+    public function updatedFilterCategories()
     {
         $this->resetPage();
     }

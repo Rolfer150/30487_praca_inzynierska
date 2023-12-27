@@ -101,10 +101,11 @@
                         <select wire:model.live="sortOffer" class="mt-1 block w-full rounded-md shadow-sm border-gray-300
                         dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600
                         focus:ring-indigo-500 dark:focus:ring-indigo-600">
-                            <option value="new">Najnowsze</option>
-                            <option value="old">Najstarsze</option>
-                            <option value="popular">Najpopularniejsze</option>
-                            <option value="near">Najbliższe</option>
+                            <option value="{{\App\Enums\SortOffer::RECOMMENDED->value}}">Polecane</option>
+                            <option value="{{\App\Enums\SortOffer::NEW->value}}">Najnowsze</option>
+                            <option value="{{\App\Enums\SortOffer::OLD->value}}">Najstarsze</option>
+                            <option value="{{\App\Enums\SortOffer::POPULAR->value}}">Najpopularniejsze</option>
+                            <option value="{{\App\Enums\SortOffer::LOCATION->value}}">Najbliższe</option>
                         </select>
                     </div>
 {{--                    <div>Wynik: {{ var_export($sortOffer) }}</div>--}}

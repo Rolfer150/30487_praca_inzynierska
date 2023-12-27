@@ -16,7 +16,7 @@ use App\Livewire\OfferSearch;
 use App\System\System;
 use Illuminate\Support\Facades\Route;
 
-        Route::get('/system', [SystemController::class, 'index'])->name('system.index');
+        Route::get('/system', [System::class, 'index'])->name('system.index');
 
         //Route::get('/offers', [OfferController::class, 'index'])->name('sidewidgets.offer');
         Route::get('/offers/{offer:slug}', [OfferController::class, 'show'])->name('offer.show');

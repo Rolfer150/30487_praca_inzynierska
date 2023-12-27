@@ -2,11 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Enums\SortOffer;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Employment;
 use App\Models\Offer;
 use App\Models\WorkMode;
+use App\System\System;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,7 +21,7 @@ class OfferSearch extends Component
     public string $search = '';
     public int $perPage = 10;
     #[Url(history: true)]
-    public string $sortOffer = 'new';
+    public string $sortOffer = SortOffer::NEW->value;
     public string $messageSortOffer = 'Najnowsze oferty';
     #[Url(history: true)]
     public array $filterEmployments = [];
@@ -31,6 +33,8 @@ class OfferSearch extends Component
     #[Url(history: true)]
     public array $filterCategories = [];
 
+    public System $system;
+
     public function render()
     {
         $employments = Employment::employmentFilter();
@@ -40,29 +44,53 @@ class OfferSearch extends Component
         $messSortOffer = $this->messageSortOffer;
         $offers = $this->offerRender();
 
-        if ($this->sortOffer === 'old')
+        if ($this->sortOffer === SortOffer::OLD->value)
         {
             $offers = $this->offerRender('created_at', 'asc');
             $messSortOffer = 'Najstarsze oferty';
         }
-        elseif ($this->sortOffer === 'popular') $messSortOffer = 'Najpopularniejsze oferty';
+        elseif ($this->sortOffer === SortOffer::POPULAR->value) $messSortOffer = 'Najpopularniejsze oferty';
 
-        elseif ($this->sortOffer === 'near') $messSortOffer = 'Oferty znajdujące się w Twojej okolicy';
+        elseif ($this->sortOffer === SortOffer::LOCATION->value) $messSortOffer = 'Oferty znajdujące się w Twojej okolicy';
 
-        return view('livewire.offer-search', compact(
-            'employments', 'contracts', 'workModes', 'offers', 'messSortOffer', 'categories'
-        ))
+        elseif ($this->sortOffer === SortOffer::RECOMMENDED->value)
+        {
+            $offers = $this->system->getOffers();
+            $messSortOffer = 'Oferty rekomendowane przez system';
+        }
+
+        return view('livewire.offer-search',
+            compact('employments', 'contracts', 'workModes', 'offers', 'messSortOffer', 'categories'))
             ->layout('layouts.app');
+    }
+
+    public function sortRender($messageSort = SortOffer::RECOMMENDED)
+    {
+        switch ($messageSort)
+        {
+            case SortOffer::NEW:
+                $this->messageSortOffer = 'Najnowsze oferty';
+                return $this->offerRender();
+            case SortOffer::OLD:
+                $this->messageSortOffer = 'Najstarsze oferty';
+                return $this->offerRender('created_at', 'asc');
+            case SortOffer::POPULAR:
+                $this->messageSortOffer = 'Najpopularniejsze oferty';
+                return $this->offerRender();
+            case SortOffer::LOCATION:
+                $this->messageSortOffer = 'Oferty znajdujące się w Twojej okolicy';
+                return $this->offerRender();
+            case SortOffer::RECOMMENDED:
+                $this->messageSortOffer = 'Oferty rekomendowane przez system';
+                return $this->offerRender();
+        }
+
     }
 
     public function offerRender(string $value = 'created_at', string $sorting = 'desc')
     {
         return Offer::query()
             ->where('active', '=', 1)
-            ->when($this->sortOffer === 'new' || $this->sortOffer === 'old', function ($q) use ($value, $sorting)
-            {
-                return $q->orderBy($value, $sorting);
-            })
             ->when($this->filterEmployments != null, function ($q)
             {
                 return $q->whereIn('employment_id', $this->filterEmployments);
@@ -79,6 +107,7 @@ class OfferSearch extends Component
             {
                 return $q->whereIn('category_id', $this->filterCategories);
             })
+            ->orderBy($value, $sorting)
             ->search($this->search)
             ->paginate($this->perPage);
     }

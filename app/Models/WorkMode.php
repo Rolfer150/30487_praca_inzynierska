@@ -22,6 +22,7 @@ class WorkMode extends Model
             ->where('offers.active', '=', 1)
             ->select('work_modes.id', 'work_modes.name', DB::raw('count(*) as workModeSum'))
             ->groupBy('work_modes.id')
+            ->orderBy('work_modes.id')
             ->get();
     }
 }

@@ -61,9 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         );
     }
 
-    public function brands(): BelongsToMany
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Brand::class);
+        return $this->belongsToMany(Category::class);
     }
     public function offers(): HasMany
     {
