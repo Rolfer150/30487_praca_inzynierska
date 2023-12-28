@@ -81,9 +81,9 @@ class OfferController extends Controller
         $work_modes = WorkMode::query()
             ->select('id', 'name')
             ->get();
-        $expectancies = ProgrammingSkills::cases();
+        $skills = ProgrammingSkills::cases();
         $skillLevel = SkillLevel::cases();
-        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'work_modes', 'expectancies', 'skillLevel'));
+        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'work_modes', 'skills', 'skillLevel'));
     }
 
     /**

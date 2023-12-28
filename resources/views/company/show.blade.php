@@ -79,8 +79,8 @@
                     <div class="mt-8">
                         <h1 class="text-2xl">Branże pracy</h1>
                         <div class="flex">
-                            @foreach($company->brands as $brand)
-                                <p class="mr-4">{{ $brand->name }}</p>
+                            @foreach($company->categories as $category)
+                                <p class="mr-4">{{ $category->name }}</p>
                             @endforeach
                         </div>
                     </div>

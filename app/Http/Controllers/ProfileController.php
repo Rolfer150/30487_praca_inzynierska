@@ -6,7 +6,7 @@ use App\Enums\EducationalStage;
 use App\Enums\ProgrammingSkills;
 use App\Enums\SkillLevel;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -33,7 +33,7 @@ class ProfileController extends Controller
             'educations' => EducationalStage::cases(),
             'skills' => ProgrammingSkills::cases(),
             'skillLevel' => SkillLevel::cases(),
-            'brands' => Brand::query()
+            'categories' => Category::query()
                 ->pluck('name')
                 ->all()
         ]);
@@ -68,7 +68,6 @@ class ProfileController extends Controller
             'zip_code' => $request->address['zip_code']
         ];
         $request->user()->address = $addressArray;
-//dd($request->skills);
 
         if ($request->skills)
         {
@@ -77,26 +76,24 @@ class ProfileController extends Controller
                 ->delete();
             foreach ($request->skills as $skill)
             {
-//            dd($skill);
                 $skillModel = new Skill;
                 $skillModel->skill = $skill['skill'];
                 $skillModel->skill_level = $skill['skillLevel'];
 
-//            dd($skillModel);
                 $request->user()->skills()->save($skillModel);
             }
         }
 
-        if ($request->brands)
+        if ($request->categories)
         {
-//            $request->user()->brands()->detach($request->brands);
-            foreach ($request->brands as $brand)
+            $request->user()->categories()->detach();
+            foreach ($request->categories as $category)
             {
-                $brands = Brand::query()
-                    ->where('name', '=', $brand)
+                $categories = Category::query()
+                    ->where('name', '=', $category['category'])
                     ->pluck('id')
                     ->all();
-                $request->user()->brands()->attach($brands);
+                $request->user()->categories()->attach($categories);
             }
         }
 

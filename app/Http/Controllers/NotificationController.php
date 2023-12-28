@@ -11,8 +11,7 @@ class NotificationController extends Controller
     public function index(): View
     {
         $system = new System;
-        $user = $system->getCurrentUser()->name;
-        dd($user);
+
         return view('notification.index');
     }
 }

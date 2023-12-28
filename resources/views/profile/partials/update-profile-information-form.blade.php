@@ -91,19 +91,8 @@
                     <x-input-error class="mt-2" :messages="$errors->get('birth_date')" />
                 </div>
 
-                <div class="mr-3 w-1/2">
-                    <x-input-label for="brands" :value="__('Branża zawodowa')" />
-                    <select placeholder="Wybierz Twoje umiejętności..." id="brands"
-                            name="brands" :value="old('brands', $user->brands)"
-                            class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900
-                        dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
-                        @foreach($brands as $brand)
-                            <option  value="{{$brand}}">{{$brand}}</option>
-                        @endforeach
-                    </select>
-{{--                    <x-simple-select :options="$brands" multiple="brands" :searchable="false" placeholder="Wybierz Twoje wykształcenie..." id="brands" name="brands"  class="mt-1 block w-full"></x-simple-select>--}}
-                    <x-input-error class="mt-2" :messages="$errors->get('brands')" />
-                </div>
+                <livewire:add-brand :brands="$categories" :user="$user"/>
+
             </div>
 
             <div class="w-1/2 pl-2 mt-3">

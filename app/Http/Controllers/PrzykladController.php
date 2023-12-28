@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Przyklad;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PrzykladController extends Controller

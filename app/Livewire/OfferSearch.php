@@ -33,8 +33,6 @@ class OfferSearch extends Component
     #[Url(history: true)]
     public array $filterCategories = [];
 
-    public System $system;
-
     public function render()
     {
         $employments = Employment::employmentFilter();
@@ -43,6 +41,7 @@ class OfferSearch extends Component
         $categories = Category::categoryFilter();
         $messSortOffer = $this->messageSortOffer;
         $offers = $this->offerRender();
+        $system = new System;
 
         if ($this->sortOffer === SortOffer::OLD->value)
         {
@@ -55,7 +54,7 @@ class OfferSearch extends Component
 
         elseif ($this->sortOffer === SortOffer::RECOMMENDED->value)
         {
-            $offers = $this->system->getOffers();
+            $offers = $system->getOfferSearch()->paginate($this->perPage);
             $messSortOffer = 'Oferty rekomendowane przez system';
         }
 

@@ -15,7 +15,8 @@
                             <input type="checkbox" wire:model="filterEmployments" value="{{$employment->id}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                            {{$employment->name}} ({{$employment->employmentSum}})
+{{--                            {{$employment->name}} ({{$employment->employmentSum}})--}}
+                            {{$employment->name}}
                         </li>
                     @endforeach
                 </ul>
@@ -29,7 +30,8 @@
                             <input type="checkbox" wire:model="filterContracts" value="{{$contract->id}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                            {{$contract->name}} ({{$contract->contractSum}})
+{{--                            {{$contract->name}} ({{$contract->contractSum}})--}}
+                            {{$contract->name}}
                         </li>
                     @endforeach
                 </ul>
@@ -43,7 +45,8 @@
                             <input type="checkbox" wire:model="filterWorkModes" value="{{$workMode->id}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                            {{$workMode->name}} ({{$workMode->workModeSum}})
+{{--                            {{$workMode->name}} ({{$workMode->workModeSum}})--}}
+                            {{$workMode->name}}
                         </li>
                     @endforeach
                 </ul>
@@ -57,7 +60,8 @@
                             <input type="checkbox" wire:model="filterCategories" value="{{$category->id}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                            {{$category->name}} ({{$category->categorySum}})
+{{--                            {{$category->name}} ({{$category->categorySum}})--}}
+                            {{$category->name}}
                         </li>
                     @endforeach
                 </ul>

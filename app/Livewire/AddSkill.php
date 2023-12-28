@@ -10,12 +10,14 @@ class AddSkill extends Component
     public $user = null;
     public $skillLevel = null;
 
-    public array $skillArray = [''];
+    public array $skillArray = [];
 
     public array $skillLevelArray = [];
 
     public function render()
     {
+//        dd($this->user->skills);
+        $this->loadSkill();
         return view('livewire.add-skill');
     }
 
@@ -28,5 +30,17 @@ class AddSkill extends Component
     {
         unset($this->skillArray[$index]);
         $this->skillArray = array_values($this->skillArray);
+    }
+
+    public function loadSkill()
+    {
+        if ($this->user->skills)
+        {
+            foreach ($this->user->skills as $skill)
+            {
+                $this->skillArray[] = $skill->skill;
+                $this->skillLevelArray[] = $skill->skill_level;
+            }
+        }
     }
 }

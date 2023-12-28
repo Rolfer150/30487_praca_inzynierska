@@ -2,51 +2,36 @@
 
 namespace App\System;
 
-use App\Models\Category;
 use App\Models\Offer;
-use App\Models\User;
+use App\Notifications\OfferRecommendedNotification;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Contracts\View\View;
+use Livewire\WithPagination;
 
 class System
 {
-    public int $offerNrBySkills = 0;
+    use WithPagination;
 
     public function index(): View
     {
         $currentUser = $this->getCurrentUser();
-//        dd($this->getCurrentUser()->id);
-//        $categories = $this->getUserCategories();
-//        dd($categories);
-        $offers = $this->getOffers();
+        $offers = $this->getOfferSearch()->get();
+        $this->getOfferNotification();
         return view('system.index', compact('currentUser', 'offers'));
     }
     public function getCurrentUser()
     {
         return Auth::user();
     }
-    public function getOfferNrBySkills(): int
+    public function getOfferNotification()
     {
-//        $offers = Offer::query()
-//            ->where('category_id')
-
-        return $this->getOfferNumber();
+        return $this->getCurrentUser()->notify(new OfferRecommendedNotification($this->getOfferSearch()->pluck('id')->all()));
     }
-
-//    public function getUserCategories()
-//    {
-//        return Category::query()
-//            ->join('category_user', 'category_user.category_id', '=', 'categories.id')
-//            ->where('category_user.user_id', '=', $this->getCurrentUser()->id)
-//            ->get();
-//    }
-
-    public function getOffers()
+    public function getOfferSearch()
     {
         return Offer::query()
             ->join('category_user', 'category_user.category_id', '=', 'offers.category_id')
             ->where('category_user.user_id', '=', $this->getCurrentUser()->id)
-            ->where('active', '=', 1)
-            ->get();
+            ->where('active', '=', 1);
     }
 }

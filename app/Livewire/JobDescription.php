@@ -6,11 +6,14 @@ use Livewire\Component;
 
 class JobDescription extends Component
 {
-    public $expectancies = null;
+    public $skills = null;
     public $skillLevel = null;
     public array $jobDescriptions = [
         'tasks' => [
             '0' => 'wartosc',
+        ],
+        'skills' => [
+            '0' => '',
         ],
         'expectancies' => [
             '0' => '',

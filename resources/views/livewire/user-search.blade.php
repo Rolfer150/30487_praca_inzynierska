@@ -16,11 +16,11 @@
                             <input type="checkbox" wire:model="filterUsers" value="{{$brand->id}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
-                            {{$brand->name}} ({{$brand->brandSum}})
+                            {{$brand->name}}
                         </li>
                     @endforeach
                 </ul>
-                <div>Wynik: {{ var_export($filterUsers) }}</div>
+{{--                <div>Wynik: {{ var_export($filterUsers) }}</div>--}}
             </div>
 {{--            <div class="mt-9 dark:bg-gray-900 rounded-lg border-[1px] border-gray-300 dark:border-0 p-3">--}}
 {{--                <p class="text-lg mb-3">Lokalizacja</p>--}}
@@ -58,13 +58,15 @@
             <div class="flex justify-between">
                 <div>
                     <label>Na stronę</label>
-                    <select wire:model.live="perPage">
+                    <select wire:model.live="perPage" class="mt-1 block w-full rounded-md shadow-sm border-gray-300
+                        dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600
+                        focus:ring-indigo-500 dark:focus:ring-indigo-600">
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
-                    <div>Wynik: {{ var_export($perPage) }}</div>
+{{--                    <div>Wynik: {{ var_export($perPage) }}</div>--}}
                 </div>
             </div>
                         <div class=" space-x-3 grid xl:col-span-3 lg:grid-cols-2 md:grid-cols-1 sm:col-span-1">

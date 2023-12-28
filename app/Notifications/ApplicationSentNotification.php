@@ -41,7 +41,7 @@ class ApplicationSentNotification extends Notification
             'title' => 'Pomyślne wysłanie aplikacji',
             'offerName' => $this->apply->offer->name,
             'ownerName' => $this->apply->offer->user->name,
-            'description' => 'Aplikacja na ofertę pracy ' . $this->apply->offer->name . ' została zakończona pomyślnie.'
+            'description' => 'Aplikacja na ofertę pracy "' . $this->apply->offer->name . '" została zakończona pomyślnie.'
         ];
     }
 }

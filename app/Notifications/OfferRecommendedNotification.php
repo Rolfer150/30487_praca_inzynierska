@@ -7,17 +7,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ApplicationReceivedNotification extends Notification
+class OfferRecommendedNotification extends Notification
 {
     use Queueable;
-    public $apply;
+    public $offers;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($apply)
+    public function __construct($offers)
     {
-        $this->apply = $apply;
+        $this->offers = $offers;
     }
 
     /**
@@ -36,10 +36,9 @@ class ApplicationReceivedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Użytkownik ' . $this->apply->user->name
-                        . ' zaaplikował/a na Twoją ofertę pracy '. $this->apply->offer->name . '.')
-                    ->action('Przejdź do Strony', url('/offers/' . $this->apply->offer->slug))
-                    ->line('Może to być potencjalny pracownik');
+                    ->line('Witaj! Poniżej znajduje się lista ofert, które mogą Cię zainteresować.')
+                    ->action('Przejdź do Strony', url('/'))
+                    ->line('Może tu być idealna oferta dla Ciebie!');
     }
 
     /**
@@ -49,13 +48,15 @@ class ApplicationReceivedNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        $offerIDArray = [];
+        foreach ($this->offers as $key => $value)
+        {
+            $offerIDArray[] = $value;
+        }
         return [
-            'title' => 'Zaaplikowano na Twoją ofertę',
-            'offerName' => $this->apply->offer->name,
-            'addresseeName' => $this->apply->user->name,
-            'description' => 'Użytkownik ' . $this->apply->user->name
-                . ' zaaplikował/a na Twoją ofertę pracy "'. $this->apply->offer->name . '".',
-            'slug' => $this->apply->offer->slug
+            'title' => 'Lista polecanych ofert pracy!',
+            'offerID' => $offerIDArray,
+            'description' => 'Poniżej system odnalazł oferty pracy, które mogą Cię zainteresować:',
         ];
     }
 }
