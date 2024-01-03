@@ -15,14 +15,33 @@ class SkillSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::pluck('id');
-        $faker = Factory::create();
+        $skills =
+            [
+                [
+                    'name' => 'Python',
+                    'category_id' => 5
+                ],
+                [
+                    'name' => 'C++',
+                    'category_id' => 5
+                ],
+                [
+                    'name' => 'Java',
+                    'category_id' => 5
+                ],
+                [
+                    'name' => 'Sql',
+                    'category_id' => 4
+                ],
+                [
+                    'name' => 'Git',
+                    'category_id' => 5
+                ]
+            ];
 
-        Skill::factory(200)
-            ->create()
-            ->each(function ($skill) use ($user, $faker)
-            {
-                $skill->users()->attach($faker->unique()->randomElement($user));
-            });
+        foreach ($skills as $key => $value)
+        {
+            Skill::create($value);
+        }
     }
 }

@@ -111,9 +111,9 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         return $this->address == null ? null : $this->address[$column];
     }
 
-    public function skills(): HasMany
+    public function skills(): BelongsToMany
     {
-        return $this->hasMany(Skill::class);
+        return $this->belongsToMany(Skill::class);
     }
 
     public function scopeSearch($query, $value)

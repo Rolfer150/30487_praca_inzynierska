@@ -34,7 +34,7 @@ class UserFactory extends Factory
             'phone_number' => fake()->phoneNumber,
             'education' => fake()->randomElement(EducationalStage::cases()),
             'school' => fake()->text(50),
-            'short_description' => fake()->realText(128),
+//            'short_description' => fake()->realText(128),
             'description' => fake()->realText(1024),
             'address' => [
                 'city' => fake()->city,

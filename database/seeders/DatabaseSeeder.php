@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategorySeeder::class,
-            ContractSeeder::class,
-            EmploymentSeeder::class,
-            WorkModeSeeder::class,
+//            ContractSeeder::class,
+//            EmploymentSeeder::class,
+//            WorkModeSeeder::class,
             RoleSeeder::class,
+            SkillSeeder::class,
             UserSeeder::class
         ]);
 
@@ -37,11 +38,13 @@ class DatabaseSeeder extends Seeder
 //        Skill::factory(200)->create();
 
         $categories = Category::all();
+        $skills = Skill::all();
         Company::all()->each(function ($company) use ($categories) {
             $company->categories()->saveMany($categories->random(2));
         });
-        User::all()->each(function ($user) use ($categories) {
+        User::all()->each(function ($user) use ($categories, $skills) {
             $user->categories()->saveMany($categories->random(2));
+            $user->skills()->saveMany($skills->random(2));
         });
     }
 }

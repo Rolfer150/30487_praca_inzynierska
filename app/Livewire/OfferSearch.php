@@ -2,12 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Enums\Contract;
+use App\Enums\Employment;
 use App\Enums\SortOffer;
+use App\Enums\WorkMode;
 use App\Models\Category;
-use App\Models\Contract;
-use App\Models\Employment;
+//use App\Models\Contract;
+//use App\Models\Employment;
 use App\Models\Offer;
-use App\Models\WorkMode;
+//use App\Models\WorkMode;
 use App\System\System;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -35,9 +38,9 @@ class OfferSearch extends Component
 
     public function render()
     {
-        $employments = Employment::employmentFilter();
-        $contracts = Contract::contractFilter();
-        $workModes = WorkMode::workModeFilter();
+        $employments = Employment::cases();
+        $contracts = Contract::cases();
+        $workModes = WorkMode::cases();
         $categories = Category::categoryFilter();
         $messSortOffer = $this->messageSortOffer;
         $offers = $this->offerRender();
@@ -92,15 +95,15 @@ class OfferSearch extends Component
             ->where('active', '=', 1)
             ->when($this->filterEmployments != null, function ($q)
             {
-                return $q->whereIn('employment_id', $this->filterEmployments);
+                return $q->whereIn('employment', $this->filterEmployments);
             })
             ->when($this->filterContracts != null, function ($q)
             {
-                return $q->whereIn('contract_id', $this->filterContracts);
+                return $q->whereIn('contract', $this->filterContracts);
             })
             ->when($this->filterWorkModes != null, function ($q)
             {
-                return $q->whereIn('work_mode_id', $this->filterWorkModes);
+                return $q->whereIn('work_mode', $this->filterWorkModes);
             })
             ->when($this->filterCategories != null, function ($q)
             {

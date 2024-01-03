@@ -18,19 +18,7 @@ class Skill extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'user_id', 'skill', 'skill_level'
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'skill' => ProgrammingSkills::class,
-        'skill_level' => SkillLevel::class,
-    ];
+    protected $fillable = ['name'];
 
     public function users():BelongsToMany
     {

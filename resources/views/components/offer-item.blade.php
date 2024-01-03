@@ -13,8 +13,8 @@ border-gray-300 dark:border-0 m-1">
                     @else
                         <p>Wypłata do ustalenia</p>
                     @endif</h3>
-                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($offer->employment_id)
-                        {{$offer->employment->name}}
+                <h3 class="w-1/4 text-gray-600 dark:text-gray-400">@if($offer->employment)
+                        {{$offer->employment}}
                     @else
                         <p>Brak umowy o pracę</p>
                 @endif</h3>
@@ -25,8 +25,8 @@ border-gray-300 dark:border-0 m-1">
                     @else
                         <p>Brak kategorii</p>
                     @endif</h3>
-                <h3 class="text-gray-600 dark:text-gray-400">@if($offer->work_mode_id)
-                        {{$offer->workMode->name}}
+                <h3 class="text-gray-600 dark:text-gray-400">@if($offer->work_mode)
+                        {{$offer->work_mode}}
                     @else
                         <p>Brak trybu pracy</p>
                 @endif</h3>

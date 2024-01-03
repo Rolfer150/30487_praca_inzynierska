@@ -2,11 +2,14 @@
 
 namespace Database\Factories;
 
+//use App\Models\Employment;
+//use App\Models\Contract;
+//use App\Models\WorkMode;
+use App\Enums\Contract;
+use App\Enums\Employment;
+use App\Enums\WorkMode;
 use App\Models\Category;
-use App\Models\Employment;
-use App\Models\Contract;
 use App\Models\User;
-use App\Models\WorkMode;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Enums\PaymentType;
@@ -64,9 +67,12 @@ class OfferFactory extends Factory
             'payment' => $payment,
             'salary' => $salary,
             'category_id' => Category::inRandomOrder()->first()->id,
-            'employment_id' => Employment::inRandomOrder()->first()->id,
-            'contract_id' => Contract::inRandomOrder()->first()->id,
-            'work_mode_id' => WorkMode::inRandomOrder()->first()->id,
+//            'employment_id' => Employment::inRandomOrder()->first()->id,
+//            'contract_id' => Contract::inRandomOrder()->first()->id,
+//            'work_mode_id' => WorkMode::inRandomOrder()->first()->id,
+            'employment' => fake()->randomElement(Employment::cases()),
+            'contract' => fake()->randomElement(Contract::cases()),
+            'work_mode' => fake()->randomElement(WorkMode::cases()),
             'created_at' => fake()->date
         ];
     }

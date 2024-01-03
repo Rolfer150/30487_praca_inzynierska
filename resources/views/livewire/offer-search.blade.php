@@ -11,12 +11,12 @@
                 <p class="text-lg mb-3">Wymiar pracy</p>
                 <ul>
                     @foreach($employments as $employment)
-                        <li wire:key="{{$employment->id}}">
-                            <input type="checkbox" wire:model="filterEmployments" value="{{$employment->id}}"
+                        <li wire:key="{{$employment->value}}">
+                            <input type="checkbox" wire:model="filterEmployments" value="{{$employment->value}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
 {{--                            {{$employment->name}} ({{$employment->employmentSum}})--}}
-                            {{$employment->name}}
+                            {{$employment->value}}
                         </li>
                     @endforeach
                 </ul>
@@ -26,12 +26,12 @@
                 <p class="text-lg mb-3">Rodzaj umowy</p>
                 <ul>
                     @foreach($contracts as $contract)
-                        <li wire:key="{{$contract->id}}">
-                            <input type="checkbox" wire:model="filterContracts" value="{{$contract->id}}"
+                        <li wire:key="{{$contract->value}}">
+                            <input type="checkbox" wire:model="filterContracts" value="{{$contract->value}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
 {{--                            {{$contract->name}} ({{$contract->contractSum}})--}}
-                            {{$contract->name}}
+                            {{$contract->value}}
                         </li>
                     @endforeach
                 </ul>
@@ -41,12 +41,12 @@
                 <p class="text-lg mb-3">Tryb pracy</p>
                 <ul>
                     @foreach($workModes as $workMode)
-                        <li wire:key="{{$workMode->id}}">
-                            <input type="checkbox" wire:model="filterWorkModes" value="{{$workMode->id}}"
+                        <li wire:key="{{$workMode->value}}">
+                            <input type="checkbox" wire:model="filterWorkModes" value="{{$workMode->value}}"
                                    class="rounded-md text-orange-600 dark:checked:bg-orange-500 bg-white
                                    dark:bg-gray-900 ring-offset-0 focus:ring-orange-500 dark:ring-offset-gray-800">
 {{--                            {{$workMode->name}} ({{$workMode->workModeSum}})--}}
-                            {{$workMode->name}}
+                            {{$workMode->value}}
                         </li>
                     @endforeach
                 </ul>
