@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
@@ -58,11 +59,6 @@ class Offer extends Model
         return $this->BelongsTo(Contract::class);
     }
 
-    public function payment(): BelongsTo
-    {
-        return $this->BelongsTo(Payment::class);
-    }
-
     public function workMode(): BelongsTo
     {
         return $this->BelongsTo(WorkMode::class);
@@ -76,6 +72,11 @@ class Offer extends Model
     public function questionnaire(): HasOne
     {
         return $this->hasOne(Questionnaire::class);
+    }
+
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class);
     }
 
     public function userHasApplied(): bool

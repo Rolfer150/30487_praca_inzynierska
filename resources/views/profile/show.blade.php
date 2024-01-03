@@ -12,7 +12,6 @@
                     <div class="pl-4">
                         <div class="mt-4">
                             <h1 class="text-3xl text-gray-600 dark:text-gray-400 text-center font-bold">{{ $user->name }} {{ $user->surname }}</h1>
-                            <h2 class="text-center">{{ $user->short_description }}</h2>
                         </div>
                         <div class="flex justify-center mt-4">
                             <a href="{{route('profile.edit')}}" class="text-xl text-white bg-orange hover:bg-orange-500 p-4 rounded-2xl hover:bg-gray-800

@@ -17,7 +17,7 @@ class AddSkill extends Component
     public function render()
     {
 //        dd($this->user->skills);
-        $this->loadSkill();
+//        $this->loadSkill();
         return view('livewire.add-skill');
     }
 

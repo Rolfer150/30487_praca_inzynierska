@@ -1,7 +1,6 @@
 <div class="md:flex gap-x-2 p-3">
     {{--    Lewy Panel    --}}
-    <div
-        class="flex justify-center p-6 w-1/4 bg-white dark:bg-gray-800/50 rounded-lg border-[1px] border-gray-300 dark:border-0">
+    <div class="flex justify-center p-6 w-1/4 bg-white dark:bg-gray-800/50 rounded-lg border-[1px] border-gray-300 dark:border-0 ml-16">
         <div>
             <div class="flex grid-cols-2 justify-center items-center">
                 <p class="w-1/3 text-lg">Filtry</p>
@@ -45,7 +44,7 @@
         </button>
     </div>
     {{--    Prawy Panel    --}}
-    <div class="w-3/4 p-3 bg-white dark:bg-gray-800/50 rounded-lg">
+    <div class="w-3/4 p-3 bg-white dark:bg-gray-800/50 rounded-lg mr-16">
         <div class="p-3 flex" wire:model="search">
             <input type="text" placeholder="Szukaj..."
                    class="w-full focus:border-orange-500 focus:ring-orange-500

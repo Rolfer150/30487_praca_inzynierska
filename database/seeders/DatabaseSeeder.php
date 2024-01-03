@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Offer;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         });
         Offer::factory(1000)->create();
         Company::factory(100)->create();
+//        Skill::factory(200)->create();
 
         $categories = Category::all();
         Company::all()->each(function ($company) use ($categories) {

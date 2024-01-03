@@ -83,7 +83,7 @@ class OfferSearch extends Component
                 $this->messageSortOffer = 'Oferty rekomendowane przez system';
                 return $this->offerRender();
         }
-
+        return null;
     }
 
     public function offerRender(string $value = 'created_at', string $sorting = 'desc')

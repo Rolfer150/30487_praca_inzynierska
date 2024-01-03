@@ -63,7 +63,6 @@
                 </div>
 
                 <div class="flex mt-3">
-
                     <div class="mr-3 w-1/2">
                         <x-input-label for="education" :value="__('Wykształcenie')" />
                         <select placeholder="Wybierz Twoje umiejętności..." id="education"
@@ -74,23 +73,19 @@
                                 <option  value="{{$education->value}}">{{$education->value}}</option>
                             @endforeach
                         </select>
-{{--                        <x-simple-select :options="$education" :searchable="false" placeholder="Wybierz Twoje wykształcenie" id="education" name="education" :value="old('education', $user->education)" class="mt-1 block w-full"></x-simple-select>--}}
                         <x-input-error class="mt-2" :messages="$errors->get('education')" />
                     </div>
-
                     <div class="w-1/2">
                         <x-input-label for="school" :value="__('Szkoła')" />
                         <x-text-input id="school" name="school" type="text" class="mt-1 block w-full" :value="old('school', $user->school)" required autofocus autocomplete="school" placeholder="Wpisz nazwę ukończonej szkoły..." />
                         <x-input-error class="mt-2" :messages="$errors->get('school')" />
                     </div>
                 </div>
-
-                <div class="w-1/2">
+                <div class="w-1/2 pr-1">
                     <x-input-label for="birth_date" :value="__('Data urodzenia')" />
                     <x-input-date id="birth_date" name="birth_date" type="date" class="mt-1 block w-full" value="{{$user->birth_date}}" required autofocus autocomplete="birth_date" />
                     <x-input-error class="mt-2" :messages="$errors->get('birth_date')" />
                 </div>
-
                 <livewire:add-brand :brands="$categories" :user="$user"/>
 
             </div>
@@ -133,11 +128,11 @@
             </div>
         </div>
 
-        <div class="mt-3">
-            <x-input-label for="short_description" :value="__('Krótki opis')" />
-            <x-text-input id="short_description" name="short_description" type="text" class="mt-1 block w-full" :value="old('short_description', $user->short_description)" required autofocus autocomplete="short_description" placeholder="Podaj krótki opis..." />
-            <x-input-error class="mt-2" :messages="$errors->get('short_description')" />
-        </div>
+{{--        <div class="mt-3">--}}
+{{--            <x-input-label for="short_description" :value="__('Krótki opis')" />--}}
+{{--            <x-text-input id="short_description" name="short_description" type="text" class="mt-1 block w-full" :value="old('short_description', $user->short_description)" required autofocus autocomplete="short_description" placeholder="Podaj krótki opis..." />--}}
+{{--            <x-input-error class="mt-2" :messages="$errors->get('short_description')" />--}}
+{{--        </div>--}}
 
         <div class="mt-3">
             <x-input-label for="description" :value="__('Szczegółowy opis')" />

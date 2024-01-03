@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->string('phone_number')->nullable();
             $table->enum('education', EducationalStage::values())->nullable();
             $table->string('school')->nullable();
-            $table->string('short_description')->nullable();
             $table->longText('description')->nullable();
             $table->json('address')->nullable();
             $table->string('email')->unique();

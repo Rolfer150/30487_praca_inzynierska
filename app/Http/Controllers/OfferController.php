@@ -12,6 +12,7 @@ use App\Models\Employment;
 use App\Models\Offer;
 use App\Models\WorkMode;
 use App\Notifications\OfferCreatedNotification;
+use App\System\System;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -120,9 +121,15 @@ class OfferController extends Controller
      */
     public function show(Offer $offer): View
     {
+        $user = auth()->user();
+
         try {
             $offer::where('id', '=', $offer->id)
-                ->where('active', '=', 1)
+//                ->where('active', '=', 1)
+                ->when($user->id != $offer->user_id, function ($q)
+                {
+                    $q->where('active', '=', 1);
+                })
                 ->firstOrFail();
         } catch (\Exception $exception) {
             return view('errors.offerNotActive');
@@ -130,12 +137,18 @@ class OfferController extends Controller
 
         $canNotApply = '';
 
-        $user = auth()->user();
         if ($user) {
+            $system = new System;
+            $messagesSkillComparison = $system->displaySkillComparisonMessage($user->id, $offer->id);
+            $messagesCategoryComparison = $system->displayCategoryComparisonMessage($user->id, $offer->id);
+
             if ($offer->isUsersOffer())
+            {
+                $messagesSkillComparison = null;
+                $messagesCategoryComparison = null;
                 $canNotApply = 'userMadeThisOffer';
-            if ($offer->userHasApplied())
-                $canNotApply = 'userHasApplied';
+            }
+            if ($offer->userHasApplied()) $canNotApply = 'userHasApplied';
         }
 
         $category_offers = Offer::query()
@@ -146,7 +159,13 @@ class OfferController extends Controller
             ->limit(6)
             ->get();
 
-        return view("offer.show", compact('offer', 'category_offers', 'canNotApply'));
+        $skills = Offer::query()
+            ->join('offer_skill', 'offers.id', '=', 'offer_skill.offer_id')
+            ->where('offer_id', '=', $offer->id)
+            ->get();
+
+//        dd($messages);
+        return view("offer.show", compact('offer', 'category_offers', 'canNotApply', 'skills', 'messagesSkillComparison', 'messagesCategoryComparison'));
     }
 
     /**

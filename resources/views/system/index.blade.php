@@ -4,4 +4,6 @@
     @foreach($offers as $offer)
         <p>{{$offer->name}}</p>
     @endforeach
+
+    <p> {{ $message }} </p>
 </x-app-layout>

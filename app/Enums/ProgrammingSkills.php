@@ -11,6 +11,10 @@ enum ProgrammingSkills: string
     case GIT = 'Git';
     case DOCKER = 'Docker';
 
+    case SQL = 'Sql';
+
+    case PHP = 'Php';
+
     public static function values(): array
     {
         return array_column(self::cases(), 'value');

@@ -1,4 +1,24 @@
 <x-app-layout>
+    @if($messagesCategoryComparison || $messagesSkillComparison)
+    <div class="flex justify-between bg-orange-600 ml-32 mr-32 mt-10 p-9 rounded-lg">
+        <div>
+            @foreach($messagesSkillComparison as $key => $value)
+                <h1 class="text-white">{{$value}}</h1><br>
+            @endforeach
+            @foreach($messagesCategoryComparison as $key => $value)
+                <div class="flex gap-3">
+                    <h1 class="text-white w-3/4">{{$value}}</h1> <button class="bg-white text-orange hover:text-orange-300 pl-2 pr-2 rounded-lg">Zmień</button><br>
+                </div>
+            @endforeach
+        </div>
+        <button class="align-self-end">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor" class="w-6 h-6 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+    @endif
     <div class="md:flex gap-x-6 p-3">
         {{-- Lewy panel --}}
         <div class="ml-32 border-[1px] border-gray-300 dark:border-0 dark:bg-gray-800/50 p-6 w-3/4 rounded-lg">
@@ -30,6 +50,14 @@
             <div>
                 <h1 class="mt-6 font-bold">Opis pracy</h1>
                 <p>{{$offer->description}}</p>
+                @if($skills)
+                    <h2 class="mt-6 font-bold">Wymagane umiejętności</h2>
+                    <ul>
+                        @foreach($skills as $skill)
+                            <li>{{$skill->skill}}: {{$skill->skill_level}}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <h2 class="mt-6 font-bold">Twoje zadania:</h2>
                 <ul>
                     @foreach($offer->tasks as $task)
@@ -80,6 +108,7 @@
 
             </div>
             <livewire:favourites-button :offer="$offer"/>
+
         </div>
     </div>
     @if($category_offers)

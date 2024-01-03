@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('slug', 32)->unique();
             $table->string('image_path', 2048)->nullable();
             $table->string('website', 2048)->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('phone_number')->nullable();
             $table->longText('description')->nullable();
             $table->integer('employees_amount')->nullable();

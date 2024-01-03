@@ -7,6 +7,7 @@ use App\Enums\SkillLevel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Skill extends Model
 {
@@ -31,8 +32,13 @@ class Skill extends Model
         'skill_level' => SkillLevel::class,
     ];
 
-    public function user():BelongsTo
+    public function users():BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
+    }
+
+    public function offers(): BelongsToMany
+    {
+        return $this->belongsToMany(Offer::class);
     }
 }
