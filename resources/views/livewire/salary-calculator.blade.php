@@ -29,8 +29,8 @@
     {{--        <p>Roczne wynagrodzenie: {{$annualResult}}</p>--}}
             <div class="p-3">
                 @if($calculation == 'Brutto')
-                    <p class="mb-3">Ubezpieczenie emerytalne: {{$socialSecurity}}</p>
-                    <p class="mb-3">Ubezpieczenie rentowe: {{$retirementInsurance}}</p>
+                    <p class="mb-3">Ubezpieczenie emerytalne: {{$retirementInsurance}}</p>
+                    <p class="mb-3">Ubezpieczenie rentowe: {{$pensionInsurance}}</p>
                     <p class="mb-3">Ubezpieczenie chorobowe: {{$disabilityInsurance}}</p>
                     <p class="mb-3">Ubezpieczenie zdrowotne: {{$healthInsurance}}</p>
                 @endif

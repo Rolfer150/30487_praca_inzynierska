@@ -11,11 +11,9 @@ class SalaryCalculator extends Component
     public string $retirementInsurance;
     public string $disabilityInsurance;
     public string $healthInsurance;
-    public string $socialSecurity;
-    public string $annualResult;
+    public string $pensionInsurance;
     public string $calculation = 'Brutto';
     public bool $disabled = false;
-    public bool $advanced = false;
 
     public function calculate(): void
     {
@@ -28,43 +26,43 @@ class SalaryCalculator extends Component
         }
     }
 
-    public function calculateAnnual(): void
-    {
-        $sal = (float)$this->salary;
-        $this->calculateNetSalary($sal);
-        $this->annualResult = number_format((float)$this->result * 12, 2);
-    }
+//    public function calculateAnnual(): void
+//    {
+//        $sal = (float)$this->salary;
+//        $this->calculateNetSalary($sal);
+//        $this->annualResult = number_format((float)$this->result * 12, 2);
+//    }
 
     private function calculateNetSalary($sal): void
     {
-        $socialSecurityRate = 0.0976; // 9.76%
-        $healthInsuranceRate = 0.0775; // 9%
-        $retirementInsuranceRate = 0.015; // 1.5%
-        $disabilityInsuranceRate = 0.0245; // 1.5%
+        $retirementInsuranceRate = 0.0976; // 9.76%
+        $healthInsuranceRate = 0.0775; // 7.75%
+        $pensionInsuranceRate = 0.015; // 1.5%
+        $disabilityInsuranceRate = 0.0245; // 2.45%
 
-        $this->socialSecurity = number_format($sal * $socialSecurityRate, 2);
-        $this->healthInsurance = number_format($sal * $healthInsuranceRate, 2);
         $this->retirementInsurance = number_format($sal * $retirementInsuranceRate, 2);
+        $this->healthInsurance = number_format($sal * $healthInsuranceRate, 2);
+        $this->pensionInsurance = number_format($sal * $pensionInsuranceRate, 2);
         $this->disabilityInsurance = number_format($sal * $disabilityInsuranceRate, 2);
 
-        $netSalary = $sal - ($this->socialSecurity + $this->healthInsurance + $this->retirementInsurance + $this->disabilityInsurance);
+        $netSalary = $sal - ($this->pensionInsurance + $this->healthInsurance + $this->retirementInsurance + $this->disabilityInsurance);
 
         $this->result = number_format($netSalary, 2);
     }
 
     private function calculateGrossSalary($sal): void
     {
-        $socialSecurityRate = 0.0976; // 9.76%
+        $retirementInsuranceRate = 0.0976; // 9.76%
         $healthInsuranceRate = 0.0775; // 9%
-        $retirementInsuranceRate = 0.015; // 1.5%
+        $pensionInsuranceRate = 0.015; // 1.5%
         $disabilityInsuranceRate = 0.0245; // 1.5%
 
-        $this->socialSecurity = number_format($sal * $socialSecurityRate, 2);
-        $this->healthInsurance = number_format($sal * $healthInsuranceRate, 2);
         $this->retirementInsurance = number_format($sal * $retirementInsuranceRate, 2);
+        $this->healthInsurance = number_format($sal * $healthInsuranceRate, 2);
+        $this->pensionInsurance = number_format($sal * $pensionInsuranceRate, 2);
         $this->disabilityInsurance = number_format($sal * $disabilityInsuranceRate, 2);
 
-        $grossSalary = $sal + $this->socialSecurity + $this->healthInsurance + $this->retirementInsurance + $this->disabilityInsurance;
+        $grossSalary = $sal + $this->pensionInsurance + $this->healthInsurance + $this->retirementInsurance + $this->disabilityInsurance;
 
         $this->result = number_format($grossSalary, 2);
     }
