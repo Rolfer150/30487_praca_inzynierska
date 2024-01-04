@@ -1,0 +1,5 @@
+1 w analize wymagań różnych firm wymagań klienta informowanie klienta o odpowiednich firmach
+2 analiza klienta, propozycje dla kienta, usunięcie błędów u klienta,
+3 tworzenie profilu klienta tworzenie profilu firm w zakresie proponowanych klas i dopasowanie do potrzeby klienta
+4 przygotowanie klienta do spotkania online na podstawie profilu
+5 propozycje zmiany profilu klienta do zasad firmy 
