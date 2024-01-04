@@ -3,7 +3,7 @@
             @csrf
             <div class="flex pt-3 gap-3">
                 {{-- Lewa strona --}}
-                <div class="w-1/2 ml-24 border-[1px] border-gray-300 dark:border-0 bg-white dark:bg-gray-800/50 rounded-lg">
+                <div class="w-1/2 ml-24 border-[1px] border-gray-300 dark:border-0 bg-gray-300 dark:bg-gray-800/50 rounded-lg">
                     <div class="p-3 w-full">
                         <x-input-label for="name" :value="__('Tytuł Oferty')"/>
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
@@ -50,13 +50,13 @@
                         </div>
                         <div class="p-3 pl-1 w-1/2">
                             <x-input-label for="employment" :value="__('Wymiar Pracy')"/>
-                            <select name="employment_id"
+                            <select name="employment"
                                     class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
                                     focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500
                                     dark:focus:ring-indigo-600 rounded-md shadow-sm w-full">
                                 <option value=""></option>
                                 @foreach($employments as $employment)
-                                    <option value="{{$employment->id}}">{{$employment->name}}</option>
+                                    <option value="{{$employment->value}}">{{$employment->value}}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('employment')" class="mt-2"/>
@@ -65,26 +65,26 @@
                     <div class="flex gap-3">
                         <div class="p-3 pr-1 w-1/2">
                             <x-input-label for="contract" :value="__('Rodzaj umowy')"/>
-                            <select name="contract_id"
+                            <select name="contract"
                                     class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
                                     focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500
                                     dark:focus:ring-indigo-600 rounded-md shadow-sm w-full">
                                 <option value=""></option>
                                 @foreach($contracts as $contract)
-                                    <option value="{{$contract->id}}">{{$contract->name}}</option>
+                                    <option value="{{$contract->value}}">{{$contract->value}}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('contract')" class="mt-2"/>
                         </div>
                         <div class="p-3 pl-1 w-1/2">
                             <x-input-label for="work_mode" :value="__('Tryb pracy')"/>
-                            <select name="work_mode_id"
+                            <select name="work_mode"
                                     class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
                                     focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500
                                     dark:focus:ring-indigo-600 rounded-md shadow-sm w-full">
                                 <option value=""></option>
-                                @foreach($work_modes as $work_mode)
-                                    <option value="{{$work_mode->id}}">{{$work_mode->name}}</option>
+                                @foreach($workModes as $workMode)
+                                    <option value="{{$workMode->value}}">{{$workMode->value}}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('work_mode')" class="mt-2"/>
@@ -100,7 +100,7 @@
                 </div>
 
                 {{-- Prawa strona --}}
-                <div class="w-1/2 mr-24 border-[1px] border-gray-300 dark:border-0 bg-white dark:bg-gray-800/50 rounded-lg">
+                <div class="w-1/2 mr-24 border-[1px] border-gray-300 dark:border-0 bg-gray-300 dark:bg-gray-800/50 rounded-lg">
                     <livewire:job-description :skills="$skills" :skill-level="$skillLevel" />
 
                     <div class="p-3 w-full">
@@ -108,7 +108,7 @@
                         <input id="image_path" class="block mt-1 w-full" type="file" name="image_path"/>
                         <x-input-error :messages="$errors->get('image_path')" class="mt-2"/>
                     </div>
-                    <x-primary-button>
+                    <x-primary-button class="ml-3">
                         {{ __('Potwierdź') }}
                     </x-primary-button>
                 </div>

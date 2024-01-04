@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Contract;
+use App\Enums\Employment;
 use App\Enums\PaymentType;
 use App\Enums\ProgrammingSkills;
 use App\Enums\SkillLevel;
+use App\Enums\WorkMode;
 use App\Http\Requests\CreateOfferRequest;
 use App\Models\Category;
-use App\Models\Contract;
-use App\Models\Employment;
 use App\Models\Offer;
-use App\Models\WorkMode;
+use App\Models\Skill;
 use App\Notifications\OfferCreatedNotification;
 use App\System\System;
 use Carbon\Carbon;
@@ -63,28 +64,19 @@ class OfferController extends Controller
      */
     public function create(): View
     {
-//        dd(PaymentType::cases());
-//        $user = auth()->user();
-//        if (!$user)
-//        {
-//            return view('auth.login');
-//        }
         $payments = PaymentType::cases();
+        $employments = Employment::cases();
+        $contracts = Contract::cases();
+        $workModes = WorkMode::cases();
         $categories = Category::query()
             ->select('id', 'name')
             ->get();
-        $employments = Employment::query()
+        $skills = Skill::query()
             ->select('id', 'name')
             ->get();
-        $contracts = Contract::query()
-            ->select('id', 'name')
-            ->get();
-        $work_modes = WorkMode::query()
-            ->select('id', 'name')
-            ->get();
-        $skills = ProgrammingSkills::cases();
         $skillLevel = SkillLevel::cases();
-        return view('offer.create', compact('categories', 'payments', 'employments', 'contracts', 'work_modes', 'skills', 'skillLevel'));
+        return view('offer.create', compact('categories', 'payments',
+            'employments', 'contracts', 'workModes', 'skills', 'skillLevel'));
     }
 
     /**
@@ -92,10 +84,7 @@ class OfferController extends Controller
      */
     public function store(CreateOfferRequest $request): RedirectResponse
     {
-//        dd($request->validated());
-
         $offer = new Offer($request->validated());
-//        dd($offer->category_id);
         $offer->slug = Str::slug($request->name);
         $offer->active = true;
         $offer->created_at = Carbon::now();
