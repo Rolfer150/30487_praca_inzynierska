@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OfferController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/przyklad', [\App\Http\Controllers\PrzykladController::class, 'show']);
+
+Route::get('/',  [OfferController::class, 'mainPage'])->name('home');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')
+    ->controller(ProfileController::class)
+    ->name('profile.')
+    ->group(function () {
+    Route::get('/profile','edit')->name('edit');
+    Route::get('/profile/{user:slug}','show')->name('show');
+    Route::patch('/profile','update')->name('update');
+    Route::delete('/profile','destroy')->name('destroy');
 });
+
+require __DIR__.'/auth.php';
+require __DIR__ . '/sidewidget.php';

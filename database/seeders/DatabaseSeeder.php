@@ -3,7 +3,14 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Category;
+use App\Models\Company;
+use App\Models\Offer;
+use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +19,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            CategorySeeder::class,
+//            ContractSeeder::class,
+//            EmploymentSeeder::class,
+//            WorkModeSeeder::class,
+            RoleSeeder::class,
+            SkillSeeder::class,
+            UserSeeder::class
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(80)->create()->each(function ($user)
+        {
+            $user->assignRole('user');
+        });
+        Offer::factory(1000)->create();
+        Company::factory(100)->create();
+//        Skill::factory(200)->create();
+
+        $categories = Category::all();
+        $skills = Skill::all();
+        Company::all()->each(function ($company) use ($categories) {
+            $company->categories()->saveMany($categories->random(2));
+        });
+        User::all()->each(function ($user) use ($categories, $skills) {
+            $user->categories()->saveMany($categories->random(2));
+            $user->skills()->saveMany($skills->random(2));
+        });
     }
 }
